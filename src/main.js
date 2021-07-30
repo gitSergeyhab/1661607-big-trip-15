@@ -15,12 +15,11 @@ const BodyMainElements = {
   main: document.querySelector('main.page-main'),
 };
 
-// console.log(points)
 
 const render = (container, content, place = 'beforeend') => container.insertAdjacentHTML(place, content);
 
 const tripMain = BodyMainElements.header.querySelector('.trip-main');
-render(tripMain, createTripInfo(), 'afterbegin');
+render(tripMain, createTripInfo(points), 'afterbegin');
 
 const menu = BodyMainElements.header.querySelector('.trip-controls__navigation');
 render(menu, createMenu());

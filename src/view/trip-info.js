@@ -1,4 +1,13 @@
-export const createTripInfo = () => `
+const countInArray = (arr, field) => arr.reduce((acc, item) =>  acc + (+item[field] || 0) , 0);
+
+
+const countFullPrice = (data) => {
+  const basePrice = countInArray(data, 'base_price');
+  const offersPrice = data.reduce((acc, item) => acc + (countInArray(item.offers, 'price') || 0), 0);
+  return basePrice + offersPrice;
+};
+
+export const createTripInfo = (data) => `
   <section class="trip-main__trip-info  trip-info">
     <div class="trip-info__main">
       <h1 class="trip-info__title">Amsterdam &mdash; Chamonix &mdash; Geneva</h1>
@@ -7,6 +16,6 @@ export const createTripInfo = () => `
     </div>
 
     <p class="trip-info__cost">
-      Total: &euro;&nbsp;<span class="trip-info__cost-value">1230</span>
+      Total: &euro;&nbsp;<span class="trip-info__cost-value">${countFullPrice(data)}</span>
     </p>
   </section>`;

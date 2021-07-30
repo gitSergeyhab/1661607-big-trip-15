@@ -1,12 +1,12 @@
 /* eslint-disable camelcase*/
-import {getHoursAndMinutes, getDiffTime, getMonthAndDay, renderList} from '../util.js';
+import {getHoursAndMinutes, getDiffTime, getMonthAndDay, renderList, Unsubscribe} from '../util.js';
 
 
 const createOfferLi = ({title, price}) => `
   <li class="event__offer">
-    <span class="event__offer-title">${title}</span>
+    <span class="event__offer-title">${title || Unsubscribe.SHORT}</span>
     &plus;&euro;&nbsp;
-    <span class="event__offer-price">${price}</span>
+    <span class="event__offer-price">${price || Unsubscribe.SHORT}</span>
   </li>`;
 
 const addFavoriteClass = (ok = false) => ok ? 'event__favorite-btn--active' : '';
@@ -18,7 +18,7 @@ export const createEvent = ({base_price, destination__name, date_from, date_to, 
       <div class="event__type">
         <img class="event__type-icon" width="42" height="42" src="img/icons/taxi.png" alt="Event type icon">
       </div>
-      <h3 class="event__title">${destination__name}</h3>
+      <h3 class="event__title">${destination__name || Unsubscribe.LONG}</h3>
       <div class="event__schedule">
         <p class="event__time">
           <time class="event__start-time" datetime="2019-03-18T10:30">${getHoursAndMinutes(date_from)}</time>
@@ -28,7 +28,7 @@ export const createEvent = ({base_price, destination__name, date_from, date_to, 
         <p class="event__duration">${getDiffTime(date_from, date_to)}</p>
       </div>
       <p class="event__price">
-        &euro;&nbsp;<span class="event__price-value">${base_price}</span>
+        &euro;&nbsp;<span class="event__price-value">${base_price || Unsubscribe.SHORT}</span>
       </p>
       <h4 class="visually-hidden">Offers:</h4>
       <ul class="event__selected-offers">
