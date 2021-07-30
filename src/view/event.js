@@ -1,6 +1,5 @@
 /* eslint-disable camelcase*/
-
-import {getHoursAndMinutes, getDiffTime, getMonthAndDay} from '../util.js';
+import {getHoursAndMinutes, getDiffTime, getMonthAndDay, renderList} from '../util.js';
 
 
 const createOfferLi = ({title, price}) => `
@@ -9,8 +8,6 @@ const createOfferLi = ({title, price}) => `
     &plus;&euro;&nbsp;
     <span class="event__offer-price">${price}</span>
   </li>`;
-
-const createOfferList = (offers) => offers.map((offer) => createOfferLi(offer)).join('\n');
 
 const addFavoriteClass = (ok = false) => ok ? 'event__favorite-btn--active' : '';
 
@@ -35,7 +32,7 @@ export const createEvent = ({base_price, destination__name, date_from, date_to, 
       </p>
       <h4 class="visually-hidden">Offers:</h4>
       <ul class="event__selected-offers">
-        ${createOfferList(offers)}
+        ${renderList(offers, createOfferLi)}
       </ul>
 
       <button class="event__favorite-btn ${addFavoriteClass(is_favorite)}" type="button">

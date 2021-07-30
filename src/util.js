@@ -25,4 +25,16 @@ const getDiffTime = (dateFrom, dateTo) => {
 
 const getMonthAndDay = (dateStamp) => dayjs(dateStamp).format('MMM D');
 
-export {renderList, getRandomInt, getHoursAndMinutes, getDiffTime, getMonthAndDay};
+const getFullDadeTime = (dateStamp) => dayjs(dateStamp).format('DD/MM/YY hh:mm');
+
+const createOfferHtml = ({title, price, id}) => `
+<div class="event__offer-selector">
+  <input class="event__offer-checkbox  visually-hidden" id="event-offer-luggage-${id}" type="checkbox" name="event-offer-luggage" checked>
+  <label class="event__offer-label" for="event-offer-luggage-${id}">
+    <span class="event__offer-title">${title}</span>
+    &plus;&euro;&nbsp;
+    <span class="event__offer-price">${price}</span>
+  </label>
+</div>`;
+
+export {renderList, getRandomInt, getHoursAndMinutes, getDiffTime, getMonthAndDay, getFullDadeTime, createOfferHtml};

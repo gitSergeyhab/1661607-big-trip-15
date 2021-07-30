@@ -3,7 +3,7 @@
 import {getRandomInt} from './util.js';
 // import dayjs from 'dayjs';
 
-const POINTS_MAX_COUNT = 22;
+const POINTS_MAX_COUNT = 3;
 const MAX_PHOTO_COUNT = 5;
 const TIME_DIFF = 8000000;
 const MAX_OFFER_COUNT = 6;
@@ -42,7 +42,7 @@ const getRandomListNoRepeat = (num, list) => {
 };
 
 const createOffers = () => getRandomListNoRepeat(getRandomInt(0, MAX_OFFER_COUNT), offerNames)
-  .map(item => ({title: item, price: getRandomInt(0, Price.MAX)}));
+  .map(item => ({title: item, price: getRandomInt(0, Price.MAX), id: `${Math.random()}`}));
 
 const getId = () => {
   let id = 0;
@@ -72,7 +72,7 @@ const createPoint = () => {
   }
 };
 
-export const points = new Array(getRandomInt(0, POINTS_MAX_COUNT)).fill().map(createPoint)
+export const points = new Array(getRandomInt(2, POINTS_MAX_COUNT)).fill().map(createPoint)
 
 
 

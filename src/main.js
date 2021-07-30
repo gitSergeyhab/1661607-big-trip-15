@@ -32,6 +32,6 @@ const tripEventsSection = BodyMainElements.main.querySelector('.trip-events');
 render(tripEventsSection, createSort());
 render(tripEventsSection, createEventsList());
 const eventsList = BodyMainElements.main.querySelector('.trip-events__list');
-render(eventsList, createNewPoint());
+render(eventsList, createNewPoint(points[1]));
 render(eventsList, renderList(points, createEvent));
-render(eventsList, createEditionPoint());
+render(eventsList, createEditionPoint(points[0]));
