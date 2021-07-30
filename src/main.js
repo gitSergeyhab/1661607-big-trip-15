@@ -6,20 +6,16 @@ import {createEventsList} from './view/events-list.js';
 import {createEvent} from './view/event.js';
 import {createNewPoint} from './view/new-point.js';
 import {createEditionPoint} from './view/edit-point.js';
+import {points} from './mock-data.js';
 
 import {renderList} from './util.js';
-
 
 const BodyMainElements = {
   header: document.querySelector('header.page-header'),
   main: document.querySelector('main.page-main'),
 };
 
-const points = [
-  {point: 'Taxi Amsterdam', timeIn: '10:30', timeOut: '11:00'},
-  {point: 'Flight Chamonix', timeIn: '11:30', timeOut: '12:00'},
-  {point: 'Drive Chamonix', timeIn: '12:30', timeOut: '13:00'},
-];
+// console.log(points)
 
 const render = (container, content, place = 'beforeend') => container.insertAdjacentHTML(place, content);
 
