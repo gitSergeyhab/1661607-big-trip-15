@@ -1,5 +1,7 @@
 /* eslint-disable camelcase*/
-import {getHoursAndMinutes, getDiffTime, getMonthAndDay, renderList, Unsubscribe} from '../util.js';
+import {Unsubscribe} from '../constants.js';
+import {renderList} from '../utils/util.js';
+import {getHoursAndMinutes, getDiffTime, getMonthAndDay} from '../utils/data-time-utils.js';
 
 
 const createOfferLi = ({title, price}) => `

@@ -1,5 +1,5 @@
 /* eslint-disable camelcase*/
-import {renderList} from '../util.js';
+import {renderList} from '../utils/util.js';
 import {createProtoPoint} from './proto-point.js';
 
 const crateEventPhoto = (src) => `<img class="event__photo" src="${src}" alt="Event photo"></img>`;

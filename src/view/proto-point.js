@@ -1,5 +1,9 @@
 /* eslint-disable camelcase*/
-import {renderList, getFullDadeTime, createOfferHtml, Unsubscribe} from '../util.js';
+import {Unsubscribe, DEFAULT_POINT_TYPE} from '../constants.js';
+import {renderList} from '../utils/util.js';
+import {createOfferHtml} from '../utils/dom-utils.js';
+import {getFullDadeTime} from '../utils/data-time-utils.js';
+
 
 export const createProtoPoint =  ({id, base_price, date_from, date_to, destination__name, destination__description, offers, type}) => `
 <li class="trip-events__item">
@@ -8,7 +12,7 @@ export const createProtoPoint =  ({id, base_price, date_from, date_to, destinati
       <div class="event__type-wrapper">
         <label class="event__type  event__type-btn" for="event-type-toggle-1">
           <span class="visually-hidden">Choose event type</span>
-          <img class="event__type-icon" width="17" height="17" src="img/icons/${type || 'bus'}.png" alt="Event type icon">
+          <img class="event__type-icon" width="17" height="17" src="img/icons/${type || DEFAULT_POINT_TYPE}.png" alt="Event type icon">
         </label>
         <input class="event__type-toggle  visually-hidden" id="event-type-toggle-1" type="checkbox">
 

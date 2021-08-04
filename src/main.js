@@ -6,9 +6,14 @@ import {createEventsList} from './view/events-list.js';
 import {createEvent} from './view/event.js';
 import {createNewPoint} from './view/new-point.js';
 import {createEditionPoint} from './view/edit-point.js';
-import {points} from './mock-data.js';
+import {createPoint} from './mock-data.js';
 
-import {renderList} from './util.js';
+import {renderList, getRandomInt} from './utils/util.js';
+
+
+const POINTS_MAX_COUNT = 4;
+
+const points = new Array(getRandomInt(2, POINTS_MAX_COUNT)).fill().map(createPoint);
 
 const BodyMainElements = {
   header: document.querySelector('header.page-header'),
