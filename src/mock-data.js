@@ -58,4 +58,6 @@ export const createPoint = () => {
     type: getRandValueFromList(POINT_TYPES),
     offers: createOffers(),
   };
+
 };
+
