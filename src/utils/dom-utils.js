@@ -1,4 +1,7 @@
 import {Unsubscribe} from '../constants.js';
+import Abstract from '../view/abstract.js';
+import { Place } from '../constants.js';
+
 
 const createOfferHtml = ({title, price, id}) => `
 <div class="event__offer-selector">
@@ -16,4 +19,39 @@ const createElement = (htmlText) => {
   return div.firstElementChild;
 };
 
-export {createOfferHtml, createElement};
+const render = (container, element, place = Place.BEFORE_END) => {
+  if (container instanceof Abstract) {
+    container = container.getElement();
+  }
+
+  if (element instanceof Abstract) {
+    element = element.getElement();
+  }
+
+  container.insertAdjacentElement(place, element);
+};
+
+const replace = (newElement, oldElement) => {
+  if (oldElement instanceof Abstract) {
+    oldElement = oldElement.getElement();
+  }
+
+  if (newElement instanceof Abstract) {
+    newElement = newElement.getElement();
+  }
+
+  const parent = oldElement.parentElement;
+
+  if (parent === null || newElement === null || oldElement === null) {
+    throw new Error('Can\'t replace unexisting elements');
+  }
+
+  parent.replaceChild(newElement, oldElement);
+};
+
+export {
+  createOfferHtml,
+  createElement,
+  replace,
+  render
+};
