@@ -10,4 +10,10 @@ const createOfferHtml = ({title, price, id}) => `
   </label>
 </div>`;
 
-export {createOfferHtml};
+const createElement = (htmlText) => {
+  const div = document.createElement('div');
+  div.innerHTML = htmlText;
+  return div.firstElementChild;
+};
+
+export {createOfferHtml, createElement};

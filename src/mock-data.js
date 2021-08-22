@@ -2,7 +2,6 @@
 import {getRandomInt} from './utils/util.js';
 
 
-const MAX_PHOTO_COUNT = 5;
 const TIME_DIFF = 8000000;
 const MAX_OFFER_COUNT = 6;
 
@@ -24,8 +23,6 @@ const getRandDescription = () => new Array(getRandomInt(1, texts.length)).fill()
 
 const fakeSrc = () => `http://picsum.photos/248/152?r=${Math.random()}`;
 
-const getRandomSrcs = () => new Array(getRandomInt(1, MAX_PHOTO_COUNT)).fill().map(fakeSrc);
-
 
 const getRandomListNoRepeat = (num, list) => {
   num = num > list.length ? list.length : num;
@@ -42,21 +39,33 @@ const getRandomListNoRepeat = (num, list) => {
 const createOffers = () => getRandomListNoRepeat(getRandomInt(0, MAX_OFFER_COUNT), OFFER_NAMES)
   .map((item) => ({title: item, price: getRandomInt(0, Price.MAX), id: Math.random()}));
 
-export const createPoint = () => {
+
+const createPicture = () => ({
+  src: fakeSrc(),
+  description: getRandValueFromList(texts),
+});
+
+const createPicturies = () => new Array(getRandomInt(0, 3)).fill().map(createPicture);
+
+const crateDestination = () => ({
+  description: getRandDescription(),
+  name: getRandValueFromList(CITIES),
+  pictures: createPicturies(),
+});
+
+export const createMockPoint = () => {
   const dataStampNow = new Date() - 0;
   const dataStampFrom = dataStampNow + getRandomInt(0, TIME_DIFF);
   const dataStampTo = dataStampFrom + getRandomInt(0, TIME_DIFF);
   return {
-    base_price: getRandomInt(Price.MIN, Price.MAX),
-    date_from: dataStampFrom,
-    date_to: dataStampTo,
-    destination__name: getRandValueFromList(CITIES),
-    destination__description: getRandDescription(),
-    destination__photos: getRandomSrcs(),
+    basePrice: getRandomInt(Price.MIN, Price.MAX),
+    dateFrom: dataStampFrom,
+    dateTo: dataStampTo,
     id: Math.random(),
-    is_favorite: Math.random() < 0.5,
+    isFavorite: Math.random() < 0.5,
     type: getRandValueFromList(POINT_TYPES),
     offers: createOffers(),
+    destination: crateDestination(),
   };
 
 };

@@ -5,5 +5,9 @@ const getRandomInt = (min, max) => {
   return Math.round(Math.random()*(max - min) + min);
 };
 
+const getNotImplementedError = (method) => {
+  throw new Error(`Abstract method not implemented: ${method}`);
+};
 
-export {renderList, getRandomInt};
+
+export {renderList, getRandomInt, getNotImplementedError};
