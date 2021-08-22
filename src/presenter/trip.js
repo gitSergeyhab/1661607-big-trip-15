@@ -2,8 +2,8 @@
 
 import Sort from '../view/sort.js';
 import PointList from '../view/point-list.js';
-import CollapsedPoint from '../view/event.js';
 import Point from '../view/point.js';
+import EditPoint from '../view/edit-point.js';
 
 
 import {render, replace} from '../utils/dom-utils.js';
@@ -25,8 +25,8 @@ export default class Trip {
   }
 
   _renderPoint(point) {
-    const collapsedPoint = new CollapsedPoint(point);
-    const editPoint = new Point(point);
+    const collapsedPoint = new Point(point);
+    const editPoint = new EditPoint(point);
     const collapsedPointBtn = collapsedPoint.getElement().querySelector('.event__rollup-btn');
     const editPointBtn = editPoint.getElement().querySelector('.event__rollup-btn');
     collapsedPointBtn.addEventListener('click', () => replace(editPoint, collapsedPoint));

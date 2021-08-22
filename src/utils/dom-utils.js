@@ -49,9 +49,20 @@ const replace = (newElement, oldElement) => {
   parent.replaceChild(newElement, oldElement);
 };
 
+const remove = (component) => {
+  if (!(component instanceof Abstract)) {
+    throw new Error('Can remove only components');
+  }
+
+  component.getElement().remove();
+  component.removeElement();
+};
+
+
 export {
   createOfferHtml,
   createElement,
   replace,
-  render
+  render,
+  remove
 };
