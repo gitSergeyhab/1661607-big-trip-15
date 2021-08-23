@@ -1,18 +1,19 @@
-
-
+import PointPresenter from './point.js';
 import Sort from '../view/sort.js';
 import PointList from '../view/point-list.js';
-import Point from '../view/point.js';
-import EditPoint from '../view/edit-point.js';
+import NoPoint from '../view/no-point.js';
 
-
-import {render, replace} from '../utils/dom-utils.js';
+import {render} from '../utils/dom-utils.js';
+import {updateItem} from '../utils/util.js';
+import {EmptyMessage} from '../constants.js';
 
 
 export default class Trip {
   constructor(container) {
     this._container = container;
     this._pointPresenter = new Map();
+
+    this._handlePointChange = this._handlePointChange.bind(this);
   }
 
   init(points) {
@@ -20,18 +21,15 @@ export default class Trip {
     this._renderTrip();
   }
 
+
   _renderSort() {
     render(this._container, new Sort());
   }
 
   _renderPoint(point) {
-    const collapsedPoint = new Point(point);
-    const editPoint = new EditPoint(point);
-    const collapsedPointBtn = collapsedPoint.getElement().querySelector('.event__rollup-btn');
-    const editPointBtn = editPoint.getElement().querySelector('.event__rollup-btn');
-    collapsedPointBtn.addEventListener('click', () => replace(editPoint, collapsedPoint));
-    editPointBtn.addEventListener('click', () => replace(collapsedPoint, editPoint));
-    render(this._pointList, collapsedPoint);
+    const pointPresenter = new PointPresenter(this._pointList, this._handlePointChange);
+    pointPresenter.init(point);
+    this._pointPresenter.set(point.id, pointPresenter);
   }
 
   _renderPoints() {
@@ -43,18 +41,27 @@ export default class Trip {
     render(this._container, this._pointList);
   }
 
-  _clearTrip() {
+  _renderNoPoints() {
+    render(this._container, new NoPoint(EmptyMessage.EVERYTHING));
+  }
 
+  _clearTrip() {
+    this._pointPresenter.forEach((point) => point.destroy());
+    this._pointPresenter.clear();
   }
 
   _renderTrip() {
+    if (!this._points.length) {
+      this._renderNoPoints();
+      return;
+    }
     this._renderSort();
     this._renderPointList();
     this._renderPoints();
   }
 
-
-  _handlePointChange() {
-
+  _handlePointChange(updatedPoint) {
+    this._points = updateItem(this._points, updatedPoint);
+    this._pointPresenter.get(updatedPoint.id).init(updatedPoint);
   }
 }

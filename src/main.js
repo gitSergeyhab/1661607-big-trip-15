@@ -9,7 +9,9 @@ import {render} from './utils/dom-utils.js';
 import {Place} from './constants.js';
 
 
-const points = new Array(getRandomInt(3, 6)).fill().map(createMockPoint);
+// const points = new Array(getRandomInt(0,1)).fill().map(createMockPoint);
+const points = new Array(getRandomInt(3,6)).fill().map(createMockPoint);
+
 
 const header = document.querySelector('header.page-header');
 const main = document.querySelector('main.page-main');

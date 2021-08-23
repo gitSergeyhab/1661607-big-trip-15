@@ -1,7 +1,7 @@
 /* eslint-disable camelcase*/
 import {Unsubscribe} from '../constants.js';
 import {renderList} from '../utils/util.js';
-import {createOfferHtml} from '../utils/dom-utils.js';
+// import {createOfferHtml} from '../utils/dom-utils.js';
 import {getFullDadeTime} from '../utils/data-time-utils.js';
 import Abstract from './abstract.js';
 
@@ -11,6 +11,16 @@ const createEditBtn = (newPoint) => newPoint ? '' : `<button class="event__rollu
 
 
 const crateEventPhoto = (picture) => `<img class="event__photo" src="${picture.src}" alt="Event photo"></img>`;
+
+const createOfferHtml = ({title, price, id}) => `
+<div class="event__offer-selector">
+  <input class="event__offer-checkbox  visually-hidden" id="event-offer-luggage-${id}" type="checkbox" name="event-offer-luggage" checked>
+  <label class="event__offer-label" for="event-offer-luggage-${id}">
+    <span class="event__offer-title">${title || Unsubscribe.MEDIUM}</span>
+    &plus;&euro;&nbsp;
+    <span class="event__offer-price">${price || Unsubscribe.MEDIUM}</span>
+  </label>
+</div>`;
 
 const createPhotoSection = (pictures) => `
   <div class="event__photos-container">
@@ -148,9 +158,33 @@ export default class EditPoint extends Abstract {
     super();
     this._data = data;
     this._new = newPoint;
+
+    this._rollupBtnClickHandler = this._rollupBtnClickHandler.bind(this);
+    this._submitHandler = this._submitHandler.bind(this);
+
   }
 
   _getTemplate() {
     return createPoint(this._data, this._new);
+  }
+
+  _rollupBtnClickHandler(evt) {
+    evt.preventDefault();
+    this._callback.rollupBtnClick();
+  }
+
+  _submitHandler(evt) {
+    evt.preventDefault();
+    this._callback.rollupBtnClick();
+  }
+
+  setChangeViewHandler(cb) {
+    this._callback.rollupBtnClick = cb;
+    this.getElement().querySelector('.event__rollup-btn').addEventListener('click', this._rollupBtnClickHandler);
+  }
+
+  setSubmitHandler(cb) {
+    this._callback.submit = cb;
+    this.getElement().querySelector('.event--edit').addEventListener('submit', this._submitHandler);
   }
 }

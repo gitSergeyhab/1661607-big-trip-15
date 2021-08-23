@@ -10,5 +10,10 @@ const getNotImplementedError = (method) => {
   throw new Error(`Abstract method not implemented: ${method}`);
 };
 
+const updateItem = (points, updatePoint) => {
+  const index = points.findIndex((point) => point.id === updatePoint.id);
+  return index === -1 ? points : [...points.slice(0, index), updatePoint, ...points.slice(index + 1)];
+};
 
-export {renderList, getRandomInt, getNotImplementedError};
+
+export {renderList, getRandomInt, getNotImplementedError, updateItem};

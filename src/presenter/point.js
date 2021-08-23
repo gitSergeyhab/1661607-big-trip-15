@@ -19,7 +19,10 @@ export default class PointPresenter{
 
     this._mode = Mode.POINT;
 
-    this._handlerPoinToEditClick = this._handlerPoinToEditClick.bind(this);
+    this._handlerPointToEditClick = this._handlerPointToEditClick.bind(this);
+    this._escKeyDownHandler = this._escKeyDownHandler.bind(this);
+    this._handleFavoriteClick = this._handleFavoriteClick.bind(this);
+    this._handlerSubmit = this._handlerSubmit.bind(this);
   }
 
   init(point) {
@@ -31,37 +34,64 @@ export default class PointPresenter{
     this._pointComponent = new Point(point);
     this._editPointComponent = new EditPoint(point);
 
-    this._pointComponent.setChangeViewHandler(this._handlerPoinToEditClick);
-    this._editPointComponent.setChangeViewHandler(this._handlerPoinToEditClick);
+    this._pointComponent.setChangeViewHandler(this._handlerPointToEditClick);
+    this._editPointComponent.setChangeViewHandler(this._handlerPointToEditClick);
+    this._editPointComponent.setSubmitHandler(this._handlerSubmit);
+    this._pointComponent.setFavoriteClickHandler(this._handleFavoriteClick);
 
     if (prevPointComponent === null || prevEditPointComponent === null) {
       render(this._pointContainer, this._pointComponent);
       return;
     }
 
-    replace(this._pointComponent, prevPointComponent);
-    replace(this._editPointComponent, prevEditPointComponent);
+    this._mode === Mode.POINT ?
+      replace(this._pointComponent, prevPointComponent) :
+      replace(this._editPointComponent, prevEditPointComponent);
 
     remove(prevPointComponent);
     remove(prevEditPointComponent);
   }
 
+  destroy() {
+    remove(this._pointComponent);
+    remove(this._editPointComponent);
+  }
+
   _replacePointToEdit() {
-    replace(this._pointComponent, this._editPointComponent);
+    replace(this._editPointComponent, this._pointComponent);
+    document.addEventListener('keydown', this._escKeyDownHandler);
     this._mode = Mode.EDIT;
   }
 
   _replaceEditToPoint() {
-    replace(this._editPointComponent, this._pointComponent);
+    replace(this._pointComponent, this._editPointComponent);
+    document.removeEventListener('keydown', this._escKeyDownHandler);
     this._mode = Mode.POINT;
   }
 
-  _handlerPoinToEditClick() {
+  _handleFavoriteClick() {
+    this._changeData({
+      ...this._point, isFavorite: !this._point.isFavorite,
+    });
+  }
+
+  _handlerPointToEditClick() {
     if (this._mode === Mode.EDIT) {
       this._replaceEditToPoint();
       return;
     }
     this._replacePointToEdit();
+  }
+
+  _handlerSubmit() {
+    this._replaceEditToPoint();
+  }
+
+  _escKeyDownHandler(evt) {
+    if (evt.key === 'Escape' || evt.key === 'Esc') {
+      evt.preventDefault();
+      this._replaceEditToPoint();
+    }
   }
 
 
