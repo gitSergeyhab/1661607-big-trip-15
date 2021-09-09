@@ -3,7 +3,7 @@ import {getRandomInt} from './utils/util.js';
 
 
 const TIME_DIFF = 8000000;
-const MAX_OFFER_COUNT = 6;
+const MAX_OFFER_COUNT = 2;
 
 const Price = {
   MIN: 0,

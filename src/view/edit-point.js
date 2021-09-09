@@ -2,7 +2,7 @@
 import {Unsubscribe} from '../constants.js';
 import {renderList} from '../utils/util.js';
 // import {createOfferHtml} from '../utils/dom-utils.js';
-import {DESTINATIONS} from '../mock-data.js';
+import {DESTINATIONS, OFFERS} from '../mock-data.js';
 import {getFullDateTime} from '../utils/data-time-utils.js';
 import Abstract from './abstract.js';
 
@@ -40,6 +40,12 @@ const createOfferHtml = ({title, price, id}) => `
   </label>
 </div>`;
 
+const createOffersContainer = (offers) => `<section class="event__section  event__section--offers">
+  <h3 class="event__section-title  event__section-title--offers">Offers</h3>
+  <div class="event__available-offers">${renderList(offers, createOfferHtml)}</div>
+</section>`;
+
+
 const createPhotoSection = (pictures) => `
   <div class="event__photos-container">
     <div class="event__photos-tape">
@@ -55,7 +61,7 @@ const createDestination = (destination) => !destination ? '' : `
   </section>`;
 
 
-const createPoint =  ({id, basePrice, dateFrom, dateTo, destination, offers, type}, newPoint) => `
+const createPoint =  ({id, basePrice, dateFrom, dateTo, destination, offers, type, hasOffers, hasDestination}, newPoint) => `
 <li class="trip-events__item" data-id=${id}>
   <form class="event event--edit" action="#" method="post">
     <header class="event__header">
@@ -127,7 +133,7 @@ const createPoint =  ({id, basePrice, dateFrom, dateTo, destination, offers, typ
         <label class="event__label  event__type-output" for="event-destination-${id}">
           ${type}
         </label>
-        <input class="event__input  event__input--destination" id="event-destination-${id}" type="text" name="event-destination" value=${destination ? destination.name : Unsubscribe.MEDIUM} list="destination-list-1">
+        <input class="event__input  event__input--destination" id="event-destination-${id}" type="text" name="event-destination" value=${destination ? destination.name : Unsubscribe.MEDIUM} list="destination-list-${id}">
         <datalist id="destination-list-${id}">
           ${createDestinationOptions(DESTINATIONS)}
         </datalist>
@@ -156,32 +162,28 @@ const createPoint =  ({id, basePrice, dateFrom, dateTo, destination, offers, typ
 
     </header>
     <section class="event__details">
-      <section class="event__section  event__section--offers">
-        <h3 class="event__section-title  event__section-title--offers">Offers</h3>
-
-        <div class="event__available-offers">
-        ${renderList(offers, createOfferHtml)}
-        </div>
-      </section>
-      ${createDestination(destination)}
+      ${hasOffers ? createOffersContainer(offers) : ''}
+      ${hasDestination ? createDestination(destination) : ''}
     </section>
   </form>
 </li>`;
 
 
 export default class EditPoint extends Abstract {
-  constructor(data, newPoint) {
+  constructor(point, newPoint) {
     super();
-    this._data = data;
+    this._state = EditPoint.ParsePointToState(point);
     this._new = newPoint;
 
     this._rollupBtnClickHandler = this._rollupBtnClickHandler.bind(this);
     this._submitHandler = this._submitHandler.bind(this);
 
+    this._changeType();
+
   }
 
   _getTemplate() {
-    return createPoint(this._data, this._new);
+    return createPoint(this._state, this._new);
   }
 
   _rollupBtnClickHandler(evt) {
@@ -202,5 +204,25 @@ export default class EditPoint extends Abstract {
   setSubmitHandler(cb) {
     this._callback.submit = cb;
     this.getElement().querySelector('.event--edit').addEventListener('submit', this._submitHandler);
+  }
+
+  _changeType() {
+    this.getElement().querySelector('.event__type-group').addEventListener('click', (evt) => {
+      const input = evt.target.closest('input');
+      if (input) {
+        this.getElement().querySelector('.event__type-icon').src=`img/icons/${input.value}.png`;
+      }
+    })
+  }
+
+
+  static ParsePointToState (point) {
+    return {...point, hasOffers: point.offers && point.offers.length, hasDestination: point.destination && point.destination.description};
+  }
+
+  static ParseStateToPoint (state) {
+    delete state.hasOffers;
+    delete state.hasDestination;
+    return state;
   }
 }
