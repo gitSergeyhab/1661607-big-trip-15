@@ -30,3 +30,17 @@ const tripEventsSection = main.querySelector('.trip-events');
 
 const tripPresenter = new TripPresenter(tripEventsSection);
 tripPresenter.init(points);
+
+const AUTHORIZATION = 'Basic !DEATH_METAL!_';
+const BASIC_URL = 'https://15.ecmascript.pages.academy/big-trip/';
+
+fetch(`${BASIC_URL}/points`, {headers: {Authorization: AUTHORIZATION}})
+  .then((res) => res.json()).then((res) => console.log(res)).then(() => console.log('points________________________'))
+
+fetch(`${BASIC_URL}/destinations`, {headers: {Authorization: AUTHORIZATION}})
+  .then((res) => res.json()).then((res) => console.log(res)).then(() => console.log('destinations________________________'))
+
+fetch(`${BASIC_URL}/offers`, {headers: {Authorization: AUTHORIZATION}})
+  .then((res) => res.json()).then((res) => console.log(res)).then(() => console.log('offers________________________'))
+
+

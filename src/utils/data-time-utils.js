@@ -21,7 +21,7 @@ const getDiffTime = (dateFrom, dateTo) => {
 const getMonthAndDay = (dateStamp) => dateStamp ?  dayjs(dateStamp).format('MMM D') : Unsubscribe.SHORT;
 
 
-const getFullDadeTime = (dateStamp) => dateStamp ?  dayjs(dateStamp).format('DD/MM/YY hh:mm') : Unsubscribe.SHORT;
+const getFullDateTime = (dateStamp) => dateStamp ?  dayjs(dateStamp).format('DD/MM/YY hh:mm') : Unsubscribe.SHORT;
 
-export {getHoursAndMinutes, getDiffTime, getMonthAndDay, getFullDadeTime};
+export {getHoursAndMinutes, getDiffTime, getMonthAndDay, getFullDateTime};
 

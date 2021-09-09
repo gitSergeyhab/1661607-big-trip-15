@@ -11,14 +11,19 @@ import {EmptyMessage} from '../constants.js';
 export default class Trip {
   constructor(container) {
     this._container = container;
-    this._pointPresenter = new Map();
+    this._pointPresenterMap = new Map();
 
     this._handlePointChange = this._handlePointChange.bind(this);
+    this._resetPoints = this._resetPoints.bind(this);
   }
 
   init(points) {
     this._points = points;
     this._renderTrip();
+  }
+
+  _resetPoints() {
+    this._pointPresenterMap.forEach((point) => point.resetPoint());
   }
 
 
@@ -27,13 +32,13 @@ export default class Trip {
   }
 
   _renderPoint(point) {
-    const pointPresenter = new PointPresenter(this._pointList, this._handlePointChange);
+    const pointPresenter = new PointPresenter(this._pointList, this._handlePointChange, this._resetPoints);
     pointPresenter.init(point);
-    this._pointPresenter.set(point.id, pointPresenter);
+    this._pointPresenterMap.set(point.id, pointPresenter);
   }
 
   _renderPoints() {
-    this._points.forEach((point) =>  this._renderPoint(point));
+    this._points.forEach((point) => this._renderPoint(point));
   }
 
   _renderPointList() {
@@ -46,8 +51,8 @@ export default class Trip {
   }
 
   _clearTrip() {
-    this._pointPresenter.forEach((point) => point.destroy());
-    this._pointPresenter.clear();
+    this._pointPresenterMap.forEach((point) => point.destroy());
+    this._pointPresenterMap.clear();
   }
 
   _renderTrip() {
@@ -62,6 +67,6 @@ export default class Trip {
 
   _handlePointChange(updatedPoint) {
     this._points = updateItem(this._points, updatedPoint);
-    this._pointPresenter.get(updatedPoint.id).init(updatedPoint);
+    this._pointPresenterMap.get(updatedPoint.id).init(updatedPoint);
   }
 }

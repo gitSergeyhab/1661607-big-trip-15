@@ -10,9 +10,10 @@ const Mode = {
 
 
 export default class PointPresenter{
-  constructor(pointContainer, changeData) {
+  constructor(pointContainer, changeData, resetPoints) {
     this._pointContainer = pointContainer;
     this._changeData = changeData;
+    this._resetPoints = resetPoints;
 
     this._pointComponent = null;
     this._editPointComponent = null;
@@ -23,6 +24,8 @@ export default class PointPresenter{
     this._escKeyDownHandler = this._escKeyDownHandler.bind(this);
     this._handleFavoriteClick = this._handleFavoriteClick.bind(this);
     this._handlerSubmit = this._handlerSubmit.bind(this);
+    // this._resetPoints = this._resetPoints.bind(this)
+
   }
 
   init(point) {
@@ -57,6 +60,12 @@ export default class PointPresenter{
     remove(this._editPointComponent);
   }
 
+  resetPoint() {
+    if (this._mode === Mode.EDIT) {
+      this._replaceEditToPoint();
+    }
+  }
+
   _replacePointToEdit() {
     replace(this._editPointComponent, this._pointComponent);
     document.addEventListener('keydown', this._escKeyDownHandler);
@@ -80,6 +89,7 @@ export default class PointPresenter{
       this._replaceEditToPoint();
       return;
     }
+    this._resetPoints();
     this._replacePointToEdit();
   }
 

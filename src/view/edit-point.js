@@ -2,8 +2,26 @@
 import {Unsubscribe} from '../constants.js';
 import {renderList} from '../utils/util.js';
 // import {createOfferHtml} from '../utils/dom-utils.js';
-import {getFullDadeTime} from '../utils/data-time-utils.js';
+import {DESTINATIONS} from '../mock-data.js';
+import {getFullDateTime} from '../utils/data-time-utils.js';
 import Abstract from './abstract.js';
+
+
+const PointType = {
+  RESTAURANT: 'restaurant',
+  SIGHTSEEING: 'sightseeing',
+  CHECK_IN: 'check-in',
+  FLIGHT: 'flight',
+  DRIVE: 'drive',
+  TRANSPORT: 'transport',
+  SHIP: 'ship',
+  TRAIN: 'train',
+  BUS: 'bus',
+  TAXI: 'taxi',
+};
+
+
+const createDestinationOptions = (destinations) => destinations.map((item) => (`<option value="${item.name}"></option>`)).join('\n');
 
 const createEditBtn = (newPoint) => newPoint ? '' : `<button class="event__rollup-btn" type="button">
     <span class="visually-hidden">Open event</span>
@@ -29,11 +47,11 @@ const createPhotoSection = (pictures) => `
     </div>
   </div>`;
 
-const createDestination = (destination, newPoint) => !destination ? '' : `
+const createDestination = (destination) => !destination ? '' : `
   <section class="event__section  event__section--destination">
     <h3 class="event__section-title  event__section-title--destination">Destination</h3>
       <p class="event__destination-description">${destination.description}</p>
-    ${newPoint ? createPhotoSection(destination.pictures) : ''}
+    ${createPhotoSection(destination.pictures)}
   </section>`;
 
 
@@ -109,20 +127,18 @@ const createPoint =  ({id, basePrice, dateFrom, dateTo, destination, offers, typ
         <label class="event__label  event__type-output" for="event-destination-${id}">
           ${type}
         </label>
-        <input class="event__input  event__input--destination" id="event-destination-${id}}" type="text" name="event-destination" value=${destination ? destination.name : Unsubscribe.MEDIUM} list="destination-list-1">
+        <input class="event__input  event__input--destination" id="event-destination-${id}" type="text" name="event-destination" value=${destination ? destination.name : Unsubscribe.MEDIUM} list="destination-list-1">
         <datalist id="destination-list-${id}">
-          <option value="Amsterdam"></option>
-          <option value="Geneva"></option>
-          <option value="Chamonix"></option>
+          ${createDestinationOptions(DESTINATIONS)}
         </datalist>
       </div>
 
       <div class="event__field-group  event__field-group--time">
         <label class="visually-hidden" for="event-start-time-${id}">From</label>
-        <input class="event__input  event__input--time" id="event-start-time-${id}" type="text" name="event-start-time" value="${getFullDadeTime(dateFrom)}"}>
+        <input class="event__input  event__input--time" id="event-start-time-${id}" type="text" name="event-start-time" value="${getFullDateTime(dateFrom)}"}>
         &mdash;
         <label class="visually-hidden" for="event-end-time-${id}">To</label>
-        <input class="event__input  event__input--time" id="event-end-time-${id}" type="text" name="event-end-time" value="${getFullDadeTime(dateTo)}">
+        <input class="event__input  event__input--time" id="event-end-time-${id}" type="text" name="event-end-time" value="${getFullDateTime(dateTo)}">
       </div>
 
       <div class="event__field-group  event__field-group--price">
@@ -134,7 +150,7 @@ const createPoint =  ({id, basePrice, dateFrom, dateTo, destination, offers, typ
       </div>
 
       <button class="event__save-btn  btn  btn--blue" type="submit">Save</button>
-      <button class="event__reset-btn" type="reset">Cancel</button>
+      <button class="event__reset-btn" type="reset">${newPoint ? 'Cancel' : 'Delete'}</button>
 
       ${createEditBtn(newPoint)}
 
@@ -147,7 +163,7 @@ const createPoint =  ({id, basePrice, dateFrom, dateTo, destination, offers, typ
         ${renderList(offers, createOfferHtml)}
         </div>
       </section>
-      ${createDestination(destination, newPoint)}
+      ${createDestination(destination)}
     </section>
   </form>
 </li>`;
