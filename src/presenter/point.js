@@ -75,6 +75,7 @@ export default class PointPresenter{
   }
 
   _replaceEditToPoint() {
+    this._editPointComponent.resetState();
     replace(this._pointComponent, this._editPointComponent);
     document.removeEventListener('keydown', this._escKeyDownHandler);
     this._mode = Mode.POINT;

@@ -1,13 +1,10 @@
 import {Unsubscribe} from '../constants.js';
 import {renderList} from '../utils/util.js';
-// import {createOfferHtml} from '../utils/dom-utils.js';
-import {DESTINATIONS, OFFERS} from '../mock-data.js';
 import {getFullDateTime} from '../utils/data-time-utils.js';
-// import Abstract from './abstract.js';
 import Smart from './smart.js';
 
 
-// POINT_TYPES = ['taxi', 'bus', 'train', 'ship', 'drive', 'flight', 'check-in', 'sightseeing', 'restaurant']
+const OFFER_SPLIT_ID = 'event-offer-luggage-';
 
 const PointType = {
   RESTAURANT: 'restaurant',
@@ -143,22 +140,20 @@ const createPoint =  ({id, basePrice, dateFrom, dateTo, destination, offers, typ
 export default class EditPoint extends Smart {
   constructor(point, offers, destinations, newPoint) {
     super();
-    this._type = point.type;
+    this._point = point;
 
     this._offers = offers;
     this._destinations = destinations;
     this._new = newPoint;
-    this._state = EditPoint.ParsePointToState(point, this._offers, this._destinations, this._type);
+    this._state = EditPoint.ParsePointToState(point, offers, destinations);
 
     this._rollupBtnClickHandler = this._rollupBtnClickHandler.bind(this);
     this._submitHandler = this._submitHandler.bind(this);
     this._changeTypeHandler = this._changeTypeHandler.bind(this);
     this._changeDestinationHandler = this._changeDestinationHandler.bind(this);
+    this._changePriceHandler = this._changePriceHandler.bind(this);
 
-
-    this._setChangeType();
-    this._setChangeDestination();
-
+    this.setInnerHandlers();
   }
 
   getTemplate() {
@@ -166,12 +161,48 @@ export default class EditPoint extends Smart {
   }
 
   resetState() {
-    return EditPoint.ParseStateToPoint(this._state);
+    this.updateState(EditPoint.ParsePointToState(this._point, this._offers, this._destinations));
   }
 
   restoreHandlers() {
+    this.setInnerHandlers();
+    this.setChangeViewHandler(this._callback.rollupBtnClick);
+    this.setSubmitHandler(this._callback.submit);
+  }
+
+
+  setChangeViewHandler(cb) {
+    this._callback.rollupBtnClick = cb;
+    this.getElement().querySelector('.event__rollup-btn').addEventListener('click', this._rollupBtnClickHandler);
+  }
+
+  setSubmitHandler(cb) {
+    this._callback.submit = cb;
+    this.getElement().querySelector('.event--edit').addEventListener('submit', this._submitHandler);
+  }
+
+  setInnerHandlers() {
     this._setChangeType();
     this._setChangeDestination();
+    this._setChangePrice();
+  }
+
+  _setChangeDestination() {
+    this.getElement().querySelector('.event__input--destination').addEventListener('change', this._changeDestinationHandler);
+  }
+
+  _setChangeType() {
+    this.getElement().querySelector('.event__type-group').addEventListener('click', this._changeTypeHandler);
+  }
+
+  _setChangePrice() {
+    this.getElement().querySelector('.event__input--price').addEventListener('change', this._changePriceHandler);
+  }
+
+  _getCheckedOffers() {
+    const checkedOffers = Array.from(this.getElement().querySelectorAll('.event__offer-checkbox')).filter((offer) => offer.checked);
+    const chosenOfferTitles = checkedOffers.map((offer) => offer.id.split(OFFER_SPLIT_ID)[1]);
+    return this._state.serverOffers.filter((offer) => chosenOfferTitles.some((title) => title === offer.title));
   }
 
   _rollupBtnClickHandler(evt) {
@@ -184,34 +215,13 @@ export default class EditPoint extends Smart {
     this._callback.rollupBtnClick();
   }
 
-  setChangeViewHandler(cb) {
-    this._callback.rollupBtnClick = cb;
-    this.getElement().querySelector('.event__rollup-btn').addEventListener('click', this._rollupBtnClickHandler);
-  }
-
-  setSubmitHandler(cb) {
-    this._callback.submit = cb;
-    this.getElement().querySelector('.event--edit').addEventListener('submit', this._submitHandler);
-  }
-
-  getCheckedOffers() {
-    const checkedOffers = Array.from(this.getElement().querySelectorAll('.event__offer-checkbox')) .filter((offer) => offer.checked);
-    return checkedOffers.map((offer) => offer.id);
-  }
-
-
-  _setChangeType() {
-    this.getElement().querySelector('.event__type-group').addEventListener('click', this._changeTypeHandler);
-  }
-
   _changeTypeHandler(evt) {
     const input = evt.target.closest('input');
     if (input) {
       const type = input.value;
-      const serverOffers = this._offers.find((offer) => offer.type === type).offers;
-      console.log(this.getCheckedOffers())
+      const offerObject = this._offers.find((offer) => offer.type === type);
+      const serverOffers = offerObject ? offerObject.offers : [];
       this.updateState({
-        ...this._state,
         type,
         serverOffers,
         hasOffers: serverOffers && serverOffers.length,
@@ -219,24 +229,26 @@ export default class EditPoint extends Smart {
     }
   }
 
-  _setChangeDestination() {
-    this.getElement().querySelector('.event__input--destination').addEventListener('change', this._changeDestinationHandler)
-  }
-
   _changeDestinationHandler(evt) {
     evt.preventDefault();
     const cityName = evt.target.value;
     const destination = this._destinations.find((serverDestination) => serverDestination.name === cityName);
     this.updateState({
-      ...this._state,
       destination,
+      offers: this._getCheckedOffers(),
     });
-    // console.log(this._state, this.resetState());
+  }
+
+  _changePriceHandler(evt) {
+    evt.preventDefault();
+    this.updateState({
+      basePrice: evt.target.value,
+    }, false);
   }
 
 
-  static ParsePointToState (point, offers, destinations, type) {
-    const thatTypeOffers = getOffersByType(offers, type);
+  static ParsePointToState (point, offers, destinations) {
+    const thatTypeOffers = getOffersByType(offers, point.type);
     return {
       ...point,
       hasOffers: thatTypeOffers && thatTypeOffers.length,
@@ -249,7 +261,6 @@ export default class EditPoint extends Smart {
   static ParseStateToPoint (state) {
     delete state.hasOffers;
     delete state.hasDestination;
-
     delete state.serverOffers;
     delete state.serverDestinations;
 
