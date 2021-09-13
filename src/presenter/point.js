@@ -10,10 +10,12 @@ const Mode = {
 
 
 export default class PointPresenter{
-  constructor(pointContainer, changeData, resetPoints) {
+  constructor(pointContainer, changeData, resetPoints, offers, destinations) {
     this._pointContainer = pointContainer;
     this._changeData = changeData;
     this._resetPoints = resetPoints;
+    this._offers = offers;
+    this._destinations = destinations;
 
     this._pointComponent = null;
     this._editPointComponent = null;
@@ -35,7 +37,7 @@ export default class PointPresenter{
     const prevEditPointComponent = this._editPointComponent;
 
     this._pointComponent = new Point(point);
-    this._editPointComponent = new EditPoint(point);
+    this._editPointComponent = new EditPoint(point, this._offers, this._destinations);
 
     this._pointComponent.setChangeViewHandler(this._handlerPointToEditClick);
     this._editPointComponent.setChangeViewHandler(this._handlerPointToEditClick);

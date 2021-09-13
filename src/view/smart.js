@@ -4,7 +4,7 @@ import Abstract from './abstract';
 
 export default class Smart extends Abstract {
   restoreHandlers() {
-    getNotImplementedError('getTemplate');
+    getNotImplementedError('restoreHandlers');
   }
 
   updateElement() {
@@ -12,17 +12,20 @@ export default class Smart extends Abstract {
     const parent = oldElement.parentElement;
     this.removeElement();
     const newElement = this.getElement();
+    // console.log(newElement)
     parent.replaceChild(newElement, oldElement);
 
     this.restoreHandlers();
   }
 
-  updateState(update) {
+  updateState(update, resetElement) {
     if (!update) {
       return;
     }
 
     this._state = Object.assign({}, this._state, update);
-    this.updateElement();
+    // if (resetElement) {
+      this.updateElement();
+    // }
   }
 }

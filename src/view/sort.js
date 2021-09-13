@@ -29,7 +29,7 @@ const createSort = () => `
   </form>`;
 
 export default class Sort extends Abstract {
-  _getTemplate() {
+  getTemplate() {
     return createSort();
   }
 }

@@ -11,13 +11,13 @@ export default class Abstract{
     this._element = null;
   }
 
-  _getTemplate() {
+  getTemplate() {
     getNotImplementedError('getTemplate');
   }
 
   getElement() {
     if(!this._element) {
-      this._element = createElement(this._getTemplate());
+      this._element = createElement(this.getTemplate());
     }
 
     return this._element;

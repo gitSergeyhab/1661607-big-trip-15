@@ -3,14 +3,20 @@ import Menu from './view/menu.js';
 import Filter from './view/filter.js';
 import TripPresenter from './presenter/trip.js';
 
-import {createMockPoint} from './mock-data.js';
+import {createMockPoint, POINTS, OFFERS, DESTINATIONS, parseToClient} from './mock-data.js';
 import {getRandomInt} from './utils/util.js';
 import {render} from './utils/dom-utils.js';
 import {Place} from './constants.js';
 
 
 // const points = new Array(getRandomInt(0,1)).fill().map(createMockPoint);
-const points = new Array(getRandomInt(3,6)).fill().map(createMockPoint);
+// const points = new Array(getRandomInt(3,6)).fill().map(createMockPoint);
+
+const points = POINTS.map(parseToClient);
+console.log('POINTS', POINTS)
+console.log('OFFERS', OFFERS)
+console.log('DESTINATIONS', DESTINATIONS)
+
 
 
 const header = document.querySelector('header.page-header');
@@ -28,19 +34,19 @@ render(filter, new Filter());
 
 const tripEventsSection = main.querySelector('.trip-events');
 
-const tripPresenter = new TripPresenter(tripEventsSection);
+const tripPresenter = new TripPresenter(tripEventsSection, OFFERS, DESTINATIONS);
 tripPresenter.init(points);
 
 const AUTHORIZATION = 'Basic !DEATH_METAL!_';
 const BASIC_URL = 'https://15.ecmascript.pages.academy/big-trip/';
 
-fetch(`${BASIC_URL}/points`, {headers: {Authorization: AUTHORIZATION}})
-  .then((res) => res.json()).then((res) => console.log(res)).then(() => console.log('points________________________'))
+// fetch(`${BASIC_URL}/points`, {headers: {Authorization: AUTHORIZATION}})
+//   .then((res) => res.json()).then((res) => console.log(res)).then(() => console.log('points________________________'))
 
-fetch(`${BASIC_URL}/destinations`, {headers: {Authorization: AUTHORIZATION}})
-  .then((res) => res.json()).then((res) => console.log(res)).then(() => console.log('destinations________________________'))
+// fetch(`${BASIC_URL}/destinations`, {headers: {Authorization: AUTHORIZATION}})
+//   .then((res) => res.json()).then((res) => console.log(res)).then(() => console.log('destinations________________________'))
 
-fetch(`${BASIC_URL}/offers`, {headers: {Authorization: AUTHORIZATION}})
-  .then((res) => res.json()).then((res) => console.log(res)).then(() => console.log('offers________________________'))
+// fetch(`${BASIC_URL}/offers`, {headers: {Authorization: AUTHORIZATION}})
+//   .then((res) => res.json()).then((res) => console.log(res)).then(() => console.log('offers________________________'))
 
 

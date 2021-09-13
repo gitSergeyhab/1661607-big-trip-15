@@ -21,7 +21,7 @@ const createFilters = () => `
   </form>`;
 
 export default class Filter extends Abstract {
-  _getTemplate() {
+  getTemplate() {
     return createFilters();
   }
 }

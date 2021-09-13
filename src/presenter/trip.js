@@ -9,8 +9,10 @@ import {EmptyMessage} from '../constants.js';
 
 
 export default class Trip {
-  constructor(container) {
+  constructor(container, offers, destinations) {
     this._container = container;
+    this._offers = offers;
+    this._destinations = destinations;
     this._pointPresenterMap = new Map();
 
     this._handlePointChange = this._handlePointChange.bind(this);
@@ -32,7 +34,7 @@ export default class Trip {
   }
 
   _renderPoint(point) {
-    const pointPresenter = new PointPresenter(this._pointList, this._handlePointChange, this._resetPoints);
+    const pointPresenter = new PointPresenter(this._pointList, this._handlePointChange, this._resetPoints, this._offers, this._destinations);
     pointPresenter.init(point);
     this._pointPresenterMap.set(point.id, pointPresenter);
   }

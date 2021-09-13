@@ -14,12 +14,12 @@ const createOfferLi = ({title, price}) => `
 
 const addFavoriteClass = (ok = false) => ok ? 'event__favorite-btn--active' : '';
 
-const createEvent = ({basePrice, destination, dateFrom, dateTo, offers, isFavorite}) => `
+const createEvent = ({type, basePrice, destination, dateFrom, dateTo, offers, isFavorite}) => `
   <li class="trip-events__item">
     <div class="event">
       <time class="event__date" datetime="2019-03-18">${getMonthAndDay(dateFrom)}</time>
       <div class="event__type">
-        <img class="event__type-icon" width="42" height="42" src="img/icons/taxi.png" alt="Event type icon">
+        <img class="event__type-icon" width="42" height="42" src="img/icons/${type}.png" alt="Event type icon">
       </div>
       <h3 class="event__title">${destination ? destination.name : Unsubscribe.LONG}</h3>
       <div class="event__schedule">
@@ -59,7 +59,7 @@ export default class Point extends Abstract {
     this._favoriteClickHandler = this._favoriteClickHandler.bind(this);
   }
 
-  _getTemplate() {
+  getTemplate() {
     return createEvent(this._data);
   }
 

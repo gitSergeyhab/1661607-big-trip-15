@@ -7,7 +7,7 @@ export default class NoPoint extends Abstract {
     this._message = message;
   }
 
-  _getTemplate() {
+  getTemplate() {
     return `<p class="trip-events__msg">${this._message}</p>`;
   }
 }

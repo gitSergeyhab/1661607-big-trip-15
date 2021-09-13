@@ -29,7 +29,7 @@ export default class TripInfo extends Abstract {
     this._data = data;
   }
 
-  _getTemplate() {
+  getTemplate() {
     return createTripInfo(this._data);
   }
 }

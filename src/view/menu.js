@@ -7,7 +7,7 @@ const createMenu = () => `
   </nav>`;
 
 export default class Menu extends Abstract {
-  _getTemplate() {
+  getTemplate() {
     return createMenu();
   }
 }
