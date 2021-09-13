@@ -4,8 +4,15 @@ import PointList from '../view/point-list.js';
 import NoPoint from '../view/no-point.js';
 
 import {render} from '../utils/dom-utils.js';
-import {updateItem} from '../utils/util.js';
+import {updateItem, sorByDay, sorByTime, sorByPrice} from '../utils/util.js';
 import {EmptyMessage} from '../constants.js';
+
+
+const SortType = {
+  DAY: 'day',
+  TIME: 'time',
+  PRICE: 'price',
+};
 
 
 export default class Trip {
@@ -15,8 +22,11 @@ export default class Trip {
     this._destinations = destinations;
     this._pointPresenterMap = new Map();
 
+    this._sortComponent = new Sort();
+
     this._handlePointChange = this._handlePointChange.bind(this);
     this._resetPoints = this._resetPoints.bind(this);
+    this._handleSortTypeChange = this._handleSortTypeChange.bind(this);
   }
 
   init(points) {
@@ -28,9 +38,22 @@ export default class Trip {
     this._pointPresenterMap.forEach((point) => point.resetPoint());
   }
 
+  _sortPoints(sortType) {
+    switch (sortType) {
+      case SortType.DAY:
+        this._points.sort(sorByDay);
+        break;
+      case SortType.TIME:
+        this._points.sort(sorByTime);
+        break;
+      case SortType.PRICE:
+        this._points.sort(sorByPrice);
+    }
+  }
 
   _renderSort() {
-    render(this._container, new Sort());
+    render(this._container, this._sortComponent);
+    this._sortComponent.setChangeTypeHandler(this._handleSortTypeChange);
   }
 
   _renderPoint(point) {
@@ -70,5 +93,11 @@ export default class Trip {
   _handlePointChange(updatedPoint) {
     this._points = updateItem(this._points, updatedPoint);
     this._pointPresenterMap.get(updatedPoint.id).init(updatedPoint);
+  }
+
+  _handleSortTypeChange(sortType) {
+    this._sortPoints(sortType);
+    this._clearTrip();
+    this._renderPoints();
   }
 }
