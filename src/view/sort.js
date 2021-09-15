@@ -1,4 +1,5 @@
 import Abstract from './abstract';
+import { capitalize } from '../utils/util';
 
 
 const SORT_TYPE_SPLIT = 'sort-';
@@ -11,7 +12,6 @@ const sortTypeValues = {
   OFFERS: {name: 'offers', attribute: 'disabled'},
 };
 
-const capitalize = (item) => `${item[0].toUpperCase()}${item.slice(1)}`;
 
 const createFilterItem = (sortType) => `<div class="trip-sort__item  trip-sort__item--${sortType.name}">
   <input id="sort-${sortType.name}" class="trip-sort__input  visually-hidden" type="radio" name="trip-sort" value="sort-${sortType.name}" ${sortType.attribute}>

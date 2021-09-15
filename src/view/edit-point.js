@@ -1,4 +1,4 @@
-import {renderList} from '../utils/util.js';
+import {renderList, capitalize} from '../utils/util.js';
 import {getFullDateTime} from '../utils/data-time-utils.js';
 import Smart from './smart.js';
 
@@ -29,11 +29,9 @@ const PointType = {
 
 const getOffersByType = (offers, type) => offers.find((offer) => offer.type === type).offers;
 
-const capitalizeString = (item) => `${item[0].toUpperCase()}${item.slice(1)}`;
-
 const createTypeItem = (type, chosenType) => `<div class="event__type-item">
   <input id="event-type-${type}-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${type}" ${type === chosenType ? 'checked' : ''}>
-  <label class="event__type-label  event__type-label--${type}" for="event-type-${type}-1">${capitalizeString(type)}</label>
+  <label class="event__type-label  event__type-label--${type}" for="event-type-${type}-1">${capitalize(type)}</label>
 </div>`;
 
 const createEventTypeList = (chosenType) => Object.values(PointType).map((type) => createTypeItem(type, chosenType)).join('\n');

@@ -2,6 +2,7 @@ import TripInfo from './view/trip-info.js';
 import Menu from './view/menu.js';
 import Filter from './view/filter.js';
 import TripPresenter from './presenter/trip.js';
+import FilterPresenter from './presenter/filter-presenter.js';
 
 import {createMockPoint, POINTS, OFFERS, DESTINATIONS, parseToClient} from './mock-data.js';
 import {getRandomInt} from './utils/util.js';
@@ -11,6 +12,8 @@ import {Place} from './constants.js';
 import PointsModel from './model/points-model.js';
 import OffersModel from './model/offers-model.js';
 import DestinationsModel from './model/destinations-model.js';
+import FilterModel from './model/filter-model.js';
+
 
 
 // const points = new Array(getRandomInt(0,1)).fill().map(createMockPoint);
@@ -31,6 +34,8 @@ offersModel.setOffers(OFFERS);
 const destinationsModel = new DestinationsModel();
 destinationsModel.setDestination(DESTINATIONS);
 
+const filterModel = new FilterModel();
+
 
 const header = document.querySelector('header.page-header');
 const main = document.querySelector('main.page-main');
@@ -42,8 +47,11 @@ render(tripMain, new TripInfo(points), Place.AFTER_BEGIN);
 const menu = tripMain.querySelector('.trip-controls__navigation');
 render(menu, new Menu());
 
-const filter = tripMain.querySelector('.trip-controls__filters');
-render(filter, new Filter());
+const filterContainer = tripMain.querySelector('.trip-controls__filters');
+// render(filter, new Filter());
+
+const filterPresenter = new FilterPresenter(filterContainer, filterModel);
+filterPresenter.init();
 
 const tripEventsSection = main.querySelector('.trip-events');
 

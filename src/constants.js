@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 const Place = {
   BEFORE_BEGIN: 'beforebegin',
   AFTER_BEGIN: 'afterbegin',
@@ -29,11 +31,11 @@ const SortType = {
   PRICE: 'price',
 };
 
-
-
-
-
-
+const FilterType = {
+  EVERYTHING: 'everything',
+  FUTURE: 'future',
+  PAST: 'past',
+};
 
 
 const Unsubscribe = {
@@ -54,5 +56,6 @@ export {
   DEFAULT_POINT_TYPE,
   UserAction,
   UpdateType,
-  SortType
+  SortType,
+  FilterType
 };

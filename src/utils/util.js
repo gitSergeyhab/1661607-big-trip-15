@@ -24,6 +24,9 @@ const sorByDay = (pointA, pointB) => dayjs(pointA.dateFrom).diff(dayjs(pointB.da
 const sorByTime = (pointA, pointB) => dayjs(pointA.dateFrom).diff(dayjs(pointA.dateTo)) - dayjs(pointB.dateFrom).diff(dayjs(pointB.dateTo));
 const sorByPrice = (pointA, pointB) => pointB.basePrice - pointA.basePrice;
 
+const capitalize = (item) => `${item[0].toUpperCase()}${item.slice(1)}`;
+
+
 
 
 export {
@@ -34,5 +37,6 @@ export {
   sorByDay,
   sorByTime,
   sorByPrice,
-  getIndex
+  getIndex,
+  capitalize
 };

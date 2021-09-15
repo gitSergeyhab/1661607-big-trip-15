@@ -1,27 +1,38 @@
 import Abstract from './abstract';
+import { capitalize } from '../utils/util';
+import { FilterType } from '../constants';
+import { filter } from '../utils/filter';
+
+const filterItem = (filterType) => `<div class="trip-filters__filter">
+  <input id="filter-${filterType}" class="trip-filters__filter-input  visually-hidden" type="radio" name="trip-filter" value="${filterType}" ${filterType === FilterType.EVERYTHING ? 'checked': ''} >
+  <label class="trip-filters__filter-label" for="filter-${filterType}">${capitalize(filterType)}</label>
+</div>`;
 
 const createFilters = () => `
   <form class="trip-filters" action="#" method="get">
-    <div class="trip-filters__filter">
-      <input id="filter-everything" class="trip-filters__filter-input  visually-hidden" type="radio" name="trip-filter" value="everything" checked>
-      <label class="trip-filters__filter-label" for="filter-everything">Everything</label>
-    </div>
-
-    <div class="trip-filters__filter">
-      <input id="filter-future" class="trip-filters__filter-input  visually-hidden" type="radio" name="trip-filter" value="future">
-      <label class="trip-filters__filter-label" for="filter-future">Future</label>
-    </div>
-
-    <div class="trip-filters__filter">
-      <input id="filter-past" class="trip-filters__filter-input  visually-hidden" type="radio" name="trip-filter" value="past">
-      <label class="trip-filters__filter-label" for="filter-past">Past</label>
-    </div>
-
+    ${Object.values(FilterType).map(filterItem).join('\n')}
     <button class="visually-hidden" type="submit">Accept filter</button>
   </form>`;
 
 export default class Filter extends Abstract {
+  constructor() {
+    super();
+
+    this._changeFilterHandler = this._changeFilterHandler.bind(this);
+  }
+
   getTemplate() {
     return createFilters();
+  }
+
+  setChangeFilterHandler(cb) {
+    this._callback.changeFilter = cb;
+    this.getElement().addEventListener('change', this._changeFilterHandler);
+  }
+
+  _changeFilterHandler(evt) {
+    console.log(evt.target.value)
+    evt.preventDefault();
+    this._callback.changeFilter(evt.target.value);
   }
 }
