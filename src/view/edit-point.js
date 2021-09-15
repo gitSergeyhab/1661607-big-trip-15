@@ -1,4 +1,3 @@
-import {Unsubscribe} from '../constants.js';
 import {renderList} from '../utils/util.js';
 import {getFullDateTime} from '../utils/data-time-utils.js';
 import Smart from './smart.js';
@@ -9,6 +8,11 @@ import '../../node_modules/flatpickr/dist/flatpickr.min.css';
 
 const DATE_FORMAT = 'd/m/y H:i';
 const OFFER_SPLIT_ID = 'event-offer-luggage-';
+// const DEFAULT_DESTINATION = {
+//   name: 'Valencia',
+//   description: '',
+//   pictures: [],
+// };
 
 const PointType = {
   RESTAURANT: 'restaurant',
@@ -105,7 +109,7 @@ const createPoint =  ({id, basePrice, dateFrom, dateTo, destination, offers, typ
         <label class="event__label  event__type-output" for="event-destination-${id}">
           ${type}
         </label>
-        <input class="event__input  event__input--destination" id="event-destination-${id}" type="text" name="event-destination" value=${destination ? destination.name : Unsubscribe.MEDIUM} list="destination-list-${id}">
+        <input class="event__input  event__input--destination" id="event-destination-${id}" type="text" name="event-destination" value="${destination.name}" list="destination-list-${id}">
         <datalist id="destination-list-${id}">
           ${getCityNames(serverDestinations)}
         </datalist>
@@ -153,7 +157,6 @@ export default class EditPoint extends Smart {
     this._datepickerStart = null;
     this._datepickerEnd = null;
 
-
     this._rollupBtnClickHandler = this._rollupBtnClickHandler.bind(this);
     this._submitHandler = this._submitHandler.bind(this);
     this._changeTypeHandler = this._changeTypeHandler.bind(this);
@@ -162,11 +165,24 @@ export default class EditPoint extends Smart {
     this._changeStartDateHandler = this._changeStartDateHandler.bind(this);
     this._changeEndDateHandler = this._changeEndDateHandler.bind(this);
 
+    this._deleteClickHandler = this._deleteClickHandler.bind(this);
+    this._saveClickHandler = this._saveClickHandler.bind(this);
+
     this.setInnerHandlers();
   }
 
   getTemplate() {
     return createPoint(this._state, this._new);
+  }
+
+  removeElement() {
+    super.removeElement();
+    if (this._datepickerStart) {
+      this._datepickerStart.destroy();
+      this._datepickerEnd.destroy();
+      this._datepickerStart = null;
+      this._datepickerEnd = null;
+    }
   }
 
   resetState() {
@@ -175,10 +191,13 @@ export default class EditPoint extends Smart {
 
   restoreHandlers() {
     this.setInnerHandlers();
-    this.setChangeViewHandler(this._callback.rollupBtnClick);
     this.setSubmitHandler(this._callback.submit);
+    this.setDeleteClickHandler(this._callback.deleteClick);
+    this.setSaveClickHandler(this._callback.saveClick);
+    if (!this._new) {
+      this.setChangeViewHandler(this._callback.rollupBtnClick);
+    }
   }
-
 
   setChangeViewHandler(cb) {
     this._callback.rollupBtnClick = cb;
@@ -188,6 +207,16 @@ export default class EditPoint extends Smart {
   setSubmitHandler(cb) {
     this._callback.submit = cb;
     this.getElement().querySelector('.event--edit').addEventListener('submit', this._submitHandler);
+  }
+
+  setDeleteClickHandler(cb) {
+    this._callback.deleteClick = cb;
+    this.getElement().querySelector('.event__reset-btn').addEventListener('click', this._deleteClickHandler);
+  }
+
+  setSaveClickHandler(cb) {
+    this._callback.saveClick = cb;
+    this.getElement().querySelector('.event__save-btn').addEventListener('click', this._saveClickHandler);
   }
 
   setInnerHandlers() {
@@ -210,28 +239,33 @@ export default class EditPoint extends Smart {
     this.getElement().querySelector('.event__input--price').addEventListener('change', this._changePriceHandler);
   }
 
-  _setDatepicker(picker, typePicker, field, handler) {
-    if (picker) {
-      picker.destroy();
-      picker = null;
+  _setDatepickerStart() {
+    if (this._datepickerStart) {
+      this._datepickerStart.destroy();
+      this._datepickerStart = null;
     }
 
-    picker = flatpickr(
+    this._datepickerStart = this._createFlatPicker('start', 'dateFrom', this._changeStartDateHandler);
+  }
+
+  _setDatepickerEnd() {
+    if (this._datepickerEnd) {
+      this._datepickerEnd.destroy();
+      this._datepickerEnd = null;
+    }
+
+    this._datepickerEnd = this._createFlatPicker('end', 'dateTo', this._changeEndDateHandler);
+  }
+
+  _createFlatPicker(typePicker, field, onChange) {
+    return flatpickr(
       this.getElement().querySelector(`.event__input--time[name="event-${typePicker}-time"]`),
       {
         dateFormat: DATE_FORMAT,
         defaultDate: this._state[field],
-        onChange: handler,
+        onChange,
       },
     );
-  }
-
-  _setDatepickerStart() {
-    this._setDatepicker(this._datepickerStart, 'start', 'dateFrom', this._changeStartDateHandler);
-  }
-
-  _setDatepickerEnd() {
-    this._setDatepicker(this._datepickerEnd, 'end', 'dateTo', this._changeEndDateHandler);
   }
 
   _getCheckedOffers() {
@@ -266,7 +300,13 @@ export default class EditPoint extends Smart {
 
   _changeDestinationHandler(evt) {
     evt.preventDefault();
+
     const cityName = evt.target.value;
+    const isValid = this._destinations.some((dest) => dest.name === cityName);
+    if (!isValid) {
+      return;
+    }
+
     const destination = this._destinations.find((serverDestination) => serverDestination.name === cityName);
     this.updateState({
       destination,
@@ -291,6 +331,19 @@ export default class EditPoint extends Smart {
     this.updateState({
       dateTo: userDate,
     }, false);
+  }
+
+  _deleteClickHandler(evt) {
+    evt.preventDefault();
+    this._callback.deleteClick();
+  }
+
+  _saveClickHandler(evt) {
+    evt.preventDefault();
+    this.updateState({
+      offers: this._getCheckedOffers(),
+    }, false);
+    this._callback.saveClick(EditPoint.ParseStateToPoint(this._state));
   }
 
 

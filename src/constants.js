@@ -11,6 +11,31 @@ const EmptyMessage = {
   FUTURE: 'There are no future events now',
 };
 
+const UserAction = {
+  UPDATE_POINT: 'UPDATE_POINT',
+  ADD_POINT: 'ADD_POINT',
+  DELETE_POINT: 'DELETE_POINT',
+};
+
+const UpdateType = {
+  PATCH: 'PATCH',
+  MINOR: 'MINOR',
+  MAJOR: 'MAJOR',
+};
+
+const SortType = {
+  DAY: 'day',
+  TIME: 'time',
+  PRICE: 'price',
+};
+
+
+
+
+
+
+
+
 const Unsubscribe = {
   SHORT: '...',
   MEDIUM: 'updating...',
@@ -26,5 +51,8 @@ export {
   EmptyMessage,
   Unsubscribe,
   HOUR_IN_MSECONDS,
-  DEFAULT_POINT_TYPE
+  DEFAULT_POINT_TYPE,
+  UserAction,
+  UpdateType,
+  SortType
 };

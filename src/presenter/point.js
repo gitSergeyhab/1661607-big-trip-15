@@ -2,6 +2,8 @@ import Point from '../view/point.js';
 import EditPoint from '../view/edit-point.js';
 
 import {render, replace, remove} from '../utils/dom-utils.js';
+import {EmptyMessage, UserAction, UpdateType, SortType} from '../constants.js';
+
 
 const Mode = {
   POINT: 'POINT',
@@ -22,11 +24,13 @@ export default class PointPresenter{
 
     this._mode = Mode.POINT;
 
-    this._handlerPointToEditClick = this._handlerPointToEditClick.bind(this);
-    this._escKeyDownHandler = this._escKeyDownHandler.bind(this);
+    this._handlePointToEditClick = this._handlePointToEditClick.bind(this);
+    this._handleEscKeyDown = this._handleEscKeyDown.bind(this);
     this._handleFavoriteClick = this._handleFavoriteClick.bind(this);
-    this._handlerSubmit = this._handlerSubmit.bind(this);
-    // this._resetPoints = this._resetPoints.bind(this)
+    this._handleSubmit = this._handleSubmit.bind(this);
+
+    this._handleDeleteClick = this._handleDeleteClick.bind(this);
+    this._handleSaveClick = this._handleSaveClick.bind(this);
 
   }
 
@@ -39,10 +43,15 @@ export default class PointPresenter{
     this._pointComponent = new Point(point);
     this._editPointComponent = new EditPoint(point, this._offers, this._destinations);
 
-    this._pointComponent.setChangeViewHandler(this._handlerPointToEditClick);
-    this._editPointComponent.setChangeViewHandler(this._handlerPointToEditClick);
-    this._editPointComponent.setSubmitHandler(this._handlerSubmit);
+    this._pointComponent.setChangeViewHandler(this._handlePointToEditClick);
+    this._editPointComponent.setChangeViewHandler(this._handlePointToEditClick);
+    this._editPointComponent.setSubmitHandler(this._handleSubmit);
+
+    this._editPointComponent.setDeleteClickHandler(this._handleDeleteClick);
+    this._editPointComponent.setSaveClickHandler(this._handleSaveClick);
+
     this._pointComponent.setFavoriteClickHandler(this._handleFavoriteClick);
+
 
     if (prevPointComponent === null || prevEditPointComponent === null) {
       render(this._pointContainer, this._pointComponent);
@@ -70,24 +79,24 @@ export default class PointPresenter{
 
   _replacePointToEdit() {
     replace(this._editPointComponent, this._pointComponent);
-    document.addEventListener('keydown', this._escKeyDownHandler);
+    document.addEventListener('keydown', this._handleEscKeyDown);
     this._mode = Mode.EDIT;
   }
 
   _replaceEditToPoint() {
     this._editPointComponent.resetState();
     replace(this._pointComponent, this._editPointComponent);
-    document.removeEventListener('keydown', this._escKeyDownHandler);
+    document.removeEventListener('keydown', this._handleEscKeyDown);
     this._mode = Mode.POINT;
   }
 
   _handleFavoriteClick() {
-    this._changeData({
+    this._changeData(UserAction.UPDATE_POINT, UpdateType.PATCH, {
       ...this._point, isFavorite: !this._point.isFavorite,
     });
   }
 
-  _handlerPointToEditClick() {
+  _handlePointToEditClick() {
     if (this._mode === Mode.EDIT) {
       this._replaceEditToPoint();
       return;
@@ -96,23 +105,23 @@ export default class PointPresenter{
     this._replacePointToEdit();
   }
 
-  _handlerSubmit() {
+  _handleSubmit() {
     this._replaceEditToPoint();
   }
 
-  _escKeyDownHandler(evt) {
+  _handleEscKeyDown(evt) {
     if (evt.key === 'Escape' || evt.key === 'Esc') {
       evt.preventDefault();
       this._replaceEditToPoint();
     }
   }
 
+  _handleDeleteClick() {
+    this._changeData(UserAction.DELETE_POINT, UpdateType.MINOR, this._point);
+  }
 
-  // const collapsedPoint = new Point(point);
-  // const editPoint = new EditPoint(point);
-  // const collapsedPointBtn = collapsedPoint.getElement().querySelector('.event__rollup-btn');
-  // const editPointBtn = editPoint.getElement().querySelector('.event__rollup-btn');
-  // collapsedPointBtn.addEventListener('click', () => replace(editPoint, collapsedPoint));
-  // editPointBtn.addEventListener('click', () => replace(collapsedPoint, editPoint));
-  // render(this._pointList, collapsedPoint);
+  _handleSaveClick(state) {
+    this._changeData(UserAction.UPDATE_POINT, UpdateType.MINOR, state);
+  }
+
 }

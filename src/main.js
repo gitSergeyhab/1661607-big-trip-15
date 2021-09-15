@@ -8,6 +8,10 @@ import {getRandomInt} from './utils/util.js';
 import {render} from './utils/dom-utils.js';
 import {Place} from './constants.js';
 
+import PointsModel from './model/points-model.js';
+import OffersModel from './model/offers-model.js';
+import DestinationsModel from './model/destinations-model.js';
+
 
 // const points = new Array(getRandomInt(0,1)).fill().map(createMockPoint);
 // const points = new Array(getRandomInt(3,6)).fill().map(createMockPoint);
@@ -17,6 +21,15 @@ console.log('POINTS', POINTS)
 console.log('OFFERS', OFFERS)
 console.log('DESTINATIONS', DESTINATIONS)
 
+
+const pointsModel = new PointsModel();
+pointsModel.setPoints(points);
+
+const offersModel = new OffersModel();
+offersModel.setOffers(OFFERS);
+
+const destinationsModel = new DestinationsModel();
+destinationsModel.setDestination(DESTINATIONS);
 
 
 const header = document.querySelector('header.page-header');
@@ -34,8 +47,8 @@ render(filter, new Filter());
 
 const tripEventsSection = main.querySelector('.trip-events');
 
-const tripPresenter = new TripPresenter(tripEventsSection, OFFERS, DESTINATIONS);
-tripPresenter.init(points);
+const tripPresenter = new TripPresenter(tripEventsSection, pointsModel, offersModel.offers, destinationsModel.destinations);
+tripPresenter.init();
 
 const AUTHORIZATION = 'Basic !DEATH_METAL!_';
 const BASIC_URL = 'https://15.ecmascript.pages.academy/big-trip/';

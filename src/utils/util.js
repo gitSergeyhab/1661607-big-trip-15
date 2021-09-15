@@ -12,14 +12,18 @@ const getNotImplementedError = (method) => {
   throw new Error(`Abstract method not implemented: ${method}`);
 };
 
+const getIndex = (items, wantedItem) => items.findIndex((item) => item.id === wantedItem.id);
+
+
 const updateItem = (points, updatePoint) => {
-  const index = points.findIndex((point) => point.id === updatePoint.id);
+  const index = getIndex(points, updatePoint);
   return index === -1 ? points : [...points.slice(0, index), updatePoint, ...points.slice(index + 1)];
 };
 
 const sorByDay = (pointA, pointB) => dayjs(pointA.dateFrom).diff(dayjs(pointB.dateFrom));
 const sorByTime = (pointA, pointB) => dayjs(pointA.dateFrom).diff(dayjs(pointA.dateTo)) - dayjs(pointB.dateFrom).diff(dayjs(pointB.dateTo));
 const sorByPrice = (pointA, pointB) => pointB.basePrice - pointA.basePrice;
+
 
 
 export {
@@ -29,5 +33,6 @@ export {
   updateItem,
   sorByDay,
   sorByTime,
-  sorByPrice
+  sorByPrice,
+  getIndex
 };
