@@ -15,7 +15,7 @@ export default class FilterPresenter {
 
   init() {
     this._renderFilter();
-    console.log(this._filterModel)
+    // console.log(this._filterModel)
   }
 
   _renderFilter() {
@@ -31,6 +31,6 @@ export default class FilterPresenter {
 
   _handleFilterChange(chosenFilter) {
     this._filterModel.setFilter(UpdateType.MINOR, chosenFilter);
-    console.log(this._filterModel)
+    // console.log(this._filterModel)
   }
 }

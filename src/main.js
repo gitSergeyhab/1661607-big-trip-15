@@ -55,7 +55,7 @@ filterPresenter.init();
 
 const tripEventsSection = main.querySelector('.trip-events');
 
-const tripPresenter = new TripPresenter(tripEventsSection, pointsModel, offersModel.offers, destinationsModel.destinations);
+const tripPresenter = new TripPresenter(tripEventsSection, pointsModel, filterModel,  offersModel.offers, destinationsModel.destinations);
 tripPresenter.init();
 
 const AUTHORIZATION = 'Basic !DEATH_METAL!_';

@@ -1124,8 +1124,8 @@ export const POINTS = [
   {
       "id": "1",
       "type": "bus",
-      "date_from": "2021-09-11T20:07:36.199Z",
-      "date_to": "2021-09-12T10:02:39.789Z",
+      "date_from": "2021-09-16T20:07:36.199Z",
+      "date_to": "2021-09-17T10:02:39.789Z",
       "destination": {
           "name": "Geneva",
           "description": "Geneva, in a middle of Europe.",
@@ -1164,8 +1164,8 @@ export const POINTS = [
   {
       "id": "2",
       "type": "bus",
-      "date_from": "2021-09-12T10:02:39.789Z",
-      "date_to": "2021-09-13T08:08:10.905Z",
+      "date_from": "2021-09-18T10:02:39.789Z",
+      "date_to": "2021-09-19T08:08:10.905Z",
       "destination": {
           "name": "Nagasaki",
           "description": "Nagasaki, with crowded streets, for those who value comfort and coziness, with an embankment of a mighty river as a centre of attraction, famous for its crowded street markets with the best street food in Asia.",

@@ -35,7 +35,7 @@ export default class NewPointPresenter{
     this._destinations = destinations;
     this._btnAddNewEvent = btnAddNewEvent;
 
-    this._editPointComponent = null;
+    this._newPointComponent = null;
     this._point = emptyPoint;
 
     this._handleEscKeyDown = this._handleEscKeyDown.bind(this);
@@ -47,16 +47,18 @@ export default class NewPointPresenter{
   }
 
   init() {
-    this._editPointComponent = new EditPoint(this._point, this._offers, this._destinations, true);
-    this._editPointComponent.setSubmitHandler(this._handleSubmit);
-    this._editPointComponent.setDeleteClickHandler(this._handleDeleteClick);
-    this._editPointComponent.setSaveClickHandler(this._handleSaveClick);
-    render(this._pointContainer, this._editPointComponent, Place.AFTER_BEGIN);
+    this._newPointComponent = new EditPoint(this._point, this._offers, this._destinations, true);
+    this._newPointComponent.setSubmitHandler(this._handleSubmit);
+    this._newPointComponent.setDeleteClickHandler(this._handleDeleteClick);
+    this._newPointComponent.setSaveClickHandler(this._handleSaveClick);
+    document.addEventListener('keydown', this._handleEscKeyDown);
+    render(this._pointContainer, this._newPointComponent, Place.AFTER_BEGIN);
   }
 
   destroy() {
-    remove(this._editPointComponent);
-    this._editPointComponent = null;
+    document.removeEventListener('keydown', this._handleEscKeyDown);
+    remove(this._newPointComponent);
+    this._newPointComponent = null;
     this._btnAddNewEvent.disabled = false;
   }
 

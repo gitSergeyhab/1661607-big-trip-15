@@ -7,13 +7,15 @@ import NoPoint from '../view/no-point.js';
 
 import {render, remove} from '../utils/dom-utils.js';
 import {updateItem, sorByDay, sorByTime, sorByPrice} from '../utils/util.js';
-import {EmptyMessage, UserAction, UpdateType, SortType} from '../constants.js';
+import {EmptyMessage, UserAction, UpdateType, SortType, FilterType} from '../constants.js';
+import { filter } from '../utils/filter.js';
 
 
 export default class Trip {
-  constructor(container, pointsModel, offers, destinations) {
+  constructor(container, pointsModel, filterModel, offers, destinations) {
     this._container = container;
     this._pointsModel = pointsModel;
+    this._filterModel = filterModel;
     this._offers = offers;
     this._destinations = destinations;
     this._pointPresenterMap = new Map();
@@ -31,38 +33,40 @@ export default class Trip {
     this._pointsModel.addObserver(this._handleModelEvent);
     this._btnAddNewEvent = document.querySelector('.trip-main__event-add-btn');
 
-    this._btnAddNewEvent.addEventListener('click', () => {
-      console.log('00', this._offers, this._destinations, this._btnAddNewEvent)
-      if (this._noPoint) {
-        console.log(this._noPoint)
-        console.log('???')
-        remove(this._noPoint);
-        this._noPoint = null;
-        this._renderSort();
-        this._renderPointList();
-      }
-      console.log('???')
-      this._resetPoints();
-      console.log('!???!')
-      console.log('11', this._offers, this._destinations, this._btnAddNewEvent)
-      this._newPointPresenter = new NewPointPresenter(this._pointList, this._handleViewAction, this._resetPoints, this._offers, this._destinations, this._btnAddNewEvent);
-      this._newPointPresenter.init();
-      this._btnAddNewEvent.disabled = true;
-    });
+    this._btnAddNewEvent.addEventListener('click', () => this._createNewPoint());
+
+    this._filterModel.addObserver(this._handleModelEvent);
   }
 
   init() {
     this._renderTrip();
   }
 
+  _createNewPoint() {
+    if (this._noPoint) {
+      remove(this._noPoint);
+      this._noPoint = null;
+      this._renderSort();
+      this._renderPointList();
+    }
+
+    this._currentSortType = SortType.DAY;
+    this._filterModel.setFilter(UpdateType.MINOR, FilterType.EVERYTHING);
+
+    this._newPointPresenter = new NewPointPresenter(this._pointList, this._handleViewAction, this._resetPoints, this._offers, this._destinations, this._btnAddNewEvent);
+    this._newPointPresenter.init();
+    this._btnAddNewEvent.disabled = true;
+  }
+
   _getPoints() {
+    const filteredPoints = filter[this._filterModel.filter](this._pointsModel.points);
     switch(this._currentSortType) {
       case SortType.PRICE:
-        return this._pointsModel.points.sort(sorByPrice);
+        return filteredPoints.sort(sorByPrice);
       case SortType.TIME:
-        return this._pointsModel.points.sort(sorByTime);
+        return filteredPoints.sort(sorByTime);
       default:
-        return this._pointsModel.points.sort(sorByDay);
+        return filteredPoints.sort(sorByDay);
     }
   }
 
