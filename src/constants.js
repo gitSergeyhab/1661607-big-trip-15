@@ -44,6 +44,11 @@ const Unsubscribe = {
   LONG: 'information is being updated...',
 };
 
+const MenuItem = {
+  TABLE: 'table',
+  STATS: 'stats',
+};
+
 const HOUR_IN_MSECONDS = 3600000;
 const DEFAULT_POINT_TYPE = 'bus';
 
@@ -57,5 +62,6 @@ export {
   UserAction,
   UpdateType,
   SortType,
-  FilterType
+  FilterType,
+  MenuItem
 };

@@ -1,27 +1,45 @@
 import dayjs from 'dayjs';
-import {HOUR_IN_MSECONDS, Unsubscribe} from '../constants.js';
 
 
-const getHoursAndMinutes = (dateStamp) => dateStamp ? dayjs(dateStamp).format('HH:mm') : Unsubscribe.SHORT;
+const getHoursAndMinutes = (dateStamp) => dayjs(dateStamp).format('HH:mm');
 
-const getDiffTime = (dateFrom, dateTo) => {
-  if (dateFrom && dateTo) {
-    const date2 = dayjs(dateFrom);
-    const date1 = dayjs(dateTo);
-    const minutes = date1.diff(date2, 'm') % 60;
-    if ((dateTo - dateFrom) < HOUR_IN_MSECONDS) {
-      return `${minutes}M`;
-    }
-    return `${date1.diff(date2, 'h')}H ${minutes}M`;
+
+const addZero = (number) => number > 9 ? number : `0${number}`;
+
+const getMinutes = (from, to) => dayjs(to).diff(dayjs(from), 'm');
+
+const getDateFormat = (days, hours, minutes) => {
+  if (days >= 1) {
+    return `${addZero(days)}D ${addZero(hours % 24)}H ${addZero(minutes % 60)}M`;
   }
-  return Unsubscribe.MEDIUM;
-
+  if (hours >= 1) {
+    return `${addZero(hours)}H ${addZero(minutes % 60)}M`;
+  }
+  return `${addZero(minutes)}M`;
 };
 
-const getMonthAndDay = (dateStamp) => dateStamp ?  dayjs(dateStamp).format('MMM D') : Unsubscribe.SHORT;
+
+const getDiffTime = (dateFrom, dateTo) => {
+  const date2 = dayjs(dateFrom);
+  const date1 = dayjs(dateTo);
+  const days = date1.diff(date2, 'd');
+  const hours = date1.diff(date2, 'h');
+  const minutes = date1.diff(date2, 'm');
+  return getDateFormat (days, hours, minutes);
+};
+
+const getMonthAndDay = (dateStamp) => dayjs(dateStamp).format('MMM D');
 
 
-const getFullDateTime = (dateStamp) => dateStamp ?  dayjs(dateStamp).format('DD/MM/YY hh:mm') : Unsubscribe.SHORT;
+const getFullDateTime = (dateStamp) => dayjs(dateStamp).format('DD/MM/YY hh:mm');
 
-export {getHoursAndMinutes, getDiffTime, getMonthAndDay, getFullDateTime};
+export {
+  getHoursAndMinutes,
+  getDiffTime,
+  getMonthAndDay,
+  getFullDateTime,
+  getMinutes,
+  addZero,
+  getDateFormat
+};
 

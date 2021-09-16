@@ -20,6 +20,7 @@ export default class Trip {
     this._destinations = destinations;
     this._pointPresenterMap = new Map();
 
+    this._newPointPresenter = null;
     this._sortComponent = null;
     this._pointList = null;
     this._noPoint = null;
@@ -42,6 +43,24 @@ export default class Trip {
     this._renderTrip();
   }
 
+  hide() {
+    this._container.style.display = 'none';
+    this._resetPoints();
+    this._resetFilterAndSort();
+    if (this._newPointPresenter) {
+      this._newPointPresenter.destroy();
+    }
+  }
+
+  show() {
+    this._container.style.display = 'block';
+  }
+
+  _resetFilterAndSort() {
+    this._currentSortType = SortType.DAY;
+    this._filterModel.setFilter(UpdateType.MINOR, FilterType.EVERYTHING);
+  }
+
   _createNewPoint() {
     if (this._noPoint) {
       remove(this._noPoint);
@@ -50,8 +69,7 @@ export default class Trip {
       this._renderPointList();
     }
 
-    this._currentSortType = SortType.DAY;
-    this._filterModel.setFilter(UpdateType.MINOR, FilterType.EVERYTHING);
+    this._resetFilterAndSort();
 
     this._newPointPresenter = new NewPointPresenter(this._pointList, this._handleViewAction, this._resetPoints, this._offers, this._destinations, this._btnAddNewEvent);
     this._newPointPresenter.init();

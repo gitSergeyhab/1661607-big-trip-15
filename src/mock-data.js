@@ -1084,126 +1084,11 @@ export const parseToServer = (point) => {
 
 
 
-export const POINTS = [
-  {
-      "id": "0",
-      "type": "drive",
-      "date_from": "2021-09-11T03:30:35.020Z",
-      "date_to": "2021-09-11T20:07:36.199Z",
-      "destination": {
-          "name": "Valencia",
-          "description": "Valencia, a true asian pearl, famous for its crowded street markets with the best street food in Asia.",
-          "pictures": [
-              {
-                  "src": "http://picsum.photos/300/200?r=0.3354931089563189",
-                  "description": "Valencia park"
-              },
-              {
-                  "src": "http://picsum.photos/300/200?r=0.27639221873843467",
-                  "description": "Valencia central station"
-              },
-              {
-                  "src": "http://picsum.photos/300/200?r=0.42235785006826054",
-                  "description": "Valencia zoo"
-              },
-              {
-                  "src": "http://picsum.photos/300/200?r=0.90448771016556",
-                  "description": "Valencia street market"
-              }
-          ]
-      },
-      "base_price": 700,
-      "is_favorite": true,
-      "offers": [
-          {
-              "title": "Choose comfort class",
-              "price": 110
-          }
-      ]
-  },
-  {
-      "id": "1",
-      "type": "bus",
-      "date_from": "2021-09-16T20:07:36.199Z",
-      "date_to": "2021-09-17T10:02:39.789Z",
-      "destination": {
-          "name": "Geneva",
-          "description": "Geneva, in a middle of Europe.",
-          "pictures": [
-              {
-                  "src": "http://picsum.photos/300/200?r=0.26031488078468734",
-                  "description": "Geneva central station"
-              },
-              {
-                  "src": "http://picsum.photos/300/200?r=0.702356924757336",
-                  "description": "Geneva biggest supermarket"
-              },
-              {
-                  "src": "http://picsum.photos/300/200?r=0.7738047301249704",
-                  "description": "Geneva kindergarten"
-              }
-          ]
-      },
-      "base_price": 900,
-      "is_favorite": true,
-      "offers": [
-          {
-              "title": "Infotainment system",
-              "price": 50
-          },
-          {
-              "title": "Order meal",
-              "price": 100
-          },
-          {
-              "title": "Choose seats",
-              "price": 190
-          }
-      ]
-  },
-  {
-      "id": "2",
-      "type": "bus",
-      "date_from": "2021-09-18T10:02:39.789Z",
-      "date_to": "2021-09-19T08:08:10.905Z",
-      "destination": {
-          "name": "Nagasaki",
-          "description": "Nagasaki, with crowded streets, for those who value comfort and coziness, with an embankment of a mighty river as a centre of attraction, famous for its crowded street markets with the best street food in Asia.",
-          "pictures": [
-              {
-                  "src": "http://picsum.photos/300/200?r=0.600907098005395",
-                  "description": "Nagasaki parliament building"
-              },
-              {
-                  "src": "http://picsum.photos/300/200?r=0.1734021450710057",
-                  "description": "Nagasaki street market"
-              },
-              {
-                  "src": "http://picsum.photos/300/200?r=0.17237601409285808",
-                  "description": "Nagasaki embankment"
-              }
-          ]
-      },
-      "base_price": 900,
-      "is_favorite": false,
-      "offers": [
-          {
-              "title": "Infotainment system",
-              "price": 50
-          },
-          {
-              "title": "Choose seats",
-              "price": 190
-          }
-      ]
-  }
-];
-
 // export const POINTS = [
 //   {
 //       "id": "0",
 //       "type": "drive",
-//       "date_from": "2021-09-11T03:30:35.020Z",
+//       "date_from": "2021-09-11T19:30:35.020Z",
 //       "date_to": "2021-09-11T20:07:36.199Z",
 //       "destination": {
 //           "name": "Valencia",
@@ -1239,8 +1124,8 @@ export const POINTS = [
 //   {
 //       "id": "1",
 //       "type": "bus",
-//       "date_from": "2021-09-11T20:07:36.199Z",
-//       "date_to": "2021-09-12T10:02:39.789Z",
+//       "date_from": "2021-09-16T20:07:36.199Z",
+//       "date_to": "2021-09-17T10:02:39.789Z",
 //       "destination": {
 //           "name": "Geneva",
 //           "description": "Geneva, in a middle of Europe.",
@@ -1279,8 +1164,8 @@ export const POINTS = [
 //   {
 //       "id": "2",
 //       "type": "bus",
-//       "date_from": "2021-09-12T10:02:39.789Z",
-//       "date_to": "2021-09-13T08:08:10.905Z",
+//       "date_from": "2021-09-18T10:02:39.789Z",
+//       "date_to": "2021-09-19T08:08:10.905Z",
 //       "destination": {
 //           "name": "Nagasaki",
 //           "description": "Nagasaki, with crowded streets, for those who value comfort and coziness, with an embankment of a mighty river as a centre of attraction, famous for its crowded street markets with the best street food in Asia.",
@@ -1311,833 +1196,948 @@ export const POINTS = [
 //               "price": 190
 //           }
 //       ]
-//   },
-//   {
-//       "id": "3",
-//       "type": "bus",
-//       "date_from": "2021-09-13T08:08:10.905Z",
-//       "date_to": "2021-09-14T01:29:25.528Z",
-//       "destination": {
-//           "name": "Tokio",
-//           "description": "Tokio, with crowded streets, full of of cozy canteens where you can try the best coffee in the Middle East.",
-//           "pictures": [
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.4103196403559721",
-//                   "description": "Tokio biggest supermarket"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.7288776299614848",
-//                   "description": "Tokio parliament building"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.40345629971001196",
-//                   "description": "Tokio kindergarten"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.5091378589512867",
-//                   "description": "Tokio city centre"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.7360711994838292",
-//                   "description": "Tokio kindergarten"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.32938629382457196",
-//                   "description": "Tokio central station"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.2743853679057875",
-//                   "description": "Tokio embankment"
-//               }
-//           ]
-//       },
-//       "base_price": 1000,
-//       "is_favorite": false,
-//       "offers": [
-//       ]
-//   },
-//   {
-//       "id": "4",
-//       "type": "sightseeing",
-//       "date_from": "2021-09-14T01:29:25.528Z",
-//       "date_to": "2021-09-14T19:24:15.985Z",
-//       "destination": {
-//           "name": "Oslo",
-//           "description": "Oslo, middle-eastern paradise, with an embankment of a mighty river as a centre of attraction, famous for its crowded street markets with the best street food in Asia.",
-//           "pictures": [
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.7306283245936374",
-//                   "description": "Oslo parliament building"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.8231223453513674",
-//                   "description": "Oslo zoo"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.2605997699121625",
-//                   "description": "Oslo city centre"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.0010237327879811797",
-//                   "description": "Oslo city centre"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.9443839687922677",
-//                   "description": "Oslo park"
-//               }
-//           ]
-//       },
-//       "base_price": 1100,
-//       "is_favorite": true,
-//       "offers": []
-//   },
-//   {
-//       "id": "5",
-//       "type": "taxi",
-//       "date_from": "2021-09-14T19:24:15.985Z",
-//       "date_to": "2021-09-15T09:50:02.591Z",
-//       "destination": {
-//           "name": "Nagasaki",
-//           "description": "Nagasaki, is a beautiful city, with crowded streets, with a beautiful old town, for those who value comfort and coziness.",
-//           "pictures": [
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.08766227083521483",
-//                   "description": "Nagasaki central station"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.738548756392633",
-//                   "description": "Nagasaki parliament building"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.8919949448788431",
-//                   "description": "Nagasaki embankment"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.9428111797476684",
-//                   "description": "Nagasaki parliament building"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.7367956966502793",
-//                   "description": "Nagasaki zoo"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.3150953067811513",
-//                   "description": "Nagasaki embankment"
-//               }
-//           ]
-//       },
-//       "base_price": 1100,
-//       "is_favorite": false,
-//       "offers": [
-//           {
-//               "title": "Choose the radio station",
-//               "price": 30
-//           },
-//           {
-//               "title": "Choose temperature",
-//               "price": 170
-//           },
-//           {
-//               "title": "Drive quickly, I'm in a hurry",
-//               "price": 100
-//           },
-//           {
-//               "title": "Drive slowly",
-//               "price": 110
-//           }
-//       ]
-//   },
-//   {
-//       "id": "6",
-//       "type": "flight",
-//       "date_from": "2021-09-15T09:50:02.591Z",
-//       "date_to": "2021-09-16T04:42:23.272Z",
-//       "destination": {
-//           "name": "Rotterdam",
-//           "description": "Rotterdam, a true asian pearl, full of of cozy canteens where you can try the best coffee in the Middle East.",
-//           "pictures": [
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.8440932011263917",
-//                   "description": "Rotterdam embankment"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.26658243602566767",
-//                   "description": "Rotterdam central station"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.6251776617394431",
-//                   "description": "Rotterdam city centre"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.9527862613053975",
-//                   "description": "Rotterdam park"
-//               }
-//           ]
-//       },
-//       "base_price": 400,
-//       "is_favorite": false,
-//       "offers": [
-//           {
-//               "title": "Choose meal",
-//               "price": 120
-//           },
-//           {
-//               "title": "Choose seats",
-//               "price": 90
-//           },
-//           {
-//               "title": "Add luggage",
-//               "price": 170
-//           },
-//           {
-//               "title": "Business lounge",
-//               "price": 160
-//           }
-//       ]
-//   },
-//   {
-//       "id": "7",
-//       "type": "ship",
-//       "date_from": "2021-09-16T04:42:23.272Z",
-//       "date_to": "2021-09-16T12:37:46.944Z",
-//       "destination": {
-//           "name": "Nagasaki",
-//           "description": "Nagasaki, is a beautiful city, a true asian pearl, with crowded streets.",
-//           "pictures": [
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.8999698289303961",
-//                   "description": "Nagasaki parliament building"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.01412226886225132",
-//                   "description": "Nagasaki biggest supermarket"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.6438390361959689",
-//                   "description": "Nagasaki parliament building"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.2416792477200782",
-//                   "description": "Nagasaki embankment"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.07977462321048079",
-//                   "description": "Nagasaki street market"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.8724533144162077",
-//                   "description": "Nagasaki biggest supermarket"
-//               }
-//           ]
-//       },
-//       "base_price": 300,
-//       "is_favorite": true,
-//       "offers": [
-//           {
-//               "title": "Choose meal",
-//               "price": 130
-//           },
-//           {
-//               "title": "Upgrade to comfort class",
-//               "price": 170
-//           },
-//           {
-//               "title": "Business lounge",
-//               "price": 40
-//           }
-//       ]
-//   },
-//   {
-//       "id": "8",
-//       "type": "train",
-//       "date_from": "2021-09-16T12:37:46.944Z",
-//       "date_to": "2021-09-17T07:30:22.454Z",
-//       "destination": {
-//           "name": "Venice",
-//           "description": "Venice, is a beautiful city, in a middle of Europe, with a beautiful old town, middle-eastern paradise, with an embankment of a mighty river as a centre of attraction.",
-//           "pictures": [
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.6781103627031695",
-//                   "description": "Venice central station"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.6449167163026599",
-//                   "description": "Venice park"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.35716289276186575",
-//                   "description": "Venice park"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.6204269545525121",
-//                   "description": "Venice park"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.549911580083217",
-//                   "description": "Venice park"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.6774638010079987",
-//                   "description": "Venice street market"
-//               }
-//           ]
-//       },
-//       "base_price": 600,
-//       "is_favorite": false,
-//       "offers": [
-//           {
-//               "title": "Book a taxi at the arrival point",
-//               "price": 110
-//           },
-//           {
-//               "title": "Order a breakfast",
-//               "price": 80
-//           },
-//           {
-//               "title": "Wake up at a certain time",
-//               "price": 140
-//           }
-//       ]
-//   },
-//   {
-//       "id": "9",
-//       "type": "flight",
-//       "date_from": "2021-09-17T07:30:22.454Z",
-//       "date_to": "2021-09-18T06:24:30.835Z",
-//       "destination": {
-//           "name": "Nagasaki",
-//           "description": "Nagasaki, middle-eastern paradise, for those who value comfort and coziness.",
-//           "pictures": [
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.07523056857541244",
-//                   "description": "Nagasaki embankment"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.06917951230460795",
-//                   "description": "Nagasaki biggest supermarket"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.40480416836498634",
-//                   "description": "Nagasaki city centre"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.8680048168314929",
-//                   "description": "Nagasaki park"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.7427133409554949",
-//                   "description": "Nagasaki biggest supermarket"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.18665265716827917",
-//                   "description": "Nagasaki street market"
-//               }
-//           ]
-//       },
-//       "base_price": 500,
-//       "is_favorite": false,
-//       "offers": [
-//           {
-//               "title": "Choose seats",
-//               "price": 90
-//           },
-//           {
-//               "title": "Business lounge",
-//               "price": 160
-//           }
-//       ]
-//   },
-//   {
-//       "id": "10",
-//       "type": "ship",
-//       "date_from": "2021-09-18T06:24:30.835Z",
-//       "date_to": "2021-09-18T22:16:12.521Z",
-//       "destination": {
-//           "name": "Valencia",
-//           "description": "Valencia, is a beautiful city, middle-eastern paradise, full of of cozy canteens where you can try the best coffee in the Middle East.",
-//           "pictures": [
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.7283241565042051",
-//                   "description": "Valencia kindergarten"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.6224282029552421",
-//                   "description": "Valencia embankment"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.9648112253053174",
-//                   "description": "Valencia zoo"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.6521775789754667",
-//                   "description": "Valencia kindergarten"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.42906100156279403",
-//                   "description": "Valencia embankment"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.9505104981068067",
-//                   "description": "Valencia city centre"
-//               }
-//           ]
-//       },
-//       "base_price": 900,
-//       "is_favorite": false,
-//       "offers": [
-//           {
-//               "title": "Choose meal",
-//               "price": 130
-//           },
-//           {
-//               "title": "Upgrade to comfort class",
-//               "price": 170
-//           },
-//           {
-//               "title": "Upgrade to business class",
-//               "price": 150
-//           },
-//           {
-//               "title": "Business lounge",
-//               "price": 40
-//           }
-//       ]
-//   },
-//   {
-//       "id": "11",
-//       "type": "check-in",
-//       "date_from": "2021-09-18T22:16:12.521Z",
-//       "date_to": "2021-09-19T01:31:51.992Z",
-//       "destination": {
-//           "name": "Tokio",
-//           "description": "Tokio, is a beautiful city, a true asian pearl, full of of cozy canteens where you can try the best coffee in the Middle East, a perfect place to stay with a family.",
-//           "pictures": [
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.6269857078489289",
-//                   "description": "Tokio central station"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.31559924612395984",
-//                   "description": "Tokio zoo"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.7498511245051496",
-//                   "description": "Tokio biggest supermarket"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.097277682740887",
-//                   "description": "Tokio biggest supermarket"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.7616966705854207",
-//                   "description": "Tokio street market"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.7147970660856728",
-//                   "description": "Tokio central station"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.7392872432371422",
-//                   "description": "Tokio city centre"
-//               }
-//           ]
-//       },
-//       "base_price": 1000,
-//       "is_favorite": true,
-//       "offers": [
-//           {
-//               "title": "Choose the time of check-in",
-//               "price": 70
-//           },
-//           {
-//               "title": "Choose the time of check-out",
-//               "price": 190
-//           },
-//           {
-//               "title": "Add breakfast",
-//               "price": 110
-//           },
-//           {
-//               "title": "Laundry",
-//               "price": 140
-//           }
-//       ]
-//   },
-//   {
-//       "id": "12",
-//       "type": "bus",
-//       "date_from": "2021-09-19T01:31:51.992Z",
-//       "date_to": "2021-09-19T21:30:49.758Z",
-//       "destination": {
-//           "name": "Sochi",
-//           "description": "Sochi, in a middle of Europe, with an embankment of a mighty river as a centre of attraction.",
-//           "pictures": [
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.836808618069685",
-//                   "description": "Sochi park"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.4466172755860731",
-//                   "description": "Sochi biggest supermarket"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.01872342898297874",
-//                   "description": "Sochi zoo"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.22272878273606223",
-//                   "description": "Sochi biggest supermarket"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.7646207822218611",
-//                   "description": "Sochi parliament building"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.6167969576085188",
-//                   "description": "Sochi central station"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.5757998696816651",
-//                   "description": "Sochi embankment"
-//               }
-//           ]
-//       },
-//       "base_price": 700,
-//       "is_favorite": false,
-//       "offers": [
-//           {
-//               "title": "Infotainment system",
-//               "price": 50
-//           },
-//           {
-//               "title": "Order meal",
-//               "price": 100
-//           },
-//           {
-//               "title": "Choose seats",
-//               "price": 190
-//           }
-//       ]
-//   },
-//   {
-//       "id": "13",
-//       "type": "ship",
-//       "date_from": "2021-09-19T21:30:49.758Z",
-//       "date_to": "2021-09-20T00:32:40.888Z",
-//       "destination": {
-//           "name": "Monaco",
-//           "description": "Monaco, a true asian pearl, with a beautiful old town, with an embankment of a mighty river as a centre of attraction, famous for its crowded street markets with the best street food in Asia.",
-//           "pictures": [
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.7489015844778233",
-//                   "description": "Monaco street market"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.5850327395642558",
-//                   "description": "Monaco parliament building"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.7363300411843603",
-//                   "description": "Monaco zoo"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.945935256144492",
-//                   "description": "Monaco central station"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.5888891477289231",
-//                   "description": "Monaco parliament building"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.6447420383914657",
-//                   "description": "Monaco park"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.15130504754100915",
-//                   "description": "Monaco zoo"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.5377721880167761",
-//                   "description": "Monaco street market"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.10382896724205892",
-//                   "description": "Monaco embankment"
-//               }
-//           ]
-//       },
-//       "base_price": 700,
-//       "is_favorite": false,
-//       "offers": [
-//           {
-//               "title": "Choose seats",
-//               "price": 160
-//           },
-//           {
-//               "title": "Add luggage",
-//               "price": 100
-//           },
-//           {
-//               "title": "Business lounge",
-//               "price": 40
-//           }
-//       ]
-//   },
-//   {
-//       "id": "14",
-//       "type": "check-in",
-//       "date_from": "2021-09-20T00:32:40.888Z",
-//       "date_to": "2021-09-20T20:08:28.735Z",
-//       "destination": {
-//           "name": "Monaco",
-//           "description": "Monaco, with crowded streets, in a middle of Europe, for those who value comfort and coziness.",
-//           "pictures": [
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.6962462188674261",
-//                   "description": "Monaco central station"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.7674231098070936",
-//                   "description": "Monaco parliament building"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.8842043512606712",
-//                   "description": "Monaco parliament building"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.8196533462114735",
-//                   "description": "Monaco parliament building"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.6522480409312446",
-//                   "description": "Monaco city centre"
-//               }
-//           ]
-//       },
-//       "base_price": 400,
-//       "is_favorite": false,
-//       "offers": [
-//           {
-//               "title": "Add breakfast",
-//               "price": 110
-//           },
-//           {
-//               "title": "Laundry",
-//               "price": 140
-//           }
-//       ]
-//   },
-//   {
-//       "id": "15",
-//       "type": "sightseeing",
-//       "date_from": "2021-09-20T20:08:28.735Z",
-//       "date_to": "2021-09-21T03:33:23.718Z",
-//       "destination": {
-//           "name": "Hiroshima",
-//           "description": "Hiroshima, a true asian pearl, middle-eastern paradise.",
-//           "pictures": [
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.2826817617227171",
-//                   "description": "Hiroshima street market"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.09083573078410057",
-//                   "description": "Hiroshima parliament building"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.7743373515561673",
-//                   "description": "Hiroshima kindergarten"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.8283504363100467",
-//                   "description": "Hiroshima park"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.25740666701123693",
-//                   "description": "Hiroshima zoo"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.04485935445904521",
-//                   "description": "Hiroshima parliament building"
-//               }
-//           ]
-//       },
-//       "base_price": 700,
-//       "is_favorite": false,
-//       "offers": []
-//   },
-//   {
-//       "id": "16",
-//       "type": "flight",
-//       "date_from": "2021-09-21T03:33:23.718Z",
-//       "date_to": "2021-09-21T23:12:38.018Z",
-//       "destination": {
-//           "name": "Rotterdam",
-//           "description": "Rotterdam, is a beautiful city, famous for its crowded street markets with the best street food in Asia.",
-//           "pictures": [
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.9023104570241374",
-//                   "description": "Rotterdam park"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.34901299354778303",
-//                   "description": "Rotterdam park"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.4940164871757413",
-//                   "description": "Rotterdam embankment"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.803813338743907",
-//                   "description": "Rotterdam central station"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.9131198977176529",
-//                   "description": "Rotterdam city centre"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.9481094300966846",
-//                   "description": "Rotterdam biggest supermarket"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.23707440432387417",
-//                   "description": "Rotterdam kindergarten"
-//               }
-//           ]
-//       },
-//       "base_price": 800,
-//       "is_favorite": false,
-//       "offers": []
-//   },
-//   {
-//       "id": "17",
-//       "type": "sightseeing",
-//       "date_from": "2021-09-21T23:12:38.018Z",
-//       "date_to": "2021-09-22T07:47:25.686Z",
-//       "destination": {
-//           "name": "Vien",
-//           "description": "Vien, is a beautiful city, a true asian pearl, with crowded streets, with a beautiful old town.",
-//           "pictures": [
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.003877016698925262",
-//                   "description": "Vien park"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.8139881863603011",
-//                   "description": "Vien zoo"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.21317520794331757",
-//                   "description": "Vien biggest supermarket"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.8962153975013472",
-//                   "description": "Vien biggest supermarket"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.12276692713707393",
-//                   "description": "Vien biggest supermarket"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.7402517959300221",
-//                   "description": "Vien zoo"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.43181318097784605",
-//                   "description": "Vien parliament building"
-//               }
-//           ]
-//       },
-//       "base_price": 400,
-//       "is_favorite": false,
-//       "offers": []
-//   },
-//   {
-//       "id": "18",
-//       "type": "flight",
-//       "date_from": "2021-09-22T07:47:25.686Z",
-//       "date_to": "2021-09-23T01:23:50.078Z",
-//       "destination": {
-//           "name": "Milan",
-//           "description": "Milan, is a beautiful city, with a beautiful old town, with an embankment of a mighty river as a centre of attraction, a perfect place to stay with a family, famous for its crowded street markets with the best street food in Asia.",
-//           "pictures": [
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.3610825764711174",
-//                   "description": "Milan street market"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.11734338783652198",
-//                   "description": "Milan kindergarten"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.2865150509204024",
-//                   "description": "Milan parliament building"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.7761803102059992",
-//                   "description": "Milan street market"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.15948620098350252",
-//                   "description": "Milan kindergarten"
-//               }
-//           ]
-//       },
-//       "base_price": 700,
-//       "is_favorite": true,
-//       "offers": [
-//           {
-//               "title": "Choose seats",
-//               "price": 90
-//           },
-//           {
-//               "title": "Add luggage",
-//               "price": 170
-//           },
-//           {
-//               "title": "Business lounge",
-//               "price": 160
-//           }
-//       ]
-//   },
-//   {
-//       "id": "19",
-//       "type": "restaurant",
-//       "date_from": "2021-09-23T01:23:50.078Z",
-//       "date_to": "2021-09-23T21:08:19.132Z",
-//       "destination": {
-//           "name": "Venice",
-//           "description": "Venice, is a beautiful city, in a middle of Europe, for those who value comfort and coziness, with an embankment of a mighty river as a centre of attraction, a perfect place to stay with a family.",
-//           "pictures": [
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.6802880428653366",
-//                   "description": "Venice embankment"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.7415152685632718",
-//                   "description": "Venice parliament building"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.9426435802866502",
-//                   "description": "Venice parliament building"
-//               },
-//               {
-//                   "src": "http://picsum.photos/300/200?r=0.09171302560958972",
-//                   "description": "Venice central station"
-//               }
-//           ]
-//       },
-//       "base_price": 400,
-//       "is_favorite": false,
-//       "offers": [
-//           {
-//               "title": "Choose live music",
-//               "price": 150
-//           },
-//           {
-//               "title": "Choose VIP area",
-//               "price": 70
-//           }
-//       ]
 //   }
 // ];
+
+export const POINTS = [
+  {
+      "id": "0",
+      "type": "drive",
+      "date_from": "2021-09-11T19:00:35.020Z",
+      "date_to": "2021-09-11T20:07:36.199Z",
+      "destination": {
+          "name": "Valencia",
+          "description": "Valencia, a true asian pearl, famous for its crowded street markets with the best street food in Asia.",
+          "pictures": [
+              {
+                  "src": "http://picsum.photos/300/200?r=0.3354931089563189",
+                  "description": "Valencia park"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.27639221873843467",
+                  "description": "Valencia central station"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.42235785006826054",
+                  "description": "Valencia zoo"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.90448771016556",
+                  "description": "Valencia street market"
+              }
+          ]
+      },
+      "base_price": 700,
+      "is_favorite": true,
+      "offers": [
+          {
+              "title": "Choose comfort class",
+              "price": 110
+          }
+      ]
+  },
+  {
+      "id": "1",
+      "type": "bus",
+      "date_from": "2021-09-12T20:07:36.199Z",
+      "date_to": "2021-09-12T20:09:39.789Z",
+      "destination": {
+          "name": "Geneva",
+          "description": "Geneva, in a middle of Europe.",
+          "pictures": [
+              {
+                  "src": "http://picsum.photos/300/200?r=0.26031488078468734",
+                  "description": "Geneva central station"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.702356924757336",
+                  "description": "Geneva biggest supermarket"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.7738047301249704",
+                  "description": "Geneva kindergarten"
+              }
+          ]
+      },
+      "base_price": 900,
+      "is_favorite": true,
+      "offers": [
+          {
+              "title": "Infotainment system",
+              "price": 50
+          },
+          {
+              "title": "Order meal",
+              "price": 100
+          },
+          {
+              "title": "Choose seats",
+              "price": 190
+          }
+      ]
+  },
+  {
+      "id": "2",
+      "type": "bus",
+      "date_from": "2021-09-12T10:02:39.789Z",
+      "date_to": "2021-09-13T08:08:10.905Z",
+      "destination": {
+          "name": "Nagasaki",
+          "description": "Nagasaki, with crowded streets, for those who value comfort and coziness, with an embankment of a mighty river as a centre of attraction, famous for its crowded street markets with the best street food in Asia.",
+          "pictures": [
+              {
+                  "src": "http://picsum.photos/300/200?r=0.600907098005395",
+                  "description": "Nagasaki parliament building"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.1734021450710057",
+                  "description": "Nagasaki street market"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.17237601409285808",
+                  "description": "Nagasaki embankment"
+              }
+          ]
+      },
+      "base_price": 900,
+      "is_favorite": false,
+      "offers": [
+          {
+              "title": "Infotainment system",
+              "price": 50
+          },
+          {
+              "title": "Choose seats",
+              "price": 190
+          }
+      ]
+  },
+  {
+      "id": "3",
+      "type": "bus",
+      "date_from": "2021-09-13T08:08:10.905Z",
+      "date_to": "2021-09-14T01:29:25.528Z",
+      "destination": {
+          "name": "Tokio",
+          "description": "Tokio, with crowded streets, full of of cozy canteens where you can try the best coffee in the Middle East.",
+          "pictures": [
+              {
+                  "src": "http://picsum.photos/300/200?r=0.4103196403559721",
+                  "description": "Tokio biggest supermarket"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.7288776299614848",
+                  "description": "Tokio parliament building"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.40345629971001196",
+                  "description": "Tokio kindergarten"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.5091378589512867",
+                  "description": "Tokio city centre"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.7360711994838292",
+                  "description": "Tokio kindergarten"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.32938629382457196",
+                  "description": "Tokio central station"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.2743853679057875",
+                  "description": "Tokio embankment"
+              }
+          ]
+      },
+      "base_price": 1000,
+      "is_favorite": false,
+      "offers": [
+      ]
+  },
+  {
+      "id": "4",
+      "type": "sightseeing",
+      "date_from": "2021-09-14T01:29:25.528Z",
+      "date_to": "2021-09-14T19:24:15.985Z",
+      "destination": {
+          "name": "Oslo",
+          "description": "Oslo, middle-eastern paradise, with an embankment of a mighty river as a centre of attraction, famous for its crowded street markets with the best street food in Asia.",
+          "pictures": [
+              {
+                  "src": "http://picsum.photos/300/200?r=0.7306283245936374",
+                  "description": "Oslo parliament building"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.8231223453513674",
+                  "description": "Oslo zoo"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.2605997699121625",
+                  "description": "Oslo city centre"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.0010237327879811797",
+                  "description": "Oslo city centre"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.9443839687922677",
+                  "description": "Oslo park"
+              }
+          ]
+      },
+      "base_price": 1100,
+      "is_favorite": true,
+      "offers": []
+  },
+  {
+      "id": "5",
+      "type": "taxi",
+      "date_from": "2021-09-14T19:24:15.985Z",
+      "date_to": "2021-09-15T09:50:02.591Z",
+      "destination": {
+          "name": "Nagasaki",
+          "description": "Nagasaki, is a beautiful city, with crowded streets, with a beautiful old town, for those who value comfort and coziness.",
+          "pictures": [
+              {
+                  "src": "http://picsum.photos/300/200?r=0.08766227083521483",
+                  "description": "Nagasaki central station"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.738548756392633",
+                  "description": "Nagasaki parliament building"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.8919949448788431",
+                  "description": "Nagasaki embankment"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.9428111797476684",
+                  "description": "Nagasaki parliament building"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.7367956966502793",
+                  "description": "Nagasaki zoo"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.3150953067811513",
+                  "description": "Nagasaki embankment"
+              }
+          ]
+      },
+      "base_price": 1100,
+      "is_favorite": false,
+      "offers": [
+          {
+              "title": "Choose the radio station",
+              "price": 30
+          },
+          {
+              "title": "Choose temperature",
+              "price": 170
+          },
+          {
+              "title": "Drive quickly, I'm in a hurry",
+              "price": 100
+          },
+          {
+              "title": "Drive slowly",
+              "price": 110
+          }
+      ]
+  },
+  {
+      "id": "6",
+      "type": "flight",
+      "date_from": "2021-09-15T09:50:02.591Z",
+      "date_to": "2021-09-16T04:42:23.272Z",
+      "destination": {
+          "name": "Rotterdam",
+          "description": "Rotterdam, a true asian pearl, full of of cozy canteens where you can try the best coffee in the Middle East.",
+          "pictures": [
+              {
+                  "src": "http://picsum.photos/300/200?r=0.8440932011263917",
+                  "description": "Rotterdam embankment"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.26658243602566767",
+                  "description": "Rotterdam central station"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.6251776617394431",
+                  "description": "Rotterdam city centre"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.9527862613053975",
+                  "description": "Rotterdam park"
+              }
+          ]
+      },
+      "base_price": 400,
+      "is_favorite": false,
+      "offers": [
+          {
+              "title": "Choose meal",
+              "price": 120
+          },
+          {
+              "title": "Choose seats",
+              "price": 90
+          },
+          {
+              "title": "Add luggage",
+              "price": 170
+          },
+          {
+              "title": "Business lounge",
+              "price": 160
+          }
+      ]
+  },
+  {
+      "id": "7",
+      "type": "ship",
+      "date_from": "2021-09-16T04:42:23.272Z",
+      "date_to": "2021-09-16T12:37:46.944Z",
+      "destination": {
+          "name": "Nagasaki",
+          "description": "Nagasaki, is a beautiful city, a true asian pearl, with crowded streets.",
+          "pictures": [
+              {
+                  "src": "http://picsum.photos/300/200?r=0.8999698289303961",
+                  "description": "Nagasaki parliament building"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.01412226886225132",
+                  "description": "Nagasaki biggest supermarket"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.6438390361959689",
+                  "description": "Nagasaki parliament building"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.2416792477200782",
+                  "description": "Nagasaki embankment"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.07977462321048079",
+                  "description": "Nagasaki street market"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.8724533144162077",
+                  "description": "Nagasaki biggest supermarket"
+              }
+          ]
+      },
+      "base_price": 300,
+      "is_favorite": true,
+      "offers": [
+          {
+              "title": "Choose meal",
+              "price": 130
+          },
+          {
+              "title": "Upgrade to comfort class",
+              "price": 170
+          },
+          {
+              "title": "Business lounge",
+              "price": 40
+          }
+      ]
+  },
+  {
+      "id": "8",
+      "type": "train",
+      "date_from": "2021-09-16T12:37:46.944Z",
+      "date_to": "2021-09-17T07:30:22.454Z",
+      "destination": {
+          "name": "Venice",
+          "description": "Venice, is a beautiful city, in a middle of Europe, with a beautiful old town, middle-eastern paradise, with an embankment of a mighty river as a centre of attraction.",
+          "pictures": [
+              {
+                  "src": "http://picsum.photos/300/200?r=0.6781103627031695",
+                  "description": "Venice central station"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.6449167163026599",
+                  "description": "Venice park"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.35716289276186575",
+                  "description": "Venice park"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.6204269545525121",
+                  "description": "Venice park"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.549911580083217",
+                  "description": "Venice park"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.6774638010079987",
+                  "description": "Venice street market"
+              }
+          ]
+      },
+      "base_price": 600,
+      "is_favorite": false,
+      "offers": [
+          {
+              "title": "Book a taxi at the arrival point",
+              "price": 110
+          },
+          {
+              "title": "Order a breakfast",
+              "price": 80
+          },
+          {
+              "title": "Wake up at a certain time",
+              "price": 140
+          }
+      ]
+  },
+  {
+      "id": "9",
+      "type": "flight",
+      "date_from": "2021-09-17T07:30:22.454Z",
+      "date_to": "2021-09-18T06:24:30.835Z",
+      "destination": {
+          "name": "Nagasaki",
+          "description": "Nagasaki, middle-eastern paradise, for those who value comfort and coziness.",
+          "pictures": [
+              {
+                  "src": "http://picsum.photos/300/200?r=0.07523056857541244",
+                  "description": "Nagasaki embankment"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.06917951230460795",
+                  "description": "Nagasaki biggest supermarket"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.40480416836498634",
+                  "description": "Nagasaki city centre"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.8680048168314929",
+                  "description": "Nagasaki park"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.7427133409554949",
+                  "description": "Nagasaki biggest supermarket"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.18665265716827917",
+                  "description": "Nagasaki street market"
+              }
+          ]
+      },
+      "base_price": 500,
+      "is_favorite": false,
+      "offers": [
+          {
+              "title": "Choose seats",
+              "price": 90
+          },
+          {
+              "title": "Business lounge",
+              "price": 160
+          }
+      ]
+  },
+  {
+      "id": "10",
+      "type": "ship",
+      "date_from": "2021-09-18T06:24:30.835Z",
+      "date_to": "2021-09-18T22:16:12.521Z",
+      "destination": {
+          "name": "Valencia",
+          "description": "Valencia, is a beautiful city, middle-eastern paradise, full of of cozy canteens where you can try the best coffee in the Middle East.",
+          "pictures": [
+              {
+                  "src": "http://picsum.photos/300/200?r=0.7283241565042051",
+                  "description": "Valencia kindergarten"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.6224282029552421",
+                  "description": "Valencia embankment"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.9648112253053174",
+                  "description": "Valencia zoo"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.6521775789754667",
+                  "description": "Valencia kindergarten"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.42906100156279403",
+                  "description": "Valencia embankment"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.9505104981068067",
+                  "description": "Valencia city centre"
+              }
+          ]
+      },
+      "base_price": 900,
+      "is_favorite": false,
+      "offers": [
+          {
+              "title": "Choose meal",
+              "price": 130
+          },
+          {
+              "title": "Upgrade to comfort class",
+              "price": 170
+          },
+          {
+              "title": "Upgrade to business class",
+              "price": 150
+          },
+          {
+              "title": "Business lounge",
+              "price": 40
+          }
+      ]
+  },
+  {
+      "id": "11",
+      "type": "check-in",
+      "date_from": "2021-09-18T22:16:12.521Z",
+      "date_to": "2021-09-19T01:31:51.992Z",
+      "destination": {
+          "name": "Tokio",
+          "description": "Tokio, is a beautiful city, a true asian pearl, full of of cozy canteens where you can try the best coffee in the Middle East, a perfect place to stay with a family.",
+          "pictures": [
+              {
+                  "src": "http://picsum.photos/300/200?r=0.6269857078489289",
+                  "description": "Tokio central station"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.31559924612395984",
+                  "description": "Tokio zoo"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.7498511245051496",
+                  "description": "Tokio biggest supermarket"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.097277682740887",
+                  "description": "Tokio biggest supermarket"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.7616966705854207",
+                  "description": "Tokio street market"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.7147970660856728",
+                  "description": "Tokio central station"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.7392872432371422",
+                  "description": "Tokio city centre"
+              }
+          ]
+      },
+      "base_price": 1000,
+      "is_favorite": true,
+      "offers": [
+          {
+              "title": "Choose the time of check-in",
+              "price": 70
+          },
+          {
+              "title": "Choose the time of check-out",
+              "price": 190
+          },
+          {
+              "title": "Add breakfast",
+              "price": 110
+          },
+          {
+              "title": "Laundry",
+              "price": 140
+          }
+      ]
+  },
+  {
+      "id": "12",
+      "type": "bus",
+      "date_from": "2021-09-19T01:31:51.992Z",
+      "date_to": "2021-09-19T21:30:49.758Z",
+      "destination": {
+          "name": "Sochi",
+          "description": "Sochi, in a middle of Europe, with an embankment of a mighty river as a centre of attraction.",
+          "pictures": [
+              {
+                  "src": "http://picsum.photos/300/200?r=0.836808618069685",
+                  "description": "Sochi park"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.4466172755860731",
+                  "description": "Sochi biggest supermarket"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.01872342898297874",
+                  "description": "Sochi zoo"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.22272878273606223",
+                  "description": "Sochi biggest supermarket"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.7646207822218611",
+                  "description": "Sochi parliament building"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.6167969576085188",
+                  "description": "Sochi central station"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.5757998696816651",
+                  "description": "Sochi embankment"
+              }
+          ]
+      },
+      "base_price": 700,
+      "is_favorite": false,
+      "offers": [
+          {
+              "title": "Infotainment system",
+              "price": 50
+          },
+          {
+              "title": "Order meal",
+              "price": 100
+          },
+          {
+              "title": "Choose seats",
+              "price": 190
+          }
+      ]
+  },
+  {
+      "id": "13",
+      "type": "ship",
+      "date_from": "2021-09-19T21:30:49.758Z",
+      "date_to": "2021-09-20T00:32:40.888Z",
+      "destination": {
+          "name": "Monaco",
+          "description": "Monaco, a true asian pearl, with a beautiful old town, with an embankment of a mighty river as a centre of attraction, famous for its crowded street markets with the best street food in Asia.",
+          "pictures": [
+              {
+                  "src": "http://picsum.photos/300/200?r=0.7489015844778233",
+                  "description": "Monaco street market"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.5850327395642558",
+                  "description": "Monaco parliament building"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.7363300411843603",
+                  "description": "Monaco zoo"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.945935256144492",
+                  "description": "Monaco central station"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.5888891477289231",
+                  "description": "Monaco parliament building"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.6447420383914657",
+                  "description": "Monaco park"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.15130504754100915",
+                  "description": "Monaco zoo"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.5377721880167761",
+                  "description": "Monaco street market"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.10382896724205892",
+                  "description": "Monaco embankment"
+              }
+          ]
+      },
+      "base_price": 700,
+      "is_favorite": false,
+      "offers": [
+          {
+              "title": "Choose seats",
+              "price": 160
+          },
+          {
+              "title": "Add luggage",
+              "price": 100
+          },
+          {
+              "title": "Business lounge",
+              "price": 40
+          }
+      ]
+  },
+  {
+      "id": "14",
+      "type": "check-in",
+      "date_from": "2021-09-20T00:32:40.888Z",
+      "date_to": "2021-09-20T20:08:28.735Z",
+      "destination": {
+          "name": "Monaco",
+          "description": "Monaco, with crowded streets, in a middle of Europe, for those who value comfort and coziness.",
+          "pictures": [
+              {
+                  "src": "http://picsum.photos/300/200?r=0.6962462188674261",
+                  "description": "Monaco central station"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.7674231098070936",
+                  "description": "Monaco parliament building"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.8842043512606712",
+                  "description": "Monaco parliament building"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.8196533462114735",
+                  "description": "Monaco parliament building"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.6522480409312446",
+                  "description": "Monaco city centre"
+              }
+          ]
+      },
+      "base_price": 400,
+      "is_favorite": false,
+      "offers": [
+          {
+              "title": "Add breakfast",
+              "price": 110
+          },
+          {
+              "title": "Laundry",
+              "price": 140
+          }
+      ]
+  },
+  {
+      "id": "15",
+      "type": "sightseeing",
+      "date_from": "2021-09-20T20:08:28.735Z",
+      "date_to": "2021-09-21T03:33:23.718Z",
+      "destination": {
+          "name": "Hiroshima",
+          "description": "Hiroshima, a true asian pearl, middle-eastern paradise.",
+          "pictures": [
+              {
+                  "src": "http://picsum.photos/300/200?r=0.2826817617227171",
+                  "description": "Hiroshima street market"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.09083573078410057",
+                  "description": "Hiroshima parliament building"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.7743373515561673",
+                  "description": "Hiroshima kindergarten"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.8283504363100467",
+                  "description": "Hiroshima park"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.25740666701123693",
+                  "description": "Hiroshima zoo"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.04485935445904521",
+                  "description": "Hiroshima parliament building"
+              }
+          ]
+      },
+      "base_price": 700,
+      "is_favorite": false,
+      "offers": []
+  },
+  {
+      "id": "16",
+      "type": "flight",
+      "date_from": "2021-09-21T03:33:23.718Z",
+      "date_to": "2021-09-21T23:12:38.018Z",
+      "destination": {
+          "name": "Rotterdam",
+          "description": "Rotterdam, is a beautiful city, famous for its crowded street markets with the best street food in Asia.",
+          "pictures": [
+              {
+                  "src": "http://picsum.photos/300/200?r=0.9023104570241374",
+                  "description": "Rotterdam park"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.34901299354778303",
+                  "description": "Rotterdam park"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.4940164871757413",
+                  "description": "Rotterdam embankment"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.803813338743907",
+                  "description": "Rotterdam central station"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.9131198977176529",
+                  "description": "Rotterdam city centre"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.9481094300966846",
+                  "description": "Rotterdam biggest supermarket"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.23707440432387417",
+                  "description": "Rotterdam kindergarten"
+              }
+          ]
+      },
+      "base_price": 800,
+      "is_favorite": false,
+      "offers": []
+  },
+  {
+      "id": "17",
+      "type": "sightseeing",
+      "date_from": "2021-09-21T23:12:38.018Z",
+      "date_to": "2021-09-22T07:47:25.686Z",
+      "destination": {
+          "name": "Vien",
+          "description": "Vien, is a beautiful city, a true asian pearl, with crowded streets, with a beautiful old town.",
+          "pictures": [
+              {
+                  "src": "http://picsum.photos/300/200?r=0.003877016698925262",
+                  "description": "Vien park"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.8139881863603011",
+                  "description": "Vien zoo"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.21317520794331757",
+                  "description": "Vien biggest supermarket"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.8962153975013472",
+                  "description": "Vien biggest supermarket"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.12276692713707393",
+                  "description": "Vien biggest supermarket"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.7402517959300221",
+                  "description": "Vien zoo"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.43181318097784605",
+                  "description": "Vien parliament building"
+              }
+          ]
+      },
+      "base_price": 400,
+      "is_favorite": false,
+      "offers": []
+  },
+  {
+      "id": "18",
+      "type": "flight",
+      "date_from": "2021-09-22T07:47:25.686Z",
+      "date_to": "2021-09-23T01:23:50.078Z",
+      "destination": {
+          "name": "Milan",
+          "description": "Milan, is a beautiful city, with a beautiful old town, with an embankment of a mighty river as a centre of attraction, a perfect place to stay with a family, famous for its crowded street markets with the best street food in Asia.",
+          "pictures": [
+              {
+                  "src": "http://picsum.photos/300/200?r=0.3610825764711174",
+                  "description": "Milan street market"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.11734338783652198",
+                  "description": "Milan kindergarten"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.2865150509204024",
+                  "description": "Milan parliament building"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.7761803102059992",
+                  "description": "Milan street market"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.15948620098350252",
+                  "description": "Milan kindergarten"
+              }
+          ]
+      },
+      "base_price": 700,
+      "is_favorite": true,
+      "offers": [
+          {
+              "title": "Choose seats",
+              "price": 90
+          },
+          {
+              "title": "Add luggage",
+              "price": 170
+          },
+          {
+              "title": "Business lounge",
+              "price": 160
+          }
+      ]
+  },
+  {
+      "id": "19",
+      "type": "restaurant",
+      "date_from": "2021-09-23T01:23:50.078Z",
+      "date_to": "2021-09-23T21:08:19.132Z",
+      "destination": {
+          "name": "Venice",
+          "description": "Venice, is a beautiful city, in a middle of Europe, for those who value comfort and coziness, with an embankment of a mighty river as a centre of attraction, a perfect place to stay with a family.",
+          "pictures": [
+              {
+                  "src": "http://picsum.photos/300/200?r=0.6802880428653366",
+                  "description": "Venice embankment"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.7415152685632718",
+                  "description": "Venice parliament building"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.9426435802866502",
+                  "description": "Venice parliament building"
+              },
+              {
+                  "src": "http://picsum.photos/300/200?r=0.09171302560958972",
+                  "description": "Venice central station"
+              }
+          ]
+      },
+      "base_price": 400,
+      "is_favorite": false,
+      "offers": [
+          {
+              "title": "Choose live music",
+              "price": 150
+          },
+          {
+              "title": "Choose VIP area",
+              "price": 70
+          }
+      ]
+  }
+];

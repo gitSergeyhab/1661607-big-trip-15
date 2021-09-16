@@ -1,19 +1,20 @@
 import TripInfo from './view/trip-info.js';
 import Menu from './view/menu.js';
+import Stats from './view/stats.js';
 import Filter from './view/filter.js';
 import TripPresenter from './presenter/trip.js';
 import FilterPresenter from './presenter/filter-presenter.js';
 
 import {createMockPoint, POINTS, OFFERS, DESTINATIONS, parseToClient} from './mock-data.js';
 import {getRandomInt} from './utils/util.js';
-import {render} from './utils/dom-utils.js';
-import {Place} from './constants.js';
+import {remove, render} from './utils/dom-utils.js';
+import {Place, MenuItem} from './constants.js';
 
 import PointsModel from './model/points-model.js';
 import OffersModel from './model/offers-model.js';
 import DestinationsModel from './model/destinations-model.js';
 import FilterModel from './model/filter-model.js';
-
+import dayjs from 'dayjs';
 
 
 // const points = new Array(getRandomInt(0,1)).fill().map(createMockPoint);
@@ -44,12 +45,10 @@ const tripMain = header.querySelector('.trip-main');
 
 render(tripMain, new TripInfo(points), Place.AFTER_BEGIN);
 
-const menu = tripMain.querySelector('.trip-controls__navigation');
-render(menu, new Menu());
+const btnAddNewEvent = document.querySelector('.trip-main__event-add-btn');
+
 
 const filterContainer = tripMain.querySelector('.trip-controls__filters');
-// render(filter, new Filter());
-
 const filterPresenter = new FilterPresenter(filterContainer, filterModel);
 filterPresenter.init();
 
@@ -71,3 +70,24 @@ const BASIC_URL = 'https://15.ecmascript.pages.academy/big-trip/';
 //   .then((res) => res.json()).then((res) => console.log(res)).then(() => console.log('offers________________________'))
 
 
+let statsComponent = null;
+const handleMenuClick = (menuItem) => {
+  switch(menuItem) {
+    case MenuItem.STATS:
+      btnAddNewEvent.disabled = true;
+      tripPresenter.hide();
+      statsComponent = new Stats(points);
+      render(main, statsComponent);
+      break;
+    case MenuItem.TABLE:
+      btnAddNewEvent.disabled = false;
+      remove(statsComponent);
+      tripPresenter.show();
+  }
+};
+
+
+const menuContainer = tripMain.querySelector('.trip-controls__navigation');
+const menuComponent = new Menu();
+render(menuContainer, menuComponent);
+menuComponent.setMenuClickHandler(handleMenuClick);

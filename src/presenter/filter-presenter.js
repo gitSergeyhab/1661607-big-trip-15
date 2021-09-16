@@ -1,5 +1,4 @@
-import { FilterType } from '../constants';
-import { filter } from '../utils/filter';
+
 import { render, remove } from '../utils/dom-utils';
 import Filter from '../view/filter';
 import { UpdateType } from '../constants';
