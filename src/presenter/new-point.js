@@ -2,7 +2,6 @@ import EditPoint from '../view/edit-point.js';
 
 import {render, remove} from '../utils/dom-utils.js';
 import {UserAction, UpdateType, Place} from '../constants.js';
-import { getRandomInt } from '../utils/util.js';
 
 
 const emptyPoint =   {
@@ -22,7 +21,6 @@ const emptyPoint =   {
   basePrice: 0,
   isFavorite: false,
   offers: [],
-  id: getRandomInt(100, 120),
 };
 
 
@@ -62,12 +60,6 @@ export default class NewPointPresenter{
     this._btnAddNewEvent.disabled = false;
   }
 
-  resetPoint() {
-    // if (this._mode === Mode.EDIT) {
-    //   this._replaceEditToPoint();
-    // }
-  }
-
   _handleSubmit() {
     this.destroy();
   }
@@ -84,7 +76,6 @@ export default class NewPointPresenter{
   }
 
   _handleSaveClick(state) {
-    this._changeData(UserAction.ADD_POINT, UpdateType.MINOR, state);
-    this.destroy();
+    this._changeData(UserAction.ADD_POINT, UpdateType.MAJOR, state);
   }
 }

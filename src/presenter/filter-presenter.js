@@ -10,11 +10,19 @@ export default class FilterPresenter {
     this._filterComponent = null;
 
     this._handleFilterChange = this._handleFilterChange.bind(this);
+    this._toggleRadio = this._toggleRadio.bind(this);
+
+    this._filterModel.addObserver(this._toggleRadio);
   }
 
   init() {
     this._renderFilter();
-    // console.log(this._filterModel)
+  }
+
+  toggle(disabled) {
+    if (this._filterComponent) {
+      this._filterComponent.toggle(disabled);
+    }
   }
 
   _renderFilter() {
@@ -28,8 +36,12 @@ export default class FilterPresenter {
     this._filterComponent.setChangeFilterHandler(this._handleFilterChange);
   }
 
+  _toggleRadio() {
+    this._filterComponent.setNeedFilter(this._filterModel.filter);
+  }
+
   _handleFilterChange(chosenFilter) {
-    this._filterModel.setFilter(UpdateType.MINOR, chosenFilter);
+    this._filterModel.setFilter(UpdateType.MAJOR, chosenFilter);
     // console.log(this._filterModel)
   }
 }

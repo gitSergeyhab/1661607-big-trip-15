@@ -116,15 +116,5 @@ export default class Stats extends Abstract {
     this._moneyCtx = this._createChartCtx(getSumPrice, getPriceFormat, ChartName.MONEY);
     this._typeCtx = this._createChartCtx(getCountType, getCountFormat, ChartName.TYPE);
     this._timeCtx = this._createChartCtx(getSumTime, getTimeFormat, ChartName.TIME);
-
-
-    // const moneyContainer = this.getElement().querySelector(`#${ChartName.MONEY}`);
-    // this._moneyCtx = renderChart(moneyContainer, this._points, getSumPrice, getPriceFormat, ChartName.MONEY);
-
-    // const typeContainer = this.getElement().querySelector(`#${ChartName.TYPE}`);
-    // this._typeCtx = renderChart(typeContainer, this._points, getCountType, getCountFormat, ChartName.TYPE);
-
-    // const timeContainer = this.getElement().querySelector(`#${ChartName.TIME}`);
-    // this._timeCtx = renderChart(timeContainer, this._points, getSumTime, getTimeFormat, ChartName.TIME);
   }
 }

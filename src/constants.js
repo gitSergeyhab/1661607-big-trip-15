@@ -7,11 +7,7 @@ const Place = {
   AFTER_END: 'afterend',
 };
 
-const EmptyMessage = {
-  EVERYTHING: 'Click New Event to create your first point',
-  PAST: 'There are no past events now',
-  FUTURE: 'There are no future events now',
-};
+
 
 const UserAction = {
   UPDATE_POINT: 'UPDATE_POINT',
@@ -23,6 +19,7 @@ const UpdateType = {
   PATCH: 'PATCH',
   MINOR: 'MINOR',
   MAJOR: 'MAJOR',
+  INIT: 'INIT',
 };
 
 const SortType = {
@@ -35,6 +32,12 @@ const FilterType = {
   EVERYTHING: 'everything',
   FUTURE: 'future',
   PAST: 'past',
+};
+
+const EmptyMessage = {
+  [FilterType.EVERYTHING]: 'Click New Event to create your first point',
+  [FilterType.PAST]: 'There are no past events now',
+  [FilterType.FUTURE]: 'There are no future events now',
 };
 
 

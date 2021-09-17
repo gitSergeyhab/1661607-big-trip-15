@@ -12,8 +12,9 @@ export default class PointsModel extends AbstractObserver {
     return this._points;
   }
 
-  setPoints(points) {
+  setPoints(updateType, points) {
     this._points = points.slice();
+    this._notify(updateType);
   }
 
   updatePoint(updateType, updatePoint) {
@@ -31,6 +32,42 @@ export default class PointsModel extends AbstractObserver {
   addPoint(updateType, addedPoint) {
     this._points = [...this._points, addedPoint];
     this._notify(updateType, addedPoint);
+  }
+
+
+  static parseToClient(point) {
+    const clientPoint = {
+      ...point,
+      basePrice: point['base_price'],
+      dateFrom: point['date_from'],
+      dateTo: point['date_to'],
+      isFavorite: point['is_favorite'],
+    };
+
+    delete clientPoint['is_favorite'];
+    delete clientPoint['base_price'];
+    delete clientPoint['date_from'];
+    delete clientPoint['date_to'];
+
+    return clientPoint;
+  }
+
+
+  static parseToServer(point) {
+    const serverPoint = {
+      ...point,
+      'base_price': point.basePrice,
+      'date_from': point.dateFrom,
+      'date_to': point.dateTo,
+      'is_favorite': point.isFavorite,
+    };
+
+    delete serverPoint.basePrice;
+    delete serverPoint.dateFrom;
+    delete serverPoint.dateTo;
+    delete serverPoint.isFavorite;
+
+    return serverPoint;
   }
 }
 

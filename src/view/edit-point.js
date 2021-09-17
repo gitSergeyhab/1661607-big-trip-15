@@ -315,7 +315,7 @@ export default class EditPoint extends Smart {
   _changePriceHandler(evt) {
     evt.preventDefault();
     this.updateState({
-      basePrice: evt.target.value,
+      basePrice: parseInt(evt.target.value, 10) || 0,
     }, false);
   }
 
@@ -332,12 +332,14 @@ export default class EditPoint extends Smart {
   }
 
   _deleteClickHandler(evt) {
+    evt.target.textContent = 'Deleting...';
     evt.preventDefault();
     this._callback.deleteClick();
   }
 
   _saveClickHandler(evt) {
     evt.preventDefault();
+    evt.target.textContent = 'Saving...';
     this.updateState({
       offers: this._getCheckedOffers(),
     }, false);

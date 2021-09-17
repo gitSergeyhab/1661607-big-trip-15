@@ -1,15 +1,7 @@
 import Abstract from './abstract';
 
-const countInArray = (arr, field) => arr.reduce((acc, item) =>  acc + (+item[field] || 0) , 0);
 
-
-const countFullPrice = (data) => {
-  const basePrice = countInArray(data, 'base_price');
-  const offersPrice = data.reduce((acc, item) => acc + (countInArray(item.offers, 'price') || 0), 0);
-  return basePrice + offersPrice;
-};
-
-const createTripInfo = (data) => `
+const createTripInfo = (price) => `
   <section class="trip-main__trip-info  trip-info">
     <div class="trip-info__main">
       <h1 class="trip-info__title">Amsterdam &mdash; Chamonix &mdash; Geneva</h1>
@@ -18,18 +10,18 @@ const createTripInfo = (data) => `
     </div>
 
     <p class="trip-info__cost">
-      Total: &euro;&nbsp;<span class="trip-info__cost-value">${countFullPrice(data)}</span>
+      Total: &euro;&nbsp;<span class="trip-info__cost-value">${price}</span>
     </p>
   </section>`;
 
 
 export default class TripInfo extends Abstract {
-  constructor(data) {
+  constructor(price) {
     super();
-    this._data = data;
+    this._price = price;
   }
 
   getTemplate() {
-    return createTripInfo(this._data);
+    return createTripInfo(this._price);
   }
 }

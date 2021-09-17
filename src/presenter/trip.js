@@ -4,6 +4,7 @@ import NewPointPresenter from './new-point.js';
 import Sort from '../view/sort.js';
 import PointList from '../view/point-list.js';
 import NoPoint from '../view/no-point.js';
+import Loading from '../view/loading.js';
 
 import {render, remove} from '../utils/dom-utils.js';
 import {updateItem, sorByDay, sorByTime, sorByPrice} from '../utils/util.js';
@@ -12,18 +13,21 @@ import { filter } from '../utils/filter.js';
 
 
 export default class Trip {
-  constructor(container, pointsModel, filterModel, offers, destinations) {
+  constructor(container, pointsModel, filterModel, offers, destinations, api) {
     this._container = container;
     this._pointsModel = pointsModel;
     this._filterModel = filterModel;
     this._offers = offers;
     this._destinations = destinations;
+    this._api = api;
+
+
     this._pointPresenterMap = new Map();
 
     this._newPointPresenter = null;
     this._sortComponent = null;
-    this._pointList = null;
-    this._noPoint = null;
+    this._pointListComponent = null;
+    this._noPointComponent = null;
     this._currentSortType = SortType.DAY;
 
     this._handleViewAction = this._handleViewAction.bind(this);
@@ -35,13 +39,11 @@ export default class Trip {
     this._btnAddNewEvent = document.querySelector('.trip-main__event-add-btn');
 
     this._btnAddNewEvent.addEventListener('click', () => this._createNewPoint());
-
     this._filterModel.addObserver(this._handleModelEvent);
+
+    this._renderLoading();
   }
 
-  init() {
-    this._renderTrip();
-  }
 
   hide() {
     this._container.style.display = 'none';
@@ -56,22 +58,30 @@ export default class Trip {
     this._container.style.display = 'block';
   }
 
+  _renderLoading() {
+    if (this._loadingComponent) {
+      remove(this._loadingComponent);
+    }
+
+    this._loadingComponent = new Loading();
+    render(this._container, this._loadingComponent);
+  }
+
   _resetFilterAndSort() {
     this._currentSortType = SortType.DAY;
     this._filterModel.setFilter(UpdateType.MINOR, FilterType.EVERYTHING);
   }
 
+
   _createNewPoint() {
-    if (this._noPoint) {
-      remove(this._noPoint);
-      this._noPoint = null;
-      this._renderSort();
+    if (this._noPointComponent) {
+      remove(this._noPointComponent);
       this._renderPointList();
     }
 
     this._resetFilterAndSort();
 
-    this._newPointPresenter = new NewPointPresenter(this._pointList, this._handleViewAction, this._resetPoints, this._offers, this._destinations, this._btnAddNewEvent);
+    this._newPointPresenter = new NewPointPresenter(this._pointListComponent, this._handleViewAction, this._resetPoints, this._offers, this._destinations, this._btnAddNewEvent);
     this._newPointPresenter.init();
     this._btnAddNewEvent.disabled = true;
   }
@@ -102,7 +112,7 @@ export default class Trip {
   }
 
   _renderPoint(point) {
-    const pointPresenter = new PointPresenter(this._pointList, this._handleViewAction, this._resetPoints, this._offers, this._destinations);
+    const pointPresenter = new PointPresenter(this._pointListComponent, this._handleViewAction, this._resetPoints, this._offers, this._destinations);
     pointPresenter.init(point);
     this._pointPresenterMap.set(point.id, pointPresenter);
   }
@@ -112,24 +122,40 @@ export default class Trip {
   }
 
   _renderPointList() {
-    this._pointList = new PointList();
-    render(this._container, this._pointList);
+    this._pointListComponent = new PointList();
+    render(this._container, this._pointListComponent);
   }
 
   _renderNoPoints() {
-    this._noPoint = new NoPoint(EmptyMessage.EVERYTHING);
-    render(this._container, this._noPoint);
+    if (this._noPointComponent) {
+      remove(this._noPointComponent);
+    }
+
+    this._noPointComponent = new NoPoint(EmptyMessage[this._filterModel.filter]);
+    render(this._container, this._noPointComponent);
   }
 
   _clearTrip() {
+    this._clearTripPoints();
+    remove(this._pointListComponent);
+    remove(this._sortComponent);
+    if (this._newPointPresenter) {
+      this._newPointPresenter.destroy();
+    }
+  }
+
+  _clearTripPoints() {
     this._pointPresenterMap.forEach((point) => point.destroy());
     this._pointPresenterMap.clear();
   }
 
   _renderTrip() {
-    if (!this._getPoints().length) {
+    if (!this._getPoints().length && !this._loadingComponent) {
       this._renderNoPoints();
       return;
+    }
+    if (this._noPointComponent) {
+      remove(this._noPointComponent);
     }
 
     this._renderSort();
@@ -140,31 +166,39 @@ export default class Trip {
   _handleViewAction(actionType, updateType, updatedPoint) {
     switch (actionType) {
       case UserAction.UPDATE_POINT:
-        this._pointsModel.updatePoint(updateType, updatedPoint);
-        console.log(actionType, updateType, updatedPoint);
+        this._api.updatePoint(updatedPoint)//.then((t) => console.log(t))
+          .then((response) => this._pointsModel.updatePoint(updateType, response));
         break;
       case UserAction.DELETE_POINT:
-        this._pointsModel.deletePoint(updateType, updatedPoint);
+        this._api.deletePoint(updatedPoint)
+          .then(() => this._pointsModel.deletePoint(updateType, updatedPoint));
         break;
       case UserAction.ADD_POINT:
-        this._pointsModel.addPoint(updateType, updatedPoint);
+        console.log(updatedPoint)
+        this._api.addPoint(updatedPoint)
+          .then((response) => this._pointsModel.addPoint(updateType, response));
     }
   }
 
   _handleModelEvent(updateType, updatedPoint) {
     switch(updateType) {
       case UpdateType.PATCH:
-        // console.log(updateType, updatedPoint);
-        // this._pointPresenterMap.set(updatedPoint.id, updatedPoint);
         this._pointPresenterMap.get(updatedPoint.id).init(updatedPoint);
         break;
       case UpdateType.MINOR:
         // console.log(updateType, updatedPoint);
-        this._clearTrip();
+        this._clearTripPoints();
         this._renderPoints();
         break;
       case UpdateType.MAJOR:
-        console.log(updateType, updatedPoint);
+        this._clearTrip();
+        this._renderTrip();
+        // console.log(updateType, updatedPoint);
+        break;
+      case UpdateType.INIT:
+        remove(this._loadingComponent);
+        this._loadingComponent = null;
+        this._renderTrip();
     }
   }
 
@@ -174,7 +208,7 @@ export default class Trip {
     }
 
     this._currentSortType = sortType;
-    this._clearTrip();
+    this._clearTripPoints();
     this._renderPoints();
   }
 }

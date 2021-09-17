@@ -2,7 +2,7 @@ import Point from '../view/point.js';
 import EditPoint from '../view/edit-point.js';
 
 import {render, replace, remove} from '../utils/dom-utils.js';
-import {EmptyMessage, UserAction, UpdateType, SortType} from '../constants.js';
+import {UserAction, UpdateType} from '../constants.js';
 
 
 const Mode = {
@@ -117,11 +117,11 @@ export default class PointPresenter{
   }
 
   _handleDeleteClick() {
-    this._changeData(UserAction.DELETE_POINT, UpdateType.MINOR, this._point);
+    this._changeData(UserAction.DELETE_POINT, UpdateType.MAJOR, this._point);
   }
 
   _handleSaveClick(state) {
-    this._changeData(UserAction.UPDATE_POINT, UpdateType.MINOR, state);
+    this._changeData(UserAction.UPDATE_POINT, UpdateType.MAJOR, state);
   }
 
 }
