@@ -73,7 +73,6 @@ const promiseOffersAndDestinations = Promise.all([api.getOffers(), api.getDestin
 });
 
 
-
 promiseOffersAndDestinations
   .then(() => {
     tripPresenter = new TripPresenter(tripEventsSection, pointsModel, filterModel, offersModel.offers, destinationsModel.destinations, api);
@@ -81,6 +80,7 @@ promiseOffersAndDestinations
   .then(() => {
     api.getPoints()
       .then((points) => {
+        console.log(points)
         pointsModel.setPoints(UpdateType.INIT, points);
       })
       .catch(() => {
@@ -88,3 +88,6 @@ promiseOffersAndDestinations
       });
   });
 
+
+  // console.log(POINTS)
+  console.log(POINTS.map(PointsModel.parseToClient))

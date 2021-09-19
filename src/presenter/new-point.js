@@ -38,9 +38,7 @@ export default class NewPointPresenter{
 
     this._handleEscKeyDown = this._handleEscKeyDown.bind(this);
     this._handleSubmit = this._handleSubmit.bind(this);
-
     this._handleDeleteClick = this._handleDeleteClick.bind(this);
-    this._handleSaveClick = this._handleSaveClick.bind(this);
 
   }
 
@@ -48,7 +46,6 @@ export default class NewPointPresenter{
     this._newPointComponent = new EditPoint(this._point, this._offers, this._destinations, true);
     this._newPointComponent.setSubmitHandler(this._handleSubmit);
     this._newPointComponent.setDeleteClickHandler(this._handleDeleteClick);
-    this._newPointComponent.setSaveClickHandler(this._handleSaveClick);
     document.addEventListener('keydown', this._handleEscKeyDown);
     render(this._pointContainer, this._newPointComponent, Place.AFTER_BEGIN);
   }
@@ -60,8 +57,22 @@ export default class NewPointPresenter{
     this._btnAddNewEvent.disabled = false;
   }
 
-  _handleSubmit() {
-    this.destroy();
+  setSaving() {
+    this._newPointComponent.updateState({
+      isDisabled: true,
+      isSaving: true,
+    });
+  }
+
+  setAborting() {
+    this._newPointComponent.shake(() => this._newPointComponent.updateState({
+      isDisabled: false,
+      isSaving: false,
+    }));
+  }
+
+  _handleSubmit(state) {
+    this._changeData(UserAction.ADD_POINT, UpdateType.MAJOR, state);
   }
 
   _handleEscKeyDown(evt) {
@@ -73,9 +84,5 @@ export default class NewPointPresenter{
 
   _handleDeleteClick() {
     this.destroy();
-  }
-
-  _handleSaveClick(state) {
-    this._changeData(UserAction.ADD_POINT, UpdateType.MAJOR, state);
   }
 }

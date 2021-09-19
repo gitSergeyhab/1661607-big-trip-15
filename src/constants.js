@@ -1,13 +1,9 @@
-import dayjs from 'dayjs';
-
 const Place = {
   BEFORE_BEGIN: 'beforebegin',
   AFTER_BEGIN: 'afterbegin',
   BEFORE_END: 'beforeend',
   AFTER_END: 'afterend',
 };
-
-
 
 const UserAction = {
   UPDATE_POINT: 'UPDATE_POINT',
@@ -40,7 +36,6 @@ const EmptyMessage = {
   [FilterType.FUTURE]: 'There are no future events now',
 };
 
-
 const Unsubscribe = {
   SHORT: '...',
   MEDIUM: 'updating...',
@@ -56,6 +51,12 @@ const HOUR_IN_MSECONDS = 3600000;
 const DEFAULT_POINT_TYPE = 'bus';
 
 
+const State = {
+  SAVING: 'SAVING',
+  DELETING: 'DELETING',
+  ABORTING: 'ABORTING',
+};
+
 export {
   Place,
   EmptyMessage,
@@ -66,5 +67,6 @@ export {
   UpdateType,
   SortType,
   FilterType,
-  MenuItem
+  MenuItem,
+  State
 };

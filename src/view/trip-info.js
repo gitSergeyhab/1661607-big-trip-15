@@ -1,12 +1,14 @@
 import Abstract from './abstract';
 
+const JOIN_CITIES_SYMBOL = ' &mdash; ';
 
-const createTripInfo = (price) => `
+
+const createTripInfo = (price, cities, dates) => `
   <section class="trip-main__trip-info  trip-info">
     <div class="trip-info__main">
-      <h1 class="trip-info__title">Amsterdam &mdash; Chamonix &mdash; Geneva</h1>
+      <h1 class="trip-info__title">${cities.join(JOIN_CITIES_SYMBOL)}</h1>
 
-      <p class="trip-info__dates">Mar 18&nbsp;&mdash;&nbsp;20</p>
+      <p class="trip-info__dates">${dates}</p>
     </div>
 
     <p class="trip-info__cost">
@@ -14,14 +16,15 @@ const createTripInfo = (price) => `
     </p>
   </section>`;
 
-
 export default class TripInfo extends Abstract {
-  constructor(price) {
+  constructor(price, cities, dates) {
     super();
     this._price = price;
+    this._cities = cities;
+    this._dates = dates;
   }
 
   getTemplate() {
-    return createTripInfo(this._price);
+    return createTripInfo(this._price, this._cities, this._dates);
   }
 }

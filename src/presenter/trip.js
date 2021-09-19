@@ -7,8 +7,8 @@ import NoPoint from '../view/no-point.js';
 import Loading from '../view/loading.js';
 
 import {render, remove} from '../utils/dom-utils.js';
-import {updateItem, sorByDay, sorByTime, sorByPrice} from '../utils/util.js';
-import {EmptyMessage, UserAction, UpdateType, SortType, FilterType} from '../constants.js';
+import {sorByDay, sorByTime, sorByPrice} from '../utils/util.js';
+import {EmptyMessage, UserAction, UpdateType, SortType, FilterType, State} from '../constants.js';
 import { filter } from '../utils/filter.js';
 
 
@@ -20,7 +20,6 @@ export default class Trip {
     this._offers = offers;
     this._destinations = destinations;
     this._api = api;
-
 
     this._pointPresenterMap = new Map();
 
@@ -166,17 +165,22 @@ export default class Trip {
   _handleViewAction(actionType, updateType, updatedPoint) {
     switch (actionType) {
       case UserAction.UPDATE_POINT:
-        this._api.updatePoint(updatedPoint)//.then((t) => console.log(t))
-          .then((response) => this._pointsModel.updatePoint(updateType, response));
+        this._pointPresenterMap.get(updatedPoint.id).setViewState(State.SAVING);
+        this._api.updatePoint(updatedPoint)
+          .then((response) => this._pointsModel.updatePoint(updateType, response))
+          .catch(() => this._pointPresenterMap.get(updatedPoint.id).setViewState(State.ABORTING));
         break;
       case UserAction.DELETE_POINT:
+        this._pointPresenterMap.get(updatedPoint.id).setViewState(State.DELETING);
         this._api.deletePoint(updatedPoint)
-          .then(() => this._pointsModel.deletePoint(updateType, updatedPoint));
+          .then(() => this._pointsModel.deletePoint(updateType, updatedPoint))
+          .catch(() => this._pointPresenterMap.get(updatedPoint.id).setViewState(State.ABORTING));
         break;
       case UserAction.ADD_POINT:
-        console.log(updatedPoint)
+        this._newPointPresenter.setSaving();
         this._api.addPoint(updatedPoint)
-          .then((response) => this._pointsModel.addPoint(updateType, response));
+          .then((response) => this._pointsModel.addPoint(updateType, response))
+          .catch(() => this._newPointPresenter.setAborting());
     }
   }
 
@@ -186,14 +190,12 @@ export default class Trip {
         this._pointPresenterMap.get(updatedPoint.id).init(updatedPoint);
         break;
       case UpdateType.MINOR:
-        // console.log(updateType, updatedPoint);
         this._clearTripPoints();
         this._renderPoints();
         break;
       case UpdateType.MAJOR:
         this._clearTrip();
         this._renderTrip();
-        // console.log(updateType, updatedPoint);
         break;
       case UpdateType.INIT:
         remove(this._loadingComponent);

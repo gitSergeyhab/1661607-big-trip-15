@@ -2,7 +2,7 @@ import Point from '../view/point.js';
 import EditPoint from '../view/edit-point.js';
 
 import {render, replace, remove} from '../utils/dom-utils.js';
-import {UserAction, UpdateType} from '../constants.js';
+import {UserAction, UpdateType, State} from '../constants.js';
 
 
 const Mode = {
@@ -30,7 +30,7 @@ export default class PointPresenter{
     this._handleSubmit = this._handleSubmit.bind(this);
 
     this._handleDeleteClick = this._handleDeleteClick.bind(this);
-    this._handleSaveClick = this._handleSaveClick.bind(this);
+    // this._handleSaveClick = this._handleSaveClick.bind(this);
 
   }
 
@@ -43,15 +43,11 @@ export default class PointPresenter{
     this._pointComponent = new Point(point);
     this._editPointComponent = new EditPoint(point, this._offers, this._destinations);
 
+    this._pointComponent.setFavoriteClickHandler(this._handleFavoriteClick);
     this._pointComponent.setChangeViewHandler(this._handlePointToEditClick);
     this._editPointComponent.setChangeViewHandler(this._handlePointToEditClick);
     this._editPointComponent.setSubmitHandler(this._handleSubmit);
-
     this._editPointComponent.setDeleteClickHandler(this._handleDeleteClick);
-    this._editPointComponent.setSaveClickHandler(this._handleSaveClick);
-
-    this._pointComponent.setFavoriteClickHandler(this._handleFavoriteClick);
-
 
     if (prevPointComponent === null || prevEditPointComponent === null) {
       render(this._pointContainer, this._pointComponent);
@@ -74,6 +70,32 @@ export default class PointPresenter{
   resetPoint() {
     if (this._mode === Mode.EDIT) {
       this._replaceEditToPoint();
+    }
+  }
+
+  setViewState(state) {
+    if (this._mode === Mode.POINT) {
+      return;
+    }
+    switch (state) {
+      case State.SAVING:
+        this._editPointComponent.updateState({
+          isDisabled: true,
+          isSaving: true,
+        });
+        break;
+      case State.DELETING:
+        this._editPointComponent.updateState({
+          isDisabled: true,
+          isDeleting: true,
+        });
+        break;
+      case State.ABORTING:
+        this._editPointComponent.shake(() => this._editPointComponent.updateState({
+          isDisabled: false,
+          isDeleting: false,
+          isSaving: false,
+        }));
     }
   }
 
@@ -105,8 +127,8 @@ export default class PointPresenter{
     this._replacePointToEdit();
   }
 
-  _handleSubmit() {
-    this._replaceEditToPoint();
+  _handleSubmit(state) {
+    this._changeData(UserAction.UPDATE_POINT, UpdateType.MAJOR, state);
   }
 
   _handleEscKeyDown(evt) {

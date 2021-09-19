@@ -1,8 +1,7 @@
 import dayjs from 'dayjs';
 
 
-const getHoursAndMinutes = (dateStamp) => dayjs(dateStamp).format('HH:mm');
-
+const getHoursAndMinutes = (date) => dayjs(date).format('HH:mm');
 
 const addZero = (number) => number > 9 ? number : `0${number}`;
 
@@ -18,7 +17,6 @@ const getDateFormat = (days, hours, minutes) => {
   return `${addZero(minutes)}M`;
 };
 
-
 const getDiffTime = (dateFrom, dateTo) => {
   const date2 = dayjs(dateFrom);
   const date1 = dayjs(dateTo);
@@ -28,10 +26,9 @@ const getDiffTime = (dateFrom, dateTo) => {
   return getDateFormat (days, hours, minutes);
 };
 
-const getMonthAndDay = (dateStamp) => dayjs(dateStamp).format('MMM D');
+const getMonthAndDay = (date) => dayjs(date).format('MMM D');
 
-
-const getFullDateTime = (dateStamp) => dayjs(dateStamp).format('DD/MM/YY hh:mm');
+const getFullDateTime = (date) => dayjs(date).format('DD/MM/YY hh:mm');
 
 export {
   getHoursAndMinutes,
