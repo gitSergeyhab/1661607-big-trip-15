@@ -1047,7 +1047,7 @@ export const DESTINATIONS = [
 
 
 
-export const parseToClient = (point) => {
+export const adaptToClient = (point) => {
   const clientPoint = {
     ...point,
     basePrice: point['base_price'],
@@ -1065,7 +1065,7 @@ export const parseToClient = (point) => {
 }
 
 
-export const parseToServer = (point) => {
+export const adaptToServer = (point) => {
   const serverPoint = {
     ...point,
     'base_price': point.basePrice,

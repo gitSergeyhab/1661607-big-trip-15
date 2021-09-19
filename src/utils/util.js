@@ -26,6 +26,8 @@ const sorByPrice = (pointA, pointB) => pointB.basePrice - pointA.basePrice;
 
 const capitalize = (item) => `${item[0].toUpperCase()}${item.slice(1)}`;
 
+const isOnline = () => window.navigator.onLine;
+
 
 
 
@@ -38,5 +40,6 @@ export {
   sorByTime,
   sorByPrice,
   getIndex,
-  capitalize
+  capitalize,
+  isOnline
 };

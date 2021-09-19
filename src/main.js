@@ -5,8 +5,9 @@ import TripPresenter from './presenter/trip.js';
 import FilterPresenter from './presenter/filter-presenter.js';
 import TripInfoPresenter from './presenter/trip-info-presenter.js';
 
-import {createMockPoint, POINTS, OFFERS, DESTINATIONS, parseToClient} from './mock-data.js';
+import {createMockPoint, POINTS, OFFERS, DESTINATIONS, adaptToClient} from './mock-data.js';
 import {remove, render} from './utils/dom-utils.js';
+import { isOnline } from './utils/util.js';
 import {Place, MenuItem, UpdateType} from './constants.js';
 
 import PointsModel from './model/points-model.js';
@@ -14,11 +15,31 @@ import OffersModel from './model/offers-model.js';
 import DestinationsModel from './model/destinations-model.js';
 import FilterModel from './model/filter-model.js';
 import Api from './api/api.js';
+import Store from './api/store.js';
+import Provider from './api/provider.js';
 
+const StoreKey = {
+  POINTS: 'points',
+  OFFERS: 'offers',
+  DESTINATIONS: 'destinations',
+};
 
 const AUTHORIZATION = 'Basic !DEATH_METAL!_';
 const BASIC_URL = 'https://15.ecmascript.pages.academy/big-trip/';
+const STORE_PREFIX = 'big-trip-storage';
+const STORE_VER = 'v15';
+const STORE_NAME = `${STORE_PREFIX}-${STORE_VER}`;
+// const StoreName = {
+//   POINTS: `${STORE_PREFIX}-${StoreKey.POINTS}-${STORE_VER}`,
+//   OFFERS: `${STORE_PREFIX}-${StoreKey.OFFERS}-${STORE_VER}`,
+//   DESTINATIONS: `${STORE_PREFIX}-${StoreKey.DESTINATIONS}-${STORE_VER}`,
+// };
+
+
 const api = new Api(BASIC_URL, AUTHORIZATION);
+const store = new Store(STORE_NAME, window.localStorage);
+// console.log(store)
+const apiWithProvider = new Provider(api, store);
 
 
 const pointsModel = new PointsModel();
@@ -67,7 +88,7 @@ render(menuContainer, menuComponent);
 menuComponent.setMenuClickHandler(handleMenuClick);
 
 
-const promiseOffersAndDestinations = Promise.all([api.getOffers(), api.getDestinations()]).then((response) => {
+const promiseOffersAndDestinations = Promise.all([apiWithProvider.getOffers(), apiWithProvider.getDestinations()]).then((response) => {
   offersModel.setOffers(response[0]);
   destinationsModel.setDestination(response[1]);
 });
@@ -75,12 +96,13 @@ const promiseOffersAndDestinations = Promise.all([api.getOffers(), api.getDestin
 
 promiseOffersAndDestinations
   .then(() => {
-    tripPresenter = new TripPresenter(tripEventsSection, pointsModel, filterModel, offersModel.offers, destinationsModel.destinations, api);
+    tripPresenter = new TripPresenter(tripEventsSection, pointsModel, filterModel, offersModel.offers, destinationsModel.destinations, apiWithProvider);
   })
   .then(() => {
-    api.getPoints()
+    // console.log(apiWithProvider)
+    apiWithProvider.getPoints()
       .then((points) => {
-        console.log(points)
+        // console.log(points)
         pointsModel.setPoints(UpdateType.INIT, points);
       })
       .catch(() => {
@@ -89,5 +111,39 @@ promiseOffersAndDestinations
   });
 
 
-  // console.log(POINTS)
-  console.log(POINTS.map(PointsModel.parseToClient))
+
+
+
+
+
+
+
+
+
+
+// tripPresenter = new TripPresenter(tripEventsSection, pointsModel, filterModel, OFFERS, DESTINATIONS, apiWithProvider);
+
+// apiWithProvider.getPoints()
+//   .then((points) => {
+//     // console.log(points)
+//     pointsModel.setPoints(UpdateType.INIT, points);
+//   })
+//   .catch(() => {
+//     pointsModel.setPoints(UpdateType.INIT, []);
+//   });
+
+
+
+
+
+
+
+
+
+
+
+
+
+window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js'));
+
+

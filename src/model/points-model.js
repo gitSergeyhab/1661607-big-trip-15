@@ -35,7 +35,7 @@ export default class PointsModel extends AbstractObserver {
   }
 
 
-  static parseToClient(point) {
+  static adaptToClient(point) {
     const clientPoint = {
       ...point,
       basePrice: point['base_price'],
@@ -53,7 +53,7 @@ export default class PointsModel extends AbstractObserver {
   }
 
 
-  static parseToServer(point) {
+  static adaptToServer(point) {
     const serverPoint = {
       ...point,
       'base_price': point.basePrice,

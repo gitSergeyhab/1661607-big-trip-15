@@ -11,6 +11,7 @@ const EndPoints = {
   POINTS: 'points',
   DESTINATIONS: 'destinations',
   OFFERS: 'offers',
+  SYNC: 'points/sync',
 };
 
 export default class Api {
@@ -22,12 +23,12 @@ export default class Api {
   getPoints() {
     return this._load({url: EndPoints.POINTS})
       .then((response) => response.json())
-      .then((points) => points.map(PointsModel.parseToClient));
+      .then((points) => points.map(PointsModel.adaptToClient)) . then(y=> {console.log(y); return y});
   }
 
   getOffers() {
     return this._load({url: EndPoints.OFFERS})
-      .then((response) => response.json());
+      .then((response) => response.json()) . then(y=> {console.log(y); return y});
   }
 
   getDestinations() {
@@ -39,22 +40,22 @@ export default class Api {
     return this._load({
       url: `${EndPoints.POINTS}/${point.id}`,
       method: Method.PUT,
-      body: JSON.stringify(PointsModel.parseToServer(point)) ,
+      body: JSON.stringify(PointsModel.adaptToServer(point)) ,
       headers: new Headers({'Content-Type': 'application/json'}),
     })
       .then((response) => response.json())
-      .then(PointsModel.parseToClient);
+      .then(PointsModel.adaptToClient);
   }
 
   addPoint(point) {
     return this._load({
       url: EndPoints.POINTS,
       method: Method.POST,
-      body: JSON.stringify(PointsModel.parseToServer(point)),
+      body: JSON.stringify(PointsModel.adaptToServer(point)),
       headers: new Headers({'Content-Type': 'application/json'}),
     })
       .then((response) => response.json())
-      .then(PointsModel.parseToClient);
+      .then(PointsModel.adaptToClient);
   }
 
 
@@ -63,6 +64,16 @@ export default class Api {
       url: `${EndPoints.POINTS}/${point.id}`,
       method: Method.DELETE,
     });
+  }
+
+  sync(point) {
+    return this._load({
+      url: EndPoints.SYNC,
+      method: Method.POST,
+      body: JSON.stringify(point),
+      headers: new Headers({'Content-Type': 'application/json'}),
+    })
+      .then((response) => response.json());
   }
 
   _load({url, method = Method.GET, body = null, headers = new Headers()}) {
