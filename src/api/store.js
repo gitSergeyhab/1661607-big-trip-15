@@ -1,91 +1,57 @@
-// const StoreKey = {
-//   POINTS: 'points',
-//   OFFERS: 'offers',
-//   DESTINATIONS: 'destinations',
-// };
-
 export default class Store {
-  constructor(key, storage) {
+  constructor(storage, pointsKey, offersKey, destinationsKey) {
     this._storage = storage;
-    this._storeKey = 'points';
+    this._pointsKey = pointsKey;
+    this._offersKey = offersKey;
+    this._destinationsKey = destinationsKey;
   }
 
-  getItems() {
-    try {
-      return JSON.parse(this._storage.getItem(this._storeKey)) || {};
-    } catch (err) {
-      return {};
-    }
+  getPoints() {
+    return this._getItems(this._pointsKey);
   }
-
-  setItems(items) {
-    console.log(items)
-    this._storage.setItem(
-      this._storeKey,
-      JSON.stringify(items),
-    );
-  }
-
-
-
 
   getOffers() {
-    try {
-      return JSON.parse(this._storage.getItem('offers')) || {};
-    } catch (err) {
-      return {};
-    }
-  }
-
-  setOffers(items) {
-    console.log(items)
-    this._storage.setItem(
-      'offers',
-      JSON.stringify(items),
-    );
+    return this._getItems(this._offersKey);
   }
 
   getDestinations() {
-    try {
-      return JSON.parse(this._storage.getItem('destinations')) || {};
-    } catch (err) {
-      return {};
-    }
+    return this._getItems(this._destinationsKey);
+  }
+
+  setPoints(items) {
+    return this._setItems(this._pointsKey, items);
+  }
+
+  setOffers(items) {
+    return this._setItems(this._offersKey, items);
   }
 
   setDestinations(items) {
-    this._storage.setItem(
-      'destinations',
-      JSON.stringify(items),
-    );
+    return this._setItems(this._destinationsKey, items);
   }
 
 
-
-
-
-
-  setItem(key, value) {
-    const store = this.getItems();
-
-    this._storage.setItem(
-      this._storeKey,
-      JSON.stringify(
-        Object.assign({}, store, {
-          [key]: value,
-        }),
-      ),
-    );
+  setPoint(key, value) {
+    const store = this.getPoints();
+    this._storage.setItem(this._pointsKey, JSON.stringify({...store, [key]: value}));
   }
 
   removeItem(key) {
     const store = this.getItems();
-
     delete store[key];
+    this._storage.setItem(this._pointsKey, JSON.stringify(store));
+  }
 
-    this._storage.setItem(
-      this._storeKey,
-      JSON.stringify(store),
-    );
+
+  _getItems(key) {
+    try {
+      return JSON.parse(this._storage.getItem(key)) || {};
+    } catch (err) {
+      return {};
+    }
+  }
+
+  _setItems(key, items) {
+    this._storage.setItem(key, JSON.stringify(items));
   }
 }

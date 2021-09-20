@@ -10,7 +10,6 @@ const Mode = {
   EDIT: 'EDIT',
 };
 
-
 export default class PointPresenter{
   constructor(pointContainer, changeData, resetPoints, offers, destinations) {
     this._pointContainer = pointContainer;
@@ -28,10 +27,7 @@ export default class PointPresenter{
     this._handleEscKeyDown = this._handleEscKeyDown.bind(this);
     this._handleFavoriteClick = this._handleFavoriteClick.bind(this);
     this._handleSubmit = this._handleSubmit.bind(this);
-
     this._handleDeleteClick = this._handleDeleteClick.bind(this);
-    // this._handleSaveClick = this._handleSaveClick.bind(this);
-
   }
 
   init(point) {
@@ -112,8 +108,9 @@ export default class PointPresenter{
     this._mode = Mode.POINT;
   }
 
+
   _handleFavoriteClick() {
-    this._changeData(UserAction.UPDATE_POINT, UpdateType.PATCH, {
+    this._changeData(UserAction.UPDATE_FAVORITE_FIELD, UpdateType.PATCH, {
       ...this._point, isFavorite: !this._point.isFavorite,
     });
   }

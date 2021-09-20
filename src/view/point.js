@@ -1,9 +1,11 @@
-/* eslint-disable camelcase*/
-import {Unsubscribe} from '../constants.js';
-import {renderList} from '../utils/util.js';
-import {getHoursAndMinutes, getDiffTime, getMonthAndDay} from '../utils/data-time-utils.js';
 import Abstract from './abstract.js';
 
+import {renderList} from '../utils/util.js';
+import {getHoursAndMinutes, getDiffTime, getMonthAndDay} from '../utils/data-time-utils.js';
+import {Unsubscribe} from '../constants.js';
+
+
+const FAVORITE_BTN_SELECTOR = '.event__favorite-btn';
 
 const createOfferLi = ({title, price}) => `
   <li class="event__offer">
@@ -71,7 +73,7 @@ export default class Point extends Abstract {
   _favoriteClickHandler(evt) {
     evt.preventDefault();
     this._callback.clickFavorite();
-    this.getElement().querySelector('.event__favorite-btn ').classList.toggle('event__favorite-btn--active');
+    this.getElement().querySelector(FAVORITE_BTN_SELECTOR).classList.toggle('event__favorite-btn--active');
   }
 
   setChangeViewHandler(cb) {
@@ -81,6 +83,6 @@ export default class Point extends Abstract {
 
   setFavoriteClickHandler(cb) {
     this._callback.clickFavorite = cb;
-    this.getElement().querySelector('.event__favorite-btn ').addEventListener('click', this._favoriteClickHandler);
+    this.getElement().querySelector(FAVORITE_BTN_SELECTOR).addEventListener('click', this._favoriteClickHandler);
   }
 }

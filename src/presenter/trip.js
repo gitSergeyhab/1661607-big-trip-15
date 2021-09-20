@@ -8,8 +8,8 @@ import Loading from '../view/loading.js';
 
 import {render, remove} from '../utils/dom-utils.js';
 import {sorByDay, sorByTime, sorByPrice} from '../utils/util.js';
+import {filter} from '../utils/filter.js';
 import {EmptyMessage, UserAction, UpdateType, SortType, FilterType, State} from '../constants.js';
-import { filter } from '../utils/filter.js';
 
 
 export default class Trip {
@@ -43,7 +43,6 @@ export default class Trip {
     this._renderLoading();
   }
 
-
   hide() {
     this._container.style.display = 'none';
     this._resetPoints();
@@ -55,6 +54,19 @@ export default class Trip {
 
   show() {
     this._container.style.display = 'block';
+  }
+
+
+  _getPoints() {
+    const filteredPoints = filter[this._filterModel.filter](this._pointsModel.points);
+    switch(this._currentSortType) {
+      case SortType.PRICE:
+        return filteredPoints.sort(sorByPrice);
+      case SortType.TIME:
+        return filteredPoints.sort(sorByTime);
+      default:
+        return filteredPoints.sort(sorByDay);
+    }
   }
 
   _renderLoading() {
@@ -71,7 +83,6 @@ export default class Trip {
     this._filterModel.setFilter(UpdateType.MINOR, FilterType.EVERYTHING);
   }
 
-
   _createNewPoint() {
     if (this._noPointComponent) {
       remove(this._noPointComponent);
@@ -83,18 +94,6 @@ export default class Trip {
     this._newPointPresenter = new NewPointPresenter(this._pointListComponent, this._handleViewAction, this._resetPoints, this._offers, this._destinations, this._btnAddNewEvent);
     this._newPointPresenter.init();
     this._btnAddNewEvent.disabled = true;
-  }
-
-  _getPoints() {
-    const filteredPoints = filter[this._filterModel.filter](this._pointsModel.points);
-    switch(this._currentSortType) {
-      case SortType.PRICE:
-        return filteredPoints.sort(sorByPrice);
-      case SortType.TIME:
-        return filteredPoints.sort(sorByTime);
-      default:
-        return filteredPoints.sort(sorByDay);
-    }
   }
 
   _resetPoints() {
@@ -164,6 +163,12 @@ export default class Trip {
 
   _handleViewAction(actionType, updateType, updatedPoint) {
     switch (actionType) {
+      case UserAction.UPDATE_FAVORITE_FIELD:
+        this._pointPresenterMap.get(updatedPoint.id).setViewState(State.SAVING);
+        this._api.updateFavoriteField(updatedPoint)
+          .then((response) => this._pointsModel.updatePoint(updateType, response))
+          .catch(() => this._pointPresenterMap.get(updatedPoint.id).setViewState(State.ABORTING));
+        break;
       case UserAction.UPDATE_POINT:
         this._pointPresenterMap.get(updatedPoint.id).setViewState(State.SAVING);
         this._api.updatePoint(updatedPoint)

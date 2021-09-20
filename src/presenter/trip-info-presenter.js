@@ -1,9 +1,11 @@
-
-import {render, remove} from '../utils/dom-utils';
-import {Place } from '../constants';
-import TripInfo from '../view/trip-info';
 import dayjs from 'dayjs';
+
+import TripInfo from '../view/trip-info';
+
 import {sorByDay} from '../utils/util';
+import {render, remove} from '../utils/dom-utils';
+import {Place} from '../constants';
+
 
 const LOADING_MESSAGE = 'loading...';
 const TOO_MANY_CITIES_SYMBOL = '...' ;
@@ -19,7 +21,7 @@ const PriceField = {
   OFFER_PRICE: 'price',
 };
 
-const countInArray = (arr, field) => arr.reduce((acc, item) =>  acc + (+item[field] || 0) , 0);
+const countInArray = (arr, field) => arr.reduce((acc, item) =>  acc + (+item[field] || 0) , 0); // считает сумму по указанным полям в массиве
 
 const getDayAndMonth = (date) => dayjs(date).format(DateFormat.DAY_MONTH);
 const getMonth = (date) => dayjs(date).format(DateFormat.MONTH);
@@ -39,7 +41,6 @@ const createCitiesArray = (points) => {
   }
 
   return points.length > 2 ? [getCityName(points[0]), TOO_MANY_CITIES_SYMBOL, getCityName(points[points.length - 1])] : points.map(getCityName);
-
 };
 
 const getStartFinishDates = (points) => {
@@ -64,7 +65,6 @@ export default class TripInfoPresenter {
     this._container = container;
     this._tripInfoComponent = null;
     this._pointsModel = pointsModel;
-
 
     this._renderTipInfo = this._renderTipInfo.bind(this);
     this._pointsModel.addObserver(this._renderTipInfo);

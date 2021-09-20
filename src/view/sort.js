@@ -1,5 +1,5 @@
 import Abstract from './abstract';
-import { capitalize } from '../utils/util';
+import {capitalize} from '../utils/util';
 
 
 const SORT_TYPE_SPLIT = 'sort-';

@@ -1,5 +1,5 @@
-import { getNotImplementedError } from '../utils/util';
 import Abstract from './abstract';
+import {getNotImplementedError} from '../utils/util';
 
 
 export default class Smart extends Abstract {

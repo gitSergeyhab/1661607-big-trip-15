@@ -36,7 +36,6 @@ export {
   getMonthAndDay,
   getFullDateTime,
   getMinutes,
-  addZero,
   getDateFormat
 };
 

@@ -1,5 +1,5 @@
 import Abstract from '../view/abstract.js';
-import { Place } from '../constants.js';
+import {Place} from '../constants.js';
 
 
 const createElement = (htmlText) => {

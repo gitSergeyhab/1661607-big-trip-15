@@ -9,6 +9,7 @@ const UserAction = {
   UPDATE_POINT: 'UPDATE_POINT',
   ADD_POINT: 'ADD_POINT',
   DELETE_POINT: 'DELETE_POINT',
+  UPDATE_FAVORITE_FIELD: 'UPDATE_FAVORITE_FIELD',
 };
 
 const UpdateType = {
@@ -47,10 +48,6 @@ const MenuItem = {
   STATS: 'stats',
 };
 
-const HOUR_IN_MSECONDS = 3600000;
-const DEFAULT_POINT_TYPE = 'bus';
-
-
 const State = {
   SAVING: 'SAVING',
   DELETING: 'DELETING',
@@ -61,8 +58,6 @@ export {
   Place,
   EmptyMessage,
   Unsubscribe,
-  HOUR_IN_MSECONDS,
-  DEFAULT_POINT_TYPE,
   UserAction,
   UpdateType,
   SortType,

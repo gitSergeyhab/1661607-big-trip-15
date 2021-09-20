@@ -1,7 +1,7 @@
-
-import { render, remove } from '../utils/dom-utils';
 import Filter from '../view/filter';
-import { UpdateType } from '../constants';
+import {UpdateType} from '../constants';
+import {render, remove} from '../utils/dom-utils';
+
 
 export default class FilterPresenter {
   constructor(container, filterModel) {
@@ -42,6 +42,5 @@ export default class FilterPresenter {
 
   _handleFilterChange(chosenFilter) {
     this._filterModel.setFilter(UpdateType.MAJOR, chosenFilter);
-    // console.log(this._filterModel)
   }
 }

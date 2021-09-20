@@ -1,5 +1,4 @@
 import EditPoint from '../view/edit-point.js';
-
 import {render, remove} from '../utils/dom-utils.js';
 import {UserAction, UpdateType, Place} from '../constants.js';
 
@@ -70,6 +69,7 @@ export default class NewPointPresenter{
       isSaving: false,
     }));
   }
+
 
   _handleSubmit(state) {
     this._changeData(UserAction.ADD_POINT, UpdateType.MAJOR, state);

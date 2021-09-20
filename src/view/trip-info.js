@@ -1,7 +1,7 @@
 import Abstract from './abstract';
 
-const JOIN_CITIES_SYMBOL = ' &mdash; ';
 
+const JOIN_CITIES_SYMBOL = ' &mdash; ';
 
 const createTripInfo = (price, cities, dates) => `
   <section class="trip-main__trip-info  trip-info">

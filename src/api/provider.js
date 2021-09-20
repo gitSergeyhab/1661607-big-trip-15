@@ -1,36 +1,24 @@
 import PointsModel from '../model/points-model';
-import { isOnline } from '../utils/util';
+import {isOnline} from '../utils/util';
+import {showOfflineMessage} from '../utils/show-offline-message.js';
 
-const Method = {
-  GET: 'GET',
-  PUT: 'PUT',
-  POST: 'POST',
-  DELETE: 'DELETE',
+
+const StructureKey = {
+  POINTS: 'id',
+  OFFERS: 'type',
+  DESTINATIONS: 'name',
 };
 
-const EndPoints = {
-  POINTS: 'points',
-  DESTINATIONS: 'destinations',
-  OFFERS: 'offers',
-  SYNC: 'points/sync',
+const ErrorMessage = {
+  ADD_POINT: 'ADD POINT',
+  DELETE_POINT: 'DELETE POINT',
+  UPDATE_POINT: 'UPDATE POINT',
+  SYNC: 'Sync data failed',
 };
 
-const StoreKey = {
-  POINTS: 'points',
-  OFFERS: 'offers',
-  DESTINATIONS: 'destinations',
-};
-
-
-const createStoreStructure = (items) => items.reduce((acc, current) => ({...acc, [current.id]: current}), {});
-const createOffersStoreStructure = (items) => items.reduce((acc, current) => ({...acc, [current.type]: current}), {});
-const createDestinationsStoreStructure = (items) => items.reduce((acc, current) => ({...acc, [current.name]: current}), {});
-
-// const createStoreStructure = (items) =>
-//   items
-//     .reduce((acc, current) => Object.assign({}, acc, {
-//       [current.id]: current,
-//     }), {});
+const rejectRequest = (typeRequest) =>  Promise.reject(new Error(`${typeRequest} failed`));
+const createStoreStructure = (key, items) => items.reduce((acc, current) => ({...acc, [current[key]]: current}), {});
+const getSuccessPoints = (results) => results.filter((result) => result.success).map((result) => result.payload.point);
 
 export default class Provider {
   constructor(api, store) {
@@ -38,110 +26,103 @@ export default class Provider {
     this._store = store;
   }
 
+  getPoints() {
+    if (isOnline()) {
+      return this._api.getPoints()
+        .then((points) => {
+          const items = createStoreStructure(StructureKey.POINTS, points.map(PointsModel.adaptToServer));
+          this._store.setPoints(items);
+          return points;
+        });
+    }
 
-
+    const storePoints = Object.values(this._store.getPoints());
+    return Promise.resolve(storePoints.map(PointsModel.adaptToClient));
+  }
 
   getOffers() {
     if (isOnline()) {
       return this._api.getOffers()
         .then((offers) => {
-          console.log(offers)
-          const items = createOffersStoreStructure(offers);
+          const items = createStoreStructure(StructureKey.OFFERS, offers);
           this._store.setOffers(items);
           return offers;
         });
     }
     const storeOffers = Object.values(this._store.getOffers());
-
     return Promise.resolve(storeOffers);
   }
-
 
   getDestinations() {
     if (isOnline()) {
       return this._api.getDestinations()
         .then((destinations) => {
-          console.log(destinations)
-          const items = createDestinationsStoreStructure(destinations);
+          const items = createStoreStructure(StructureKey.DESTINATIONS, destinations);
           this._store.setDestinations(items);
           return destinations;
         });
     }
-    const storeDestinations = Object.values(this._store.getDestinations());
 
+    const storeDestinations = Object.values(this._store.getDestinations());
     return Promise.resolve(storeDestinations);
   }
 
 
-
-  getPoints() {
+  updateFavoriteField(point) {
     if (isOnline()) {
-      return this._api.getPoints()
-        .then((points) => {
-          console.log(points)
-          const items = createStoreStructure(points.map(PointsModel.adaptToServer));
-          this._store.setItems(items);
-          return points;
-        });
-    }
-    const storePoints = Object.values(this._store.getItems());
-
-    return Promise.resolve(storePoints.map(PointsModel.adaptToClient));
-  }
-
-  updatedPoint(point) {
-    if (isOnline()) {
-      return this._api.updatedPoint(point)
+      return this._api.updateFavoriteField(point)
         .then((updatedPoint) => {
-          this._store.setItem(updatedPoint.id, PointsModel.adaptToServer(updatedPoint));
+          this._store.setPoint(updatedPoint.id, PointsModel.adaptToServer(updatedPoint));
           return updatedPoint;
         });
     }
 
-    this._store.setItem(point.id, PointsModel.adaptToServer(Object.assign({}, point)));
-
+    this._store.setPoint(point.id, PointsModel.adaptToServer({...point}));
     return Promise.resolve(point);
+  }
+
+
+  updatePoint(point) {
+    if (isOnline()) {
+      return this._api.updatePoint(point);
+    }
+
+    showOfflineMessage();
+    return rejectRequest(ErrorMessage.UPDATE_POINT);
   }
 
   addPoint(point) {
     if (isOnline()) {
-      return this._api.addPoint(point)
-        .then((newPoint) => {
-          this._store.setItem(newPoint.id, PointsModel.adaptToServer(newPoint));
-          return newPoint;
-        });
+      return this._api.addPoint(point);
     }
 
-    return Promise.reject(new Error('Add point failed'));
+    showOfflineMessage();
+    return rejectRequest(ErrorMessage.ADD_POINT);
   }
 
   deletePoint(point) {
     if (isOnline()) {
-      return this._api.deletePoint(point)
-        .then(() => this._store.removeItem(point.id));
+      return this._api.deletePoint(point);
     }
 
-    return Promise.reject(new Error('Delete point failed'));
+    showOfflineMessage();
+    return rejectRequest(ErrorMessage.DELETE_POINT);
   }
 
   sync() {
     if (isOnline()) {
-      const storePoints = Object.values(this._store.getItems());
-
+      const storePoints = Object.values(this._store.getPoints());
       return this._api.sync(storePoints)
         .then((response) => {
           // Забираем из ответа синхронизированные задачи
-          const createdPoints = response.created;
-          const updatedPoints = response.updated;
-
+          const createdPoints = getSuccessPoints(response.created);
+          const updatedPoints = getSuccessPoints(response.updated);
           // Добавляем синхронизированные задачи в хранилище.
           // Хранилище должно быть актуальным в любой момент.
-          const items = createStoreStructure([...createdPoints, ...updatedPoints]);
-
-          this._store.setItems(items);
+          const items = createStoreStructure(StructureKey.POINTS, [...createdPoints, ...updatedPoints]);
+          this._store.setPoints(items);
         });
     }
-
-    return Promise.reject(new Error('Sync data failed'));
+    return rejectRequest(ErrorMessage.SYNC);
   }
 }

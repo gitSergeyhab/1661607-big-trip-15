@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { FilterType } from '../constants';
+import {FilterType} from '../constants';
 
 
 export const filter = {

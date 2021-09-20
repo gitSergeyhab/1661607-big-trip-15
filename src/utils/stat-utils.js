@@ -4,7 +4,7 @@ import { getMinutes, getDateFormat } from './data-time-utils';
 const filterBySum = (object1, object2) => object2.sum - object1.sum;
 
 const getPriceFormat = (price) => `€ ${price}`;
-const getCountFormat = (val) => `${val}x`
+const getCountFormat = (val) => `${val}x`;
 const getTimeFormat = (minutes) => {
   const hours = Math.floor(minutes / 60);
   const days = Math.floor(minutes / 60 / 24 );

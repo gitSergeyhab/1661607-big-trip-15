@@ -12,7 +12,7 @@ const createMenu = () => `
 export default class Menu extends Abstract {
   constructor() {
     super();
-    this._menuClickHandler = this._menuClickHandler.bind(this)
+    this._menuClickHandler = this._menuClickHandler.bind(this);
   }
 
   getTemplate() {
@@ -21,7 +21,7 @@ export default class Menu extends Abstract {
 
   setMenuClickHandler(cb) {
     this._callback.clickMenu = cb;
-    this.getElement().addEventListener('click', this._menuClickHandler)
+    this.getElement().addEventListener('click', this._menuClickHandler);
   }
 
   _markThatBtn(target) {

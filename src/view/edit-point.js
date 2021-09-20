@@ -1,9 +1,11 @@
-import {renderList, capitalize} from '../utils/util.js';
-import {getFullDateTime} from '../utils/data-time-utils.js';
-import Smart from './smart.js';
-
 import flatpickr from 'flatpickr';
 import '../../node_modules/flatpickr/dist/flatpickr.min.css';
+
+import Smart from './smart.js';
+
+import {renderList, capitalize} from '../utils/util.js';
+import {getFullDateTime} from '../utils/data-time-utils.js';
+
 
 const DATE_FORMAT = 'd/m/y H:i';
 const OFFER_SPLIT_ID = 'event-offer-luggage-';
@@ -164,13 +166,11 @@ export default class EditPoint extends Smart {
     this._datepickerEnd = null;
 
     this._rollupBtnClickHandler = this._rollupBtnClickHandler.bind(this);
-
     this._changeTypeHandler = this._changeTypeHandler.bind(this);
     this._changeDestinationHandler = this._changeDestinationHandler.bind(this);
     this._changePriceHandler = this._changePriceHandler.bind(this);
     this._changeStartDateHandler = this._changeStartDateHandler.bind(this);
     this._changeEndDateHandler = this._changeEndDateHandler.bind(this);
-
     this._submitHandler = this._submitHandler.bind(this);
     this._deleteClickHandler = this._deleteClickHandler.bind(this);
 
@@ -180,6 +180,16 @@ export default class EditPoint extends Smart {
   getTemplate() {
     return createPoint(this._state, this._isNewPoint);
   }
+
+  restoreHandlers() {
+    this.setInnerHandlers();
+    this.setSubmitHandler(this._callback.submit);
+    this.setDeleteClickHandler(this._callback.deleteClick);
+    if (!this._isNewPoint) {
+      this.setChangeViewHandler(this._callback.rollupBtnClick);
+    }
+  }
+
 
   removeElement() {
     super.removeElement();
@@ -193,15 +203,6 @@ export default class EditPoint extends Smart {
 
   resetState() {
     this.updateState(EditPoint.ParsePointToState(this._point, this._offers, this._destinations));
-  }
-
-  restoreHandlers() {
-    this.setInnerHandlers();
-    this.setSubmitHandler(this._callback.submit);
-    this.setDeleteClickHandler(this._callback.deleteClick);
-    if (!this._isNewPoint) {
-      this.setChangeViewHandler(this._callback.rollupBtnClick);
-    }
   }
 
   setChangeViewHandler(cb) {
@@ -226,6 +227,7 @@ export default class EditPoint extends Smart {
     this._setDatepickerStart();
     this._setDatepickerEnd();
   }
+
 
   _setChangeDestination() {
     this.getElement().querySelector('.event__input--destination').addEventListener('change', this._changeDestinationHandler);
@@ -278,6 +280,7 @@ export default class EditPoint extends Smart {
     const chosenOfferTitles = checkedOffers.map((offer) => offer.id.split(OFFER_SPLIT_ID)[1]);
     return this._state.serverOffers.filter((offer) => chosenOfferTitles.some((title) => title === offer.title));
   }
+
 
   _rollupBtnClickHandler(evt) {
     evt.preventDefault();

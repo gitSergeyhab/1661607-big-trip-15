@@ -23,12 +23,12 @@ export default class Api {
   getPoints() {
     return this._load({url: EndPoints.POINTS})
       .then((response) => response.json())
-      .then((points) => points.map(PointsModel.adaptToClient)) . then(y=> {console.log(y); return y});
+      .then((points) => points.map(PointsModel.adaptToClient));
   }
 
   getOffers() {
     return this._load({url: EndPoints.OFFERS})
-      .then((response) => response.json()) . then(y=> {console.log(y); return y});
+      .then((response) => response.json());
   }
 
   getDestinations() {
@@ -47,6 +47,10 @@ export default class Api {
       .then(PointsModel.adaptToClient);
   }
 
+  updateFavoriteField(point) {
+    return this.updatePoint(point);
+  }
+
   addPoint(point) {
     return this._load({
       url: EndPoints.POINTS,
@@ -57,7 +61,6 @@ export default class Api {
       .then((response) => response.json())
       .then(PointsModel.adaptToClient);
   }
-
 
   deletePoint(point) {
     return this._load({
@@ -75,6 +78,7 @@ export default class Api {
     })
       .then((response) => response.json());
   }
+
 
   _load({url, method = Method.GET, body = null, headers = new Headers()}) {
     headers.append('Authorization', this._authorization);

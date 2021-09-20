@@ -1,6 +1,7 @@
 import Abstract from './abstract';
-import { capitalize } from '../utils/util';
-import { FilterType } from '../constants';
+import {capitalize} from '../utils/util';
+import {FilterType} from '../constants';
+
 
 const filterItem = (filterType) => `<div class="trip-filters__filter">
   <input id="filter-${filterType}" class="trip-filters__filter-input  visually-hidden" type="radio" name="trip-filter" value="${filterType}" ${filterType === FilterType.EVERYTHING ? 'checked': ''} >
@@ -16,7 +17,6 @@ const createFilterTemplate = () => `
 export default class Filter extends Abstract {
   constructor() {
     super();
-
     this._changeFilterHandler = this._changeFilterHandler.bind(this);
   }
 
@@ -24,18 +24,23 @@ export default class Filter extends Abstract {
     return createFilterTemplate();
   }
 
+
   toggle(disabled) {
-    this.getElement().querySelectorAll('.trip-filters__filter-input').forEach((input) => input.disabled = disabled);
+    this._getInputs().forEach((input) => input.disabled = disabled);
   }
 
   setNeedFilter(currentFilter) {
-    this.getElement().querySelectorAll('.trip-filters__filter-input').forEach((input) => input.checked = currentFilter === input.value);
+    this._getInputs().forEach((input) => input.checked = currentFilter === input.value);
   }
-
 
   setChangeFilterHandler(cb) {
     this._callback.changeFilter = cb;
     this.getElement().addEventListener('change', this._changeFilterHandler);
+  }
+
+
+  _getInputs() {
+    return this.getElement().querySelectorAll('.trip-filters__filter-input');
   }
 
   _changeFilterHandler(evt) {
