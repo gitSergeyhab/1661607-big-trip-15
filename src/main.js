@@ -73,7 +73,6 @@ const handleMenuClick = (menuItem) => {
       break;
     case MenuItem.TABLE:
       flagStats = false;
-
       remove(statsComponent);
       tripPresenter.show();
       filterPresenter.toggle(false);
