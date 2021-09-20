@@ -13,13 +13,14 @@ import {EmptyMessage, UserAction, UpdateType, SortType, FilterType, State} from 
 
 
 export default class Trip {
-  constructor(container, pointsModel, filterModel, offers, destinations, api) {
+  constructor(container, pointsModel, filterModel, offers, destinations, api, btnAddNewEvent, flagStats) {
     this._container = container;
     this._pointsModel = pointsModel;
     this._filterModel = filterModel;
     this._offers = offers;
     this._destinations = destinations;
     this._api = api;
+    this._flagStats = flagStats;
 
     this._pointPresenterMap = new Map();
 
@@ -35,7 +36,7 @@ export default class Trip {
     this._handleSortTypeChange = this._handleSortTypeChange.bind(this);
 
     this._pointsModel.addObserver(this._handleModelEvent);
-    this._btnAddNewEvent = document.querySelector('.trip-main__event-add-btn');
+    this._btnAddNewEvent = btnAddNewEvent;
 
     this._btnAddNewEvent.addEventListener('click', () => this._createNewPoint());
     this._filterModel.addObserver(this._handleModelEvent);
@@ -91,7 +92,7 @@ export default class Trip {
 
     this._resetFilterAndSort();
 
-    this._newPointPresenter = new NewPointPresenter(this._pointListComponent, this._handleViewAction, this._resetPoints, this._offers, this._destinations, this._btnAddNewEvent);
+    this._newPointPresenter = new NewPointPresenter(this._pointListComponent, this._handleViewAction, this._resetPoints, this._offers, this._destinations, this._btnAddNewEvent, this._flagStats);
     this._newPointPresenter.init();
     this._btnAddNewEvent.disabled = true;
   }

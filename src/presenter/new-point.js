@@ -1,6 +1,7 @@
 import EditPoint from '../view/edit-point.js';
 import {render, remove} from '../utils/dom-utils.js';
 import {UserAction, UpdateType, Place} from '../constants.js';
+import {isOnline} from '../utils/util.js';
 
 
 const emptyPoint =   {
@@ -24,13 +25,14 @@ const emptyPoint =   {
 
 
 export default class NewPointPresenter{
-  constructor(pointContainer, changeData, resetPoints, offers, destinations, btnAddNewEvent) {
+  constructor(pointContainer, changeData, resetPoints, offers, destinations, btnAddNewEvent, flagStats) {
     this._pointContainer = pointContainer;
     this._changeData = changeData;
     this._resetPoints = resetPoints;
     this._offers = offers;
     this._destinations = destinations;
     this._btnAddNewEvent = btnAddNewEvent;
+    this._flagStats = flagStats;
 
     this._newPointComponent = null;
     this._point = emptyPoint;
@@ -53,7 +55,7 @@ export default class NewPointPresenter{
     document.removeEventListener('keydown', this._handleEscKeyDown);
     remove(this._newPointComponent);
     this._newPointComponent = null;
-    this._btnAddNewEvent.disabled = false;
+    this._btnAddNewEvent.disabled = !isOnline() || this._flagStats;
   }
 
   setSaving() {

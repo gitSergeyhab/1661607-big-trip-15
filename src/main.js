@@ -15,7 +15,7 @@ import Store from './api/store.js';
 import Provider from './api/provider.js';
 
 import {remove, render} from './utils/dom-utils.js';
-import {notifyNetStatus } from './utils/util.js';
+import {isOnline, notifyNetStatus } from './utils/util.js';
 import {MenuItem, UpdateType} from './constants.js';
 
 
@@ -58,23 +58,26 @@ new TripInfoPresenter(tripMain, pointsModel);
 const filterPresenter = new FilterPresenter(filterContainer, filterModel);
 filterPresenter.init();
 
-
+let flagStats = false;
 let tripPresenter;
 let statsComponent = null;
 const handleMenuClick = (menuItem) => {
   switch(menuItem) {
     case MenuItem.STATS:
-      btnAddNewEvent.disabled = true;
+      flagStats = true;
       tripPresenter.hide();
       filterPresenter.toggle(true);
       statsComponent = new Stats(pointsModel.points);
       render(main, statsComponent);
+      btnAddNewEvent.disabled = true;
       break;
     case MenuItem.TABLE:
-      btnAddNewEvent.disabled = false;
+      flagStats = false;
+
       remove(statsComponent);
       tripPresenter.show();
       filterPresenter.toggle(false);
+      btnAddNewEvent.disabled = !isOnline();
   }
 };
 
@@ -90,7 +93,7 @@ const promiseOffersAndDestinations = Promise.all([apiWithProvider.getOffers(), a
 });
 
 promiseOffersAndDestinations
-  .then(() => tripPresenter = new TripPresenter(tripEventsSection, pointsModel, filterModel, offersModel.offers, destinationsModel.destinations, apiWithProvider))
+  .then(() => tripPresenter = new TripPresenter(tripEventsSection, pointsModel, filterModel, offersModel.offers, destinationsModel.destinations, apiWithProvider, btnAddNewEvent, flagStats))
   .then(() => {
     apiWithProvider.getPoints()
       .then((points) => {
