@@ -38,6 +38,8 @@ const notifyNetStatus = (btn) => {
   showOfflineMessage();
 };
 
+const compareWithEscape = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
+
 
 export {
   renderList,
@@ -48,5 +50,6 @@ export {
   getIndex,
   capitalize,
   isOnline,
-  notifyNetStatus
+  notifyNetStatus,
+  compareWithEscape
 };

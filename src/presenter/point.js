@@ -3,6 +3,7 @@ import EditPoint from '../view/edit-point.js';
 
 import {render, replace, remove} from '../utils/dom-utils.js';
 import {UserAction, UpdateType, State} from '../constants.js';
+import { compareWithEscape } from '../utils/util.js';
 
 
 const Mode = {
@@ -129,7 +130,7 @@ export default class PointPresenter{
   }
 
   _handleEscKeyDown(evt) {
-    if (evt.key === 'Escape' || evt.key === 'Esc') {
+    if (compareWithEscape(evt)) {
       evt.preventDefault();
       this._replaceEditToPoint();
     }

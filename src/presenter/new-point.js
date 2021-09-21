@@ -1,7 +1,7 @@
 import EditPoint from '../view/edit-point.js';
 import {render, remove} from '../utils/dom-utils.js';
 import {UserAction, UpdateType, Place} from '../constants.js';
-import {isOnline} from '../utils/util.js';
+import {compareWithEscape, isOnline} from '../utils/util.js';
 
 
 const emptyPoint =   {
@@ -78,7 +78,7 @@ export default class NewPointPresenter{
   }
 
   _handleEscKeyDown(evt) {
-    if (evt.key === 'Escape' || evt.key === 'Esc') {
+    if (compareWithEscape(evt)) {
       evt.preventDefault();
       this.destroy();
     }
